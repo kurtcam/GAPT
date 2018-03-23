@@ -1,0 +1,554 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GaptModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Department_General">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="GeneralId" Type="int" Nullable="false" />
+          <Property Name="DepartmentId" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="General">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="500" />
+          <Property Name="AreasStudy" Type="varchar" MaxLength="500" />
+          <Property Name="LevelId" Type="int" />
+          <Property Name="FacultyId" Type="int" />
+          <Property Name="DeliveryId" Type="int" />
+          <Property Name="FirstDateIntake" Type="varchar" MaxLength="225" />
+          <Property Name="ExpectedStudents" Type="int" />
+          <Property Name="MaxStudents" Type="int" />
+          <Property Name="CappingReason" Type="varchar" MaxLength="4000" />
+          <Property Name="DurationSemesters" Type="int" />
+        </EntityType>
+        <EntityType Name="Proposal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="225" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="GeneralId" Type="int" />
+        </EntityType>
+        <EntityType Name="Proposer_General">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="GeneralId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="225" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ref_Delivery">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="225" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ref_Department">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="225" Nullable="false" />
+          <Property Name="FacultyId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ref_Faculty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="225" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ref_Level">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="225" Nullable="false" />
+        </EntityType>
+        <Association Name="Department_General_fk0">
+          <End Role="General" Type="Self.General" Multiplicity="1" />
+          <End Role="Department_General" Type="Self.Department_General" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="General">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Department_General">
+              <PropertyRef Name="GeneralId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Department_General_fk1">
+          <End Role="Ref_Department" Type="Self.Ref_Department" Multiplicity="1" />
+          <End Role="Department_General" Type="Self.Department_General" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ref_Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Department_General">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="General_fk0">
+          <End Role="Ref_Level" Type="Self.Ref_Level" Multiplicity="0..1" />
+          <End Role="General" Type="Self.General" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ref_Level">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="General">
+              <PropertyRef Name="LevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="General_fk1">
+          <End Role="Ref_Faculty" Type="Self.Ref_Faculty" Multiplicity="0..1" />
+          <End Role="General" Type="Self.General" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ref_Faculty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="General">
+              <PropertyRef Name="FacultyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="General_fk2">
+          <End Role="Ref_Delivery" Type="Self.Ref_Delivery" Multiplicity="0..1" />
+          <End Role="General" Type="Self.General" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ref_Delivery">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="General">
+              <PropertyRef Name="DeliveryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Proposal_fk0">
+          <End Role="General" Type="Self.General" Multiplicity="0..1" />
+          <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="General">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Proposal">
+              <PropertyRef Name="GeneralId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Proposer_General_fk0">
+          <End Role="General" Type="Self.General" Multiplicity="1" />
+          <End Role="Proposer_General" Type="Self.Proposer_General" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="General">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Proposer_General">
+              <PropertyRef Name="GeneralId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Ref_Department_fk0">
+          <End Role="Ref_Faculty" Type="Self.Ref_Faculty" Multiplicity="1" />
+          <End Role="Ref_Department" Type="Self.Ref_Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ref_Faculty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ref_Department">
+              <PropertyRef Name="FacultyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GaptModelStoreContainer">
+          <EntitySet Name="Department_General" EntityType="Self.Department_General" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="General" EntityType="Self.General" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proposal" EntityType="Self.Proposal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proposer_General" EntityType="Self.Proposer_General" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ref_Delivery" EntityType="Self.Ref_Delivery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ref_Department" EntityType="Self.Ref_Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ref_Faculty" EntityType="Self.Ref_Faculty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ref_Level" EntityType="Self.Ref_Level" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Department_General_fk0" Association="Self.Department_General_fk0">
+            <End Role="General" EntitySet="General" />
+            <End Role="Department_General" EntitySet="Department_General" />
+          </AssociationSet>
+          <AssociationSet Name="Department_General_fk1" Association="Self.Department_General_fk1">
+            <End Role="Ref_Department" EntitySet="Ref_Department" />
+            <End Role="Department_General" EntitySet="Department_General" />
+          </AssociationSet>
+          <AssociationSet Name="General_fk0" Association="Self.General_fk0">
+            <End Role="Ref_Level" EntitySet="Ref_Level" />
+            <End Role="General" EntitySet="General" />
+          </AssociationSet>
+          <AssociationSet Name="General_fk1" Association="Self.General_fk1">
+            <End Role="Ref_Faculty" EntitySet="Ref_Faculty" />
+            <End Role="General" EntitySet="General" />
+          </AssociationSet>
+          <AssociationSet Name="General_fk2" Association="Self.General_fk2">
+            <End Role="Ref_Delivery" EntitySet="Ref_Delivery" />
+            <End Role="General" EntitySet="General" />
+          </AssociationSet>
+          <AssociationSet Name="Proposal_fk0" Association="Self.Proposal_fk0">
+            <End Role="General" EntitySet="General" />
+            <End Role="Proposal" EntitySet="Proposal" />
+          </AssociationSet>
+          <AssociationSet Name="Proposer_General_fk0" Association="Self.Proposer_General_fk0">
+            <End Role="General" EntitySet="General" />
+            <End Role="Proposer_General" EntitySet="Proposer_General" />
+          </AssociationSet>
+          <AssociationSet Name="Ref_Department_fk0" Association="Self.Ref_Department_fk0">
+            <End Role="Ref_Faculty" EntitySet="Ref_Faculty" />
+            <End Role="Ref_Department" EntitySet="Ref_Department" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GaptModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="GaptDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Department_General" EntityType="GaptModel.Department_General" />
+          <EntitySet Name="Generals" EntityType="GaptModel.General" />
+          <EntitySet Name="Proposals" EntityType="GaptModel.Proposal" />
+          <EntitySet Name="Proposer_General" EntityType="GaptModel.Proposer_General" />
+          <EntitySet Name="Ref_Delivery" EntityType="GaptModel.Ref_Delivery" />
+          <EntitySet Name="Ref_Department" EntityType="GaptModel.Ref_Department" />
+          <EntitySet Name="Ref_Faculty" EntityType="GaptModel.Ref_Faculty" />
+          <EntitySet Name="Ref_Level" EntityType="GaptModel.Ref_Level" />
+          <AssociationSet Name="Department_General_fk0" Association="GaptModel.Department_General_fk0">
+            <End Role="General" EntitySet="Generals" />
+            <End Role="Department_General" EntitySet="Department_General" />
+          </AssociationSet>
+          <AssociationSet Name="Department_General_fk1" Association="GaptModel.Department_General_fk1">
+            <End Role="Ref_Department" EntitySet="Ref_Department" />
+            <End Role="Department_General" EntitySet="Department_General" />
+          </AssociationSet>
+          <AssociationSet Name="General_fk0" Association="GaptModel.General_fk0">
+            <End Role="Ref_Level" EntitySet="Ref_Level" />
+            <End Role="General" EntitySet="Generals" />
+          </AssociationSet>
+          <AssociationSet Name="General_fk1" Association="GaptModel.General_fk1">
+            <End Role="Ref_Faculty" EntitySet="Ref_Faculty" />
+            <End Role="General" EntitySet="Generals" />
+          </AssociationSet>
+          <AssociationSet Name="General_fk2" Association="GaptModel.General_fk2">
+            <End Role="Ref_Delivery" EntitySet="Ref_Delivery" />
+            <End Role="General" EntitySet="Generals" />
+          </AssociationSet>
+          <AssociationSet Name="Proposal_fk0" Association="GaptModel.Proposal_fk0">
+            <End Role="General" EntitySet="Generals" />
+            <End Role="Proposal" EntitySet="Proposals" />
+          </AssociationSet>
+          <AssociationSet Name="Proposer_General_fk0" Association="GaptModel.Proposer_General_fk0">
+            <End Role="General" EntitySet="Generals" />
+            <End Role="Proposer_General" EntitySet="Proposer_General" />
+          </AssociationSet>
+          <AssociationSet Name="Ref_Department_fk0" Association="GaptModel.Ref_Department_fk0">
+            <End Role="Ref_Faculty" EntitySet="Ref_Faculty" />
+            <End Role="Ref_Department" EntitySet="Ref_Department" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Department_General">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="GeneralId" Type="Int32" Nullable="false" />
+          <Property Name="DepartmentId" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="General" Relationship="GaptModel.Department_General_fk0" FromRole="Department_General" ToRole="General" />
+          <NavigationProperty Name="Ref_Department" Relationship="GaptModel.Department_General_fk1" FromRole="Department_General" ToRole="Ref_Department" />
+        </EntityType>
+        <EntityType Name="General">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="AreasStudy" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="LevelId" Type="Int32" />
+          <Property Name="FacultyId" Type="Int32" />
+          <Property Name="DeliveryId" Type="Int32" />
+          <Property Name="FirstDateIntake" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+          <Property Name="ExpectedStudents" Type="Int32" />
+          <Property Name="MaxStudents" Type="Int32" />
+          <Property Name="CappingReason" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="DurationSemesters" Type="Int32" />
+          <NavigationProperty Name="Department_General" Relationship="GaptModel.Department_General_fk0" FromRole="General" ToRole="Department_General" />
+          <NavigationProperty Name="Ref_Level" Relationship="GaptModel.General_fk0" FromRole="General" ToRole="Ref_Level" />
+          <NavigationProperty Name="Ref_Faculty" Relationship="GaptModel.General_fk1" FromRole="General" ToRole="Ref_Faculty" />
+          <NavigationProperty Name="Ref_Delivery" Relationship="GaptModel.General_fk2" FromRole="General" ToRole="Ref_Delivery" />
+          <NavigationProperty Name="Proposals" Relationship="GaptModel.Proposal_fk0" FromRole="General" ToRole="Proposal" />
+          <NavigationProperty Name="Proposer_General" Relationship="GaptModel.Proposer_General_fk0" FromRole="General" ToRole="Proposer_General" />
+        </EntityType>
+        <EntityType Name="Proposal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="GeneralId" Type="Int32" />
+          <NavigationProperty Name="General" Relationship="GaptModel.Proposal_fk0" FromRole="Proposal" ToRole="General" />
+        </EntityType>
+        <EntityType Name="Proposer_General">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="GeneralId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="General" Relationship="GaptModel.Proposer_General_fk0" FromRole="Proposer_General" ToRole="General" />
+        </EntityType>
+        <EntityType Name="Ref_Delivery">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Generals" Relationship="GaptModel.General_fk2" FromRole="Ref_Delivery" ToRole="General" />
+        </EntityType>
+        <EntityType Name="Ref_Department">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
+          <Property Name="FacultyId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Department_General" Relationship="GaptModel.Department_General_fk1" FromRole="Ref_Department" ToRole="Department_General" />
+          <NavigationProperty Name="Ref_Faculty" Relationship="GaptModel.Ref_Department_fk0" FromRole="Ref_Department" ToRole="Ref_Faculty" />
+        </EntityType>
+        <EntityType Name="Ref_Faculty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Generals" Relationship="GaptModel.General_fk1" FromRole="Ref_Faculty" ToRole="General" />
+          <NavigationProperty Name="Ref_Department" Relationship="GaptModel.Ref_Department_fk0" FromRole="Ref_Faculty" ToRole="Ref_Department" />
+        </EntityType>
+        <EntityType Name="Ref_Level">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Generals" Relationship="GaptModel.General_fk0" FromRole="Ref_Level" ToRole="General" />
+        </EntityType>
+        <Association Name="Department_General_fk0">
+          <End Type="GaptModel.General" Role="General" Multiplicity="1" />
+          <End Type="GaptModel.Department_General" Role="Department_General" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="General">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Department_General">
+              <PropertyRef Name="GeneralId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Department_General_fk1">
+          <End Type="GaptModel.Ref_Department" Role="Ref_Department" Multiplicity="1" />
+          <End Type="GaptModel.Department_General" Role="Department_General" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ref_Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Department_General">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="General_fk0">
+          <End Type="GaptModel.Ref_Level" Role="Ref_Level" Multiplicity="0..1" />
+          <End Type="GaptModel.General" Role="General" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ref_Level">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="General">
+              <PropertyRef Name="LevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="General_fk1">
+          <End Type="GaptModel.Ref_Faculty" Role="Ref_Faculty" Multiplicity="0..1" />
+          <End Type="GaptModel.General" Role="General" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ref_Faculty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="General">
+              <PropertyRef Name="FacultyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="General_fk2">
+          <End Type="GaptModel.Ref_Delivery" Role="Ref_Delivery" Multiplicity="0..1" />
+          <End Type="GaptModel.General" Role="General" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ref_Delivery">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="General">
+              <PropertyRef Name="DeliveryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Proposal_fk0">
+          <End Type="GaptModel.General" Role="General" Multiplicity="0..1" />
+          <End Type="GaptModel.Proposal" Role="Proposal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="General">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Proposal">
+              <PropertyRef Name="GeneralId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Proposer_General_fk0">
+          <End Type="GaptModel.General" Role="General" Multiplicity="1" />
+          <End Type="GaptModel.Proposer_General" Role="Proposer_General" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="General">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Proposer_General">
+              <PropertyRef Name="GeneralId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Ref_Department_fk0">
+          <End Type="GaptModel.Ref_Faculty" Role="Ref_Faculty" Multiplicity="1" />
+          <End Type="GaptModel.Ref_Department" Role="Ref_Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ref_Faculty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ref_Department">
+              <PropertyRef Name="FacultyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GaptModelStoreContainer" CdmEntityContainer="GaptDbContext">
+          <EntitySetMapping Name="Department_General">
+            <EntityTypeMapping TypeName="GaptModel.Department_General">
+              <MappingFragment StoreEntitySet="Department_General">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="GeneralId" ColumnName="GeneralId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Generals">
+            <EntityTypeMapping TypeName="GaptModel.General">
+              <MappingFragment StoreEntitySet="General">
+                <ScalarProperty Name="DurationSemesters" ColumnName="DurationSemesters" />
+                <ScalarProperty Name="CappingReason" ColumnName="CappingReason" />
+                <ScalarProperty Name="MaxStudents" ColumnName="MaxStudents" />
+                <ScalarProperty Name="ExpectedStudents" ColumnName="ExpectedStudents" />
+                <ScalarProperty Name="FirstDateIntake" ColumnName="FirstDateIntake" />
+                <ScalarProperty Name="DeliveryId" ColumnName="DeliveryId" />
+                <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
+                <ScalarProperty Name="LevelId" ColumnName="LevelId" />
+                <ScalarProperty Name="AreasStudy" ColumnName="AreasStudy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proposals">
+            <EntityTypeMapping TypeName="GaptModel.Proposal">
+              <MappingFragment StoreEntitySet="Proposal">
+                <ScalarProperty Name="GeneralId" ColumnName="GeneralId" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proposer_General">
+            <EntityTypeMapping TypeName="GaptModel.Proposer_General">
+              <MappingFragment StoreEntitySet="Proposer_General">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="GeneralId" ColumnName="GeneralId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ref_Delivery">
+            <EntityTypeMapping TypeName="GaptModel.Ref_Delivery">
+              <MappingFragment StoreEntitySet="Ref_Delivery">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ref_Department">
+            <EntityTypeMapping TypeName="GaptModel.Ref_Department">
+              <MappingFragment StoreEntitySet="Ref_Department">
+                <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ref_Faculty">
+            <EntityTypeMapping TypeName="GaptModel.Ref_Faculty">
+              <MappingFragment StoreEntitySet="Ref_Faculty">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ref_Level">
+            <EntityTypeMapping TypeName="GaptModel.Ref_Level">
+              <MappingFragment StoreEntitySet="Ref_Level">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

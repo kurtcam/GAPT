@@ -1,0 +1,34 @@
+﻿@model IEnumerable<GAPT.Models.Proposal>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Proposals</h2>
+@if (!Model.Any())
+{
+    <p>We don't have any proposals yet.</p>
+}
+else
+{
+    <table id="proposals" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Created By</th>
+                <th>Created On</th>
+                <th>General Id</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var proposal in Model)
+            {
+                <tr>
+                    <td>@proposal.Id</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<input type="button" class="btn btn-success" value="New Proposal" onclick="location.href='@Url.Action("New", "Proposal")'" />

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="433b3b352eca41b68f34c0146d71d7d0" Name="Diagram1">
+        <EntityTypeShape EntityType="GaptModel.Department_General" Width="1.5" PointX="8.25" PointY="3.375" />
+        <EntityTypeShape EntityType="GaptModel.General" Width="1.5" PointX="6" PointY="4.25" />
+        <EntityTypeShape EntityType="GaptModel.Proposal" Width="1.5" PointX="8.25" PointY="9.625" />
+        <EntityTypeShape EntityType="GaptModel.Proposer_General" Width="1.5" PointX="8.25" PointY="7.125" />
+        <EntityTypeShape EntityType="GaptModel.Ref_Delivery" Width="1.5" PointX="3.75" PointY="8.75" />
+        <EntityTypeShape EntityType="GaptModel.Ref_Department" Width="1.5" PointX="3" PointY="5.375" />
+        <EntityTypeShape EntityType="GaptModel.Ref_Faculty" Width="1.5" PointX="0.75" PointY="5.5" />
+        <EntityTypeShape EntityType="GaptModel.Ref_Level" Width="1.5" PointX="3.75" PointY="2.5" />
+        <AssociationConnector Association="GaptModel.Department_General_fk0" />
+        <AssociationConnector Association="GaptModel.Department_General_fk1" />
+        <AssociationConnector Association="GaptModel.General_fk0" />
+        <AssociationConnector Association="GaptModel.General_fk1" />
+        <AssociationConnector Association="GaptModel.General_fk2" />
+        <AssociationConnector Association="GaptModel.Proposal_fk0" />
+        <AssociationConnector Association="GaptModel.Proposer_General_fk0" />
+        <AssociationConnector Association="GaptModel.Ref_Department_fk0" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

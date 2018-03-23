@@ -1,0 +1,222 @@
+﻿@model GAPT.ViewModels.GeneralFormViewModel
+@using GAPT.Models
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var general = Model.General;
+    bool exists;
+    if (general == null || general.Id == 0)
+    {
+        ViewBag.Title = "New Proposal";
+        exists = false;
+    }
+    else
+    {
+        ViewBag.Title = "Edit Proposal";
+        exists = true;
+
+    }
+    string heading = (exists == false) ? "New Proposal" : "Edit Proposal";
+}
+<h2>@heading</h2>
+<h2>Section A - General</h2>
+@using (Html.BeginForm("Save", "General"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.General.Title)
+        @Html.TextBoxFor(m => m.General.Title, new { @class = "form-control"})
+        @Html.ValidationMessageFor(m => m.General.Title)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.General.LevelId, new { @class = "required" })<br>
+        @*@Html.DropDownListFor(m => m.General.LevelId, new SelectList(Model.Levels, "Id", "Name"), "Select Level", new { @class = "form-control" })*@
+        @Html.RadioButtonFor(m => m.General.LevelId, 0, new { onclick="disableOptions()"}) UG <br>
+        @Html.RadioButtonFor(m => m.General.LevelId, 1, new { onclick = "disableOptions()"}) PG
+        @Html.ValidationMessageFor(m => m.General.LevelId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.General.AreasStudy)
+        @Html.TextBoxFor(m => m.General.AreasStudy, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.General.AreasStudy)
+    </div>
+    <div class="form-group" style="width:280px">
+        <label>Initiating Departments</label>
+        <br>
+        <select id="initSelect" data-live-search="true" class="selectpicker form-control" multiple name="SelectedInitDepts" data-actions-box="true" data-selected-text-format="count > 0">
+                @foreach (@SelectListItem item in Model.InitDepts)
+                {
+                    var sel = false;
+                    if (Model.SelectedInitDepts != null)
+                    {
+                        foreach (string s in Model.SelectedInitDepts)
+                        {
+                            if (item.Text == s)
+                            {
+                                sel = true;
+                            }
+                        }
+                    }
+                    <option selected=@sel value=@item.Value>@item.Text</option>
+                }
+            
+
+        </select>
+    </div>
+    <div class="form-group" style="width:280px">
+        <label>Collaborating Departments</label>
+        <br>
+        <select id="collabSelect" data-live-search="true" class="selectpicker form-control" multiple name="SelectedCollabDepts" data-actions-box="true" data-selected-text-format="count > 0">
+            @foreach (@SelectListItem item in Model.InitDepts)
+                {
+                    var sel = false;
+                    if (Model.SelectedCollabDepts != null)
+                    {
+                        foreach (string s in Model.SelectedCollabDepts)
+                        {
+                            if (item.Text == s)
+                            {
+                                sel = true;
+                            }
+                        }
+                    }
+                    <option selected=@sel value=@item.Value>@item.Text</option>
+            }
+
+
+        </select>
+    </div>
+    <div class="form-group" style="width:280px">
+        <label>Servicing Departments</label>
+        <br>
+        <select id="servSelect" data-live-search="true" class="selectpicker form-control" multiple name="SelectedServDepts" data-actions-box="true" data-selected-text-format="count > 0">
+            @foreach (@SelectListItem item in Model.ServDepts)
+                {
+                    var sel = false;
+                    if (Model.SelectedServDepts != null)
+                    {
+                        foreach (string s in Model.SelectedServDepts)
+                        {
+                            if (item.Text == s)
+                            {
+                                sel = true;
+                            }
+                        }
+                    }
+                    <option selected=@sel value=@item.Value>@item.Text</option>
+            }
+
+
+        </select>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.General.FacultyId, new { @class = "required" })
+        @Html.DropDownListFor(m => m.General.FacultyId, new SelectList(Model.Faculties, "Id", "Name"), "Select Faculty", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.General.FacultyId)
+    </div>
+    <div class="form-group" style="width:280px">
+        <label>Programme Type</label>
+        <br>
+        <select id="typeSelect" data-live-search="true" class="selectpicker form-control" multiple @*name=""*@ data-actions-box="true" data-selected-text-format="count > 0">
+            <optgroup label="UG Taught">
+                <option>FT Day</option>
+                <option>PT Day</option>
+                <option>PT After Hours</option>
+            </optgroup>
+            <optgroup label="PG Taught & Res (Mainly Taught)">
+                <option>FT Day</option>
+                <option>PT Day</option>
+                <option>PT After Hours</option>
+            </optgroup>
+            <optgroup label="PG Taught & Res (Mainly Research)">
+                <option>FT Day</option>
+                <option>PT Day</option>
+                <option>PT After Hours</option>
+            </optgroup>
+            <optgroup label="PG Research Only (min. 80 ECTS Res)">
+                <option>FT Day</option>
+                <option>PT Day</option>
+                <option>PT After Hours</option>
+            </optgroup>
+
+        </select>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.General.DeliveryId, new { @class = "required" })
+        @Html.DropDownListFor(m => m.General.DeliveryId, new SelectList(Model.Deliveries, "Id", "Name"), "Select Mode of Delivery", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.General.DeliveryId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.General.DurationSemesters)
+        <input id="Duration" type="number" min="" max="" class="form-control" name="General.DurationSemesters" value=@(exists?Model.General.DurationSemesters:0)>
+        @Html.ValidationMessageFor(m => m.General.DurationSemesters)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.General.FirstDateIntake)
+        <div class='input-group date' id='FirstDateIntake' style="width:280px">
+            @Html.TextBoxFor(m => m.General.FirstDateIntake, new { @class = "form-control" })
+            <span class="input-group-addon" style="width:0">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+        @Html.ValidationMessageFor(m => m.General.FirstDateIntake)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.General.ExpectedStudents)
+        <input id="ExpectedStudents" type="number" min="" max="" class="form-control" name="General.ExpectedStudents" value=@(exists?Model.General.ExpectedStudents : 0)>
+        @Html.ValidationMessageFor(m => m.General.ExpectedStudents)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.General.MaxStudents)
+        <input id="MaxStudents" type="number" min="" max="" class="form-control" name="General.MaxStudents" value=@(exists?Model.General.MaxStudents : 0)>
+        @Html.ValidationMessageFor(m => m.General.MaxStudents)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.General.CappingReason)
+        @Html.TextAreaFor(m => m.General.CappingReason, new { @class = "form-control", rows = 3})
+        @Html.ValidationMessageFor(m => m.General.CappingReason)
+    </div>
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+
+    if (@exists)
+    {
+        @Html.HiddenFor(m => m.General.Id)
+        @*<input type="button" class="btn btn-danger" value="Delete review" onclick="location.href='@Url.Action("Remove", "Review", new { id = Model.Id })'" />*@
+    }
+
+
+}
+
+@section Styles{
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+}
+
+@section Scripts{
+
+    @*multiselect*@
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('#FirstDateIntake').datetimepicker({
+                viewMode: 'years',
+                format: 'MMMM YYYY',
+            }).on('dp.show', function (e) {
+                $(this).data('DateTimePicker').viewMode('years');
+            })
+        });
+    </script>
+
+    <script type="text/javascript">
+        function disableOptions() {
+            var op = document.getElementByid("typeSelect").getElementsByTagName("option");
+            for (var i = 0; i < op.length; i++) {
+                op[i].disabled = true;
+            }
+
+        }
+    </script>
+}
