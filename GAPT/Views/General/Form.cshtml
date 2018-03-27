@@ -30,14 +30,19 @@
     <div class="form-group">
         @Html.LabelFor(m => m.General.LevelId, new { @class = "required" })<br>
         @*@Html.DropDownListFor(m => m.General.LevelId, new SelectList(Model.Levels, "Id", "Name"), "Select Level", new { @class = "form-control" })*@
-        @Html.RadioButtonFor(m => m.General.LevelId, 0, new { onclick="disableOptions()"}) UG <br>
-        @Html.RadioButtonFor(m => m.General.LevelId, 1, new { onclick = "disableOptions()"}) PG
+        @Html.RadioButtonFor(m => m.General.LevelId, 1, new { onclick="disableOptions()"}) UG &nbsp;&nbsp;
+        @Html.RadioButtonFor(m => m.General.LevelId, 2, new { onclick = "disableOptions()"}) PG
         @Html.ValidationMessageFor(m => m.General.LevelId)
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.General.AreasStudy)
         @Html.TextBoxFor(m => m.General.AreasStudy, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.General.AreasStudy)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.General.FacultyId, new { @class = "required" })
+        @Html.DropDownListFor(m => m.General.FacultyId, new SelectList(Model.Faculties, "Id", "Name"), "Select Faculty", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.General.FacultyId)
     </div>
     <div class="form-group" style="width:280px">
         <label>Initiating Departments</label>
@@ -108,11 +113,7 @@
 
         </select>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.General.FacultyId, new { @class = "required" })
-        @Html.DropDownListFor(m => m.General.FacultyId, new SelectList(Model.Faculties, "Id", "Name"), "Select Faculty", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.General.FacultyId)
-    </div>
+    
     <div class="form-group" style="width:280px">
         <label>Programme Type</label>
         <br>
@@ -176,8 +177,8 @@
         @Html.ValidationMessageFor(m => m.General.CappingReason)
     </div>
     @Html.AntiForgeryToken()
-    <button type="submit" class="btn btn-primary">Save</button>
-
+    <button type="submit" name="jump" value="0" class="btn btn-primary">Save</button>
+    <button type="submit" name="jump" value="1" class="btn btn-primary">Next</button>
     if (@exists)
     {
         @Html.HiddenFor(m => m.General.Id)

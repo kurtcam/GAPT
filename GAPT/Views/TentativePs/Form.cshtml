@@ -1,0 +1,179 @@
+﻿@model GAPT.ViewModels.TentativePsFormViewModel
+@using GAPT.Models
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool exists;
+    var tentativePs = Model.TentativePs;
+    if (tentativePs == null || tentativePs.Id == 0)
+    {
+        ViewBag.Title = "New Proposal";
+        exists = false;
+    }
+    else
+    {
+        ViewBag.Title = "Edit Proposal";
+        exists = true;
+
+    }
+    string heading = (exists == false) ? "New Proposal" : "Edit Proposal";
+}
+
+<h2>@heading</h2>
+<h2>Section B - Rationale For Programme</h2>
+<h2>Tentative Programme Of Study</h2>
+
+@using (Html.BeginForm("Save", "TentativePs"))
+{
+    if (!exists)
+    {
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Code</th>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>Period</th>
+                    <th>Credit Value</th>
+                    <th>C/O/E</th>
+                    <th>Lecturer</th>
+                    <th>Select</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Ref_Unit unit in Model.AllUnits)
+                {
+                    <tr class='clickable-row'>
+                        <td>@unit.Id</td>
+                        <td>@unit.Code</td>
+                        <td>@unit.Title</td>
+                        <td><input name="year_@unit.Id" style="width:100%" class="form-control" placeholder="Choose year" type="number"></td>
+                        <td>
+                            <select class="form-control" name="period_@unit.Id">
+                                <option value="1">Sem 1</option>
+                                <option value="2">Sem 2</option>
+                                <option value="3">YR</option>
+                                <option value="4">SP</option>
+                            </select>
+                        </td>
+                        <td><input name="credits_@unit.Id" style="width:100%" class="form-control" placeholder="Choose credit value" type="number"></td>
+
+                        <td>
+                            <select class="form-control" name="coe_@unit.Id">
+                                <option value="1">Compulsory</option>
+                                <option value="2">Optional</option>
+                                <option value="3">Elective</option>
+                            </select>
+                        </td>
+                        <td><input name="lecturer_@unit.Id" style="width:100%" class="form-control" placeholder="Enter lecturers' names" type="text"></td>
+                        <td class="clickable"><input type="checkbox" name=@unit.Id></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Unit Id</th>
+                    <th>Code</th>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>Period</th>
+                    <th>Credit Value</th>
+                    <th>C/O/E</th>
+                    <th>Lecturer</th>
+                    <th>Select</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Year_Unit yu in Model.SelectedUnits)
+                {
+                    <tr class='highlight-row'>
+                        <td>@yu.GetUnit().Id</td>
+                        <td>@yu.GetUnit().Code</td>
+                        <td>@yu.GetUnit().Title</td>
+                        <td><input value="@yu.GetYear().YearNo" name="year_@yu.UnitId" style="width:100%" class="form-control" placeholder="Choose year" type="number"></td>
+                        <td>
+                            <select value="@yu.Period" class="form-control" name="period_@yu.UnitId">
+                                <option selected=@(yu.Period == 1?true:false) value="1">Sem 1</option>
+                                <option selected=@(yu.Period == 2?true:false) value="2">Sem 2</option>
+                                <option selected=@(yu.Period == 3?true:false) value="3">YR</option>
+                                <option selected=@(yu.Period == 4?true:false) value="4">SP</option>
+                            </select>
+                        </td>
+                        <td><input value="@yu.Ects" name="credits_@yu.UnitId" style="width:100%" class="form-control" placeholder="Choose credit value" type="number"></td>
+
+                        <td>
+                            <select class="form-control" name="coe_@yu.UnitId">
+                                <option selected=@(yu.Coe == 1?true:false) value="1">Compulsory</option>
+                                <option selected=@(yu.Coe == 2?true:false) value="2">Optional</option>
+                                <option selected=@(yu.Coe == 3?true:false) value="3">Elective</option>
+                            </select>
+                        </td>
+                        <td><input value="@yu.Lecturer" name="lecturer_@yu.UnitId" style="width:100%" class="form-control" placeholder="Enter lecturers' names" type="text"></td>
+                        <td class="clickable"><input checked type="checkbox" name=@yu.UnitId></td>
+                    </tr>
+                }
+                @foreach (Ref_Unit unit in Model.UnselectedUnits)
+                {
+                    <tr>
+                        <td>@unit.Id</td>
+                        <td>@unit.Code</td>
+                        <td>@unit.Title</td>
+                        <td><input name="year_@unit.Id" style="width:100%" class="form-control" placeholder="Choose year" type="number"></td>
+                        <td>
+                            <select class="form-control" name="period_@unit.Id">
+                                <option value="1">Sem 1</option>
+                                <option value="2">Sem 2</option>
+                                <option value="3">YR</option>
+                                <option value="4">SP</option>
+                            </select>
+                        </td>
+                        <td><input name="credits_@unit.Id" style="width:100%" class="form-control" placeholder="Choose credit value" type="number"></td>
+
+                        <td>
+                            <select class="form-control" name="coe_@unit.Id">
+                                <option value="1">Compulsory</option>
+                                <option value="2">Optional</option>
+                                <option value="3">Elective</option>
+                            </select>
+                        </td>
+                        <td><input name="lecturer_@unit.Id" style="width:100%" class="form-control" placeholder="Enter lecturers' names" type="text"></td>
+                        <td class="clickable"><input type="checkbox" name=@unit.Id></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    @Html.HiddenFor(m => m.TentativePs.Id)
+    @Html.HiddenFor(m => m.Proposal.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" name="jump" value="-1" class="btn btn-primary">Previous</button>
+    <button type="submit" name="jump" value="0" class="btn btn-primary">Save</button>
+    <button type="submit" name="jump" value="1" class="btn btn-primary">Next</button>
+    
+}
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.clickable').click(function (event) {
+                if (event.target.type !== 'checkbox') {
+                    $(':checkbox', this).trigger('click');
+                }
+            });
+
+            $("input[type='checkbox']").change(function (e) {
+                if ($(this).is(":checked")) {
+                    $(this).closest('tr').addClass("highlight-row");
+                } else {
+                    $(this).closest('tr').removeClass("highlight-row");
+                }
+            });
+        });
+    </script>
+}

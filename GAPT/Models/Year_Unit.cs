@@ -12,15 +12,19 @@ namespace GAPT.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Proposal
+    public partial class Year_Unit
     {
         public int Id { get; set; }
-        public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedOn { get; set; }
-        public Nullable<int> GeneralId { get; set; }
-        public Nullable<int> ProgrammeRationaleId { get; set; }
+        public int YearId { get; set; }
+        public int UnitId { get; set; }
+        public Nullable<int> Period { get; set; }
+        public Nullable<int> Coe { get; set; }
+        public Nullable<int> Ects { get; set; }
+        public string Lecturer { get; set; }
+        public Nullable<int> Compensating { get; set; }
+        public string CompensatingReason { get; set; }
     
-        public virtual General General { get; set; }
-        public virtual ProgrammeRationale ProgrammeRationale { get; set; }
+        public virtual Ref_Unit Ref_Unit { get; set; }
+        public virtual Year Year { get; set; }
     }
 }

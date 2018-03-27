@@ -1,0 +1,47 @@
+﻿@model GAPT.ViewModels.YearTotalsFormViewModel
+@using GAPT.Models
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool exists;
+    var tentativePs = Model.TentativePs;
+    if (tentativePs == null || tentativePs.Id == 0)
+    {
+        ViewBag.Title = "New Proposal";
+        exists = false;
+    }
+    else
+    {
+        ViewBag.Title = "Edit Proposal";
+        exists = true;
+
+    }
+    string heading = (exists == false) ? "New Proposal" : "Edit Proposal";
+}
+
+<h2>@heading</h2>
+<h2>Section B - Rationale For Programme</h2>
+<h2>Tentative Programme Of Study</h2>
+
+@using (Html.BeginForm("UpdateCredits", "TentativePs", new { id = Model.Proposal.Id}))
+{
+    foreach (int yearNo in Model.Pairs.Keys)
+    {
+        <div class="form-group">
+            <label>Total ECTS Credits for Year @yearNo</label>
+            <input value=@Model.Pairs[yearNo] name=@yearNo class="form-control" placeholder="Enter value" type="number" min=0>
+        </div>
+    }
+    @Html.HiddenFor(m => m.TentativePs.Id)
+    @Html.HiddenFor(m => m.Proposal.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" name="jump" value="-1" class="btn btn-primary">Previous</button>
+    <button type="submit" name="jump" value="0" class="btn btn-primary">Save</button>
+    <button type="submit" name="jump" value="1" class="btn btn-primary">Next</button>
+    
+}
+@section Scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

@@ -5,11 +5,19 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="GaptModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Demand">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Period" Type="text" />
+        </EntityType>
         <EntityType Name="Department_General">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GeneralId" Type="int" Nullable="false" />
           <Property Name="DepartmentId" Type="int" Nullable="false" />
           <Property Name="Type" Type="int" Nullable="false" />
@@ -18,7 +26,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="500" />
           <Property Name="AreasStudy" Type="varchar" MaxLength="500" />
           <Property Name="LevelId" Type="int" />
@@ -30,35 +38,65 @@
           <Property Name="CappingReason" Type="varchar" MaxLength="4000" />
           <Property Name="DurationSemesters" Type="int" />
         </EntityType>
+        <EntityType Name="ProgrammeOfStudy">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KnowledgeUnderstanding" Type="text" />
+          <Property Name="IntellectualDevelopment" Type="text" />
+          <Property Name="KeyTransferableSkills" Type="text" />
+          <Property Name="OtherSkills" Type="text" />
+        </EntityType>
+        <EntityType Name="ProgrammeRationale">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RationaleId" Type="int" />
+          <Property Name="DemandId" Type="int" />
+          <Property Name="PsId" Type="int" />
+          <Property Name="TentativePsId" Type="int" />
+        </EntityType>
         <EntityType Name="Proposal">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="225" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="GeneralId" Type="int" />
+          <Property Name="ProgrammeRationaleId" Type="int" />
         </EntityType>
         <EntityType Name="Proposer_General">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GeneralId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="varchar" MaxLength="225" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rationale">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Justification" Type="text" />
+          <Property Name="Fit" Type="text" />
+          <Property Name="Differences" Type="text" />
         </EntityType>
         <EntityType Name="Ref_Delivery">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="225" Nullable="false" />
         </EntityType>
         <EntityType Name="Ref_Department">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="225" Nullable="false" />
           <Property Name="FacultyId" Type="int" Nullable="false" />
         </EntityType>
@@ -66,15 +104,53 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="225" Nullable="false" />
         </EntityType>
         <EntityType Name="Ref_Level">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="225" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ref_Unit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="225" Nullable="false" />
+          <Property Name="DepartmentId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TentativePs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Year">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TotalEcts" Type="int" />
+          <Property Name="TentativePsId" Type="int" />
+          <Property Name="YearNo" Type="int" />
+        </EntityType>
+        <EntityType Name="Year_Unit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="YearId" Type="int" Nullable="false" />
+          <Property Name="UnitId" Type="int" Nullable="false" />
+          <Property Name="Period" Type="int" />
+          <Property Name="Coe" Type="int" />
+          <Property Name="Ects" Type="int" />
+          <Property Name="Lecturer" Type="varchar" MaxLength="225" />
+          <Property Name="Compensating" Type="int" />
+          <Property Name="CompensatingReason" Type="text" />
         </EntityType>
         <Association Name="Department_General_fk0">
           <End Role="General" Type="Self.General" Multiplicity="1" />
@@ -136,6 +212,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ProgrammeRationale_fk0">
+          <End Role="Rationale" Type="Self.Rationale" Multiplicity="0..1" />
+          <End Role="ProgrammeRationale" Type="Self.ProgrammeRationale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rationale">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProgrammeRationale">
+              <PropertyRef Name="RationaleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProgrammeRationale_fk1">
+          <End Role="Demand" Type="Self.Demand" Multiplicity="0..1" />
+          <End Role="ProgrammeRationale" Type="Self.ProgrammeRationale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Demand">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProgrammeRationale">
+              <PropertyRef Name="DemandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProgrammeRationale_fk2">
+          <End Role="ProgrammeOfStudy" Type="Self.ProgrammeOfStudy" Multiplicity="0..1" />
+          <End Role="ProgrammeRationale" Type="Self.ProgrammeRationale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProgrammeOfStudy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProgrammeRationale">
+              <PropertyRef Name="PsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProgrammeRationale_fk3">
+          <End Role="TentativePs" Type="Self.TentativePs" Multiplicity="0..1" />
+          <End Role="ProgrammeRationale" Type="Self.ProgrammeRationale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TentativePs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProgrammeRationale">
+              <PropertyRef Name="TentativePsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Proposal_fk0">
           <End Role="General" Type="Self.General" Multiplicity="0..1" />
           <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
@@ -145,6 +269,18 @@
             </Principal>
             <Dependent Role="Proposal">
               <PropertyRef Name="GeneralId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Proposal_fk1">
+          <End Role="ProgrammeRationale" Type="Self.ProgrammeRationale" Multiplicity="0..1" />
+          <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProgrammeRationale">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Proposal">
+              <PropertyRef Name="ProgrammeRationaleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -172,15 +308,71 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="Ref_Unit_fk0">
+          <End Role="Ref_Department" Type="Self.Ref_Department" Multiplicity="1" />
+          <End Role="Ref_Unit" Type="Self.Ref_Unit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ref_Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ref_Unit">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Year_fk0">
+          <End Role="TentativePs" Type="Self.TentativePs" Multiplicity="0..1" />
+          <End Role="Year" Type="Self.Year" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TentativePs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Year">
+              <PropertyRef Name="TentativePsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Year_Unit_fk0">
+          <End Role="Year" Type="Self.Year" Multiplicity="1" />
+          <End Role="Year_Unit" Type="Self.Year_Unit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Year_Unit">
+              <PropertyRef Name="YearId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Year_Unit_fk1">
+          <End Role="Ref_Unit" Type="Self.Ref_Unit" Multiplicity="1" />
+          <End Role="Year_Unit" Type="Self.Year_Unit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ref_Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Year_Unit">
+              <PropertyRef Name="UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="GaptModelStoreContainer">
+          <EntitySet Name="Demand" EntityType="Self.Demand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department_General" EntityType="Self.Department_General" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="General" EntityType="Self.General" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProgrammeOfStudy" EntityType="Self.ProgrammeOfStudy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProgrammeRationale" EntityType="Self.ProgrammeRationale" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Proposal" EntityType="Self.Proposal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Proposer_General" EntityType="Self.Proposer_General" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rationale" EntityType="Self.Rationale" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ref_Delivery" EntityType="Self.Ref_Delivery" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ref_Department" EntityType="Self.Ref_Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ref_Faculty" EntityType="Self.Ref_Faculty" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ref_Level" EntityType="Self.Ref_Level" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ref_Unit" EntityType="Self.Ref_Unit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TentativePs" EntityType="Self.TentativePs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Year" EntityType="Self.Year" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Year_Unit" EntityType="Self.Year_Unit" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="Department_General_fk0" Association="Self.Department_General_fk0">
             <End Role="General" EntitySet="General" />
             <End Role="Department_General" EntitySet="Department_General" />
@@ -201,8 +393,28 @@
             <End Role="Ref_Delivery" EntitySet="Ref_Delivery" />
             <End Role="General" EntitySet="General" />
           </AssociationSet>
+          <AssociationSet Name="ProgrammeRationale_fk0" Association="Self.ProgrammeRationale_fk0">
+            <End Role="Rationale" EntitySet="Rationale" />
+            <End Role="ProgrammeRationale" EntitySet="ProgrammeRationale" />
+          </AssociationSet>
+          <AssociationSet Name="ProgrammeRationale_fk1" Association="Self.ProgrammeRationale_fk1">
+            <End Role="Demand" EntitySet="Demand" />
+            <End Role="ProgrammeRationale" EntitySet="ProgrammeRationale" />
+          </AssociationSet>
+          <AssociationSet Name="ProgrammeRationale_fk2" Association="Self.ProgrammeRationale_fk2">
+            <End Role="ProgrammeOfStudy" EntitySet="ProgrammeOfStudy" />
+            <End Role="ProgrammeRationale" EntitySet="ProgrammeRationale" />
+          </AssociationSet>
+          <AssociationSet Name="ProgrammeRationale_fk3" Association="Self.ProgrammeRationale_fk3">
+            <End Role="TentativePs" EntitySet="TentativePs" />
+            <End Role="ProgrammeRationale" EntitySet="ProgrammeRationale" />
+          </AssociationSet>
           <AssociationSet Name="Proposal_fk0" Association="Self.Proposal_fk0">
             <End Role="General" EntitySet="General" />
+            <End Role="Proposal" EntitySet="Proposal" />
+          </AssociationSet>
+          <AssociationSet Name="Proposal_fk1" Association="Self.Proposal_fk1">
+            <End Role="ProgrammeRationale" EntitySet="ProgrammeRationale" />
             <End Role="Proposal" EntitySet="Proposal" />
           </AssociationSet>
           <AssociationSet Name="Proposer_General_fk0" Association="Self.Proposer_General_fk0">
@@ -213,20 +425,48 @@
             <End Role="Ref_Faculty" EntitySet="Ref_Faculty" />
             <End Role="Ref_Department" EntitySet="Ref_Department" />
           </AssociationSet>
+          <AssociationSet Name="Ref_Unit_fk0" Association="Self.Ref_Unit_fk0">
+            <End Role="Ref_Department" EntitySet="Ref_Department" />
+            <End Role="Ref_Unit" EntitySet="Ref_Unit" />
+          </AssociationSet>
+          <AssociationSet Name="Year_fk0" Association="Self.Year_fk0">
+            <End Role="TentativePs" EntitySet="TentativePs" />
+            <End Role="Year" EntitySet="Year" />
+          </AssociationSet>
+          <AssociationSet Name="Year_Unit_fk0" Association="Self.Year_Unit_fk0">
+            <End Role="Year" EntitySet="Year" />
+            <End Role="Year_Unit" EntitySet="Year_Unit" />
+          </AssociationSet>
+          <AssociationSet Name="Year_Unit_fk1" Association="Self.Year_Unit_fk1">
+            <End Role="Ref_Unit" EntitySet="Ref_Unit" />
+            <End Role="Year_Unit" EntitySet="Year_Unit" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GaptModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="GaptDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Demands" EntityType="GaptModel.Demand" />
           <EntitySet Name="Department_General" EntityType="GaptModel.Department_General" />
           <EntitySet Name="Generals" EntityType="GaptModel.General" />
+          <EntitySet Name="ProgrammeOfStudies" EntityType="GaptModel.ProgrammeOfStudy" />
+          <EntitySet Name="ProgrammeRationales" EntityType="GaptModel.ProgrammeRationale" />
           <EntitySet Name="Proposals" EntityType="GaptModel.Proposal" />
           <EntitySet Name="Proposer_General" EntityType="GaptModel.Proposer_General" />
+          <EntitySet Name="Rationales" EntityType="GaptModel.Rationale" />
           <EntitySet Name="Ref_Delivery" EntityType="GaptModel.Ref_Delivery" />
           <EntitySet Name="Ref_Department" EntityType="GaptModel.Ref_Department" />
           <EntitySet Name="Ref_Faculty" EntityType="GaptModel.Ref_Faculty" />
           <EntitySet Name="Ref_Level" EntityType="GaptModel.Ref_Level" />
+          <EntitySet Name="Ref_Unit" EntityType="GaptModel.Ref_Unit" />
+          <EntitySet Name="TentativePs" EntityType="GaptModel.TentativeP" />
+          <EntitySet Name="Years" EntityType="GaptModel.Year" />
+          <EntitySet Name="Year_Unit" EntityType="GaptModel.Year_Unit" />
+          <AssociationSet Name="ProgrammeRationale_fk1" Association="GaptModel.ProgrammeRationale_fk1">
+            <End Role="Demand" EntitySet="Demands" />
+            <End Role="ProgrammeRationale" EntitySet="ProgrammeRationales" />
+          </AssociationSet>
           <AssociationSet Name="Department_General_fk0" Association="GaptModel.Department_General_fk0">
             <End Role="General" EntitySet="Generals" />
             <End Role="Department_General" EntitySet="Department_General" />
@@ -255,16 +495,57 @@
             <End Role="General" EntitySet="Generals" />
             <End Role="Proposer_General" EntitySet="Proposer_General" />
           </AssociationSet>
+          <AssociationSet Name="ProgrammeRationale_fk2" Association="GaptModel.ProgrammeRationale_fk2">
+            <End Role="ProgrammeOfStudy" EntitySet="ProgrammeOfStudies" />
+            <End Role="ProgrammeRationale" EntitySet="ProgrammeRationales" />
+          </AssociationSet>
+          <AssociationSet Name="ProgrammeRationale_fk0" Association="GaptModel.ProgrammeRationale_fk0">
+            <End Role="Rationale" EntitySet="Rationales" />
+            <End Role="ProgrammeRationale" EntitySet="ProgrammeRationales" />
+          </AssociationSet>
+          <AssociationSet Name="ProgrammeRationale_fk3" Association="GaptModel.ProgrammeRationale_fk3">
+            <End Role="TentativeP" EntitySet="TentativePs" />
+            <End Role="ProgrammeRationale" EntitySet="ProgrammeRationales" />
+          </AssociationSet>
+          <AssociationSet Name="Proposal_fk1" Association="GaptModel.Proposal_fk1">
+            <End Role="ProgrammeRationale" EntitySet="ProgrammeRationales" />
+            <End Role="Proposal" EntitySet="Proposals" />
+          </AssociationSet>
           <AssociationSet Name="Ref_Department_fk0" Association="GaptModel.Ref_Department_fk0">
             <End Role="Ref_Faculty" EntitySet="Ref_Faculty" />
             <End Role="Ref_Department" EntitySet="Ref_Department" />
           </AssociationSet>
+          <AssociationSet Name="Ref_Unit_fk0" Association="GaptModel.Ref_Unit_fk0">
+            <End Role="Ref_Department" EntitySet="Ref_Department" />
+            <End Role="Ref_Unit" EntitySet="Ref_Unit" />
+          </AssociationSet>
+          <AssociationSet Name="Year_Unit_fk1" Association="GaptModel.Year_Unit_fk1">
+            <End Role="Ref_Unit" EntitySet="Ref_Unit" />
+            <End Role="Year_Unit" EntitySet="Year_Unit" />
+          </AssociationSet>
+          <AssociationSet Name="Year_fk0" Association="GaptModel.Year_fk0">
+            <End Role="TentativeP" EntitySet="TentativePs" />
+            <End Role="Year" EntitySet="Years" />
+          </AssociationSet>
+          <AssociationSet Name="Year_Unit_fk0" Association="GaptModel.Year_Unit_fk0">
+            <End Role="Year" EntitySet="Years" />
+            <End Role="Year_Unit" EntitySet="Year_Unit" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Demand">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Period" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ProgrammeRationales" Relationship="GaptModel.ProgrammeRationale_fk1" FromRole="Demand" ToRole="ProgrammeRationale" />
+        </EntityType>
         <EntityType Name="Department_General">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GeneralId" Type="Int32" Nullable="false" />
           <Property Name="DepartmentId" Type="Int32" Nullable="false" />
           <Property Name="Type" Type="Int32" Nullable="false" />
@@ -275,7 +556,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="AreasStudy" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="LevelId" Type="Int32" />
@@ -293,30 +574,68 @@
           <NavigationProperty Name="Proposals" Relationship="GaptModel.Proposal_fk0" FromRole="General" ToRole="Proposal" />
           <NavigationProperty Name="Proposer_General" Relationship="GaptModel.Proposer_General_fk0" FromRole="General" ToRole="Proposer_General" />
         </EntityType>
+        <EntityType Name="ProgrammeOfStudy">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KnowledgeUnderstanding" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IntellectualDevelopment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="KeyTransferableSkills" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OtherSkills" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ProgrammeRationales" Relationship="GaptModel.ProgrammeRationale_fk2" FromRole="ProgrammeOfStudy" ToRole="ProgrammeRationale" />
+        </EntityType>
+        <EntityType Name="ProgrammeRationale">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RationaleId" Type="Int32" />
+          <Property Name="DemandId" Type="Int32" />
+          <Property Name="PsId" Type="Int32" />
+          <Property Name="TentativePsId" Type="Int32" />
+          <NavigationProperty Name="Demand" Relationship="GaptModel.ProgrammeRationale_fk1" FromRole="ProgrammeRationale" ToRole="Demand" />
+          <NavigationProperty Name="ProgrammeOfStudy" Relationship="GaptModel.ProgrammeRationale_fk2" FromRole="ProgrammeRationale" ToRole="ProgrammeOfStudy" />
+          <NavigationProperty Name="Rationale" Relationship="GaptModel.ProgrammeRationale_fk0" FromRole="ProgrammeRationale" ToRole="Rationale" />
+          <NavigationProperty Name="TentativeP" Relationship="GaptModel.ProgrammeRationale_fk3" FromRole="ProgrammeRationale" ToRole="TentativeP" />
+          <NavigationProperty Name="Proposals" Relationship="GaptModel.Proposal_fk1" FromRole="ProgrammeRationale" ToRole="Proposal" />
+        </EntityType>
         <EntityType Name="Proposal">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CreatedBy" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="GeneralId" Type="Int32" />
+          <Property Name="ProgrammeRationaleId" Type="Int32" />
           <NavigationProperty Name="General" Relationship="GaptModel.Proposal_fk0" FromRole="Proposal" ToRole="General" />
+          <NavigationProperty Name="ProgrammeRationale" Relationship="GaptModel.Proposal_fk1" FromRole="Proposal" ToRole="ProgrammeRationale" />
         </EntityType>
         <EntityType Name="Proposer_General">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GeneralId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="General" Relationship="GaptModel.Proposer_General_fk0" FromRole="Proposer_General" ToRole="General" />
+        </EntityType>
+        <EntityType Name="Rationale">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Justification" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Fit" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Differences" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ProgrammeRationales" Relationship="GaptModel.ProgrammeRationale_fk0" FromRole="Rationale" ToRole="ProgrammeRationale" />
         </EntityType>
         <EntityType Name="Ref_Delivery">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Generals" Relationship="GaptModel.General_fk2" FromRole="Ref_Delivery" ToRole="General" />
         </EntityType>
@@ -324,17 +643,18 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
           <Property Name="FacultyId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Department_General" Relationship="GaptModel.Department_General_fk1" FromRole="Ref_Department" ToRole="Department_General" />
           <NavigationProperty Name="Ref_Faculty" Relationship="GaptModel.Ref_Department_fk0" FromRole="Ref_Department" ToRole="Ref_Faculty" />
+          <NavigationProperty Name="Ref_Unit" Relationship="GaptModel.Ref_Unit_fk0" FromRole="Ref_Department" ToRole="Ref_Unit" />
         </EntityType>
         <EntityType Name="Ref_Faculty">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Generals" Relationship="GaptModel.General_fk1" FromRole="Ref_Faculty" ToRole="General" />
           <NavigationProperty Name="Ref_Department" Relationship="GaptModel.Ref_Department_fk0" FromRole="Ref_Faculty" ToRole="Ref_Department" />
@@ -343,10 +663,68 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Generals" Relationship="GaptModel.General_fk0" FromRole="Ref_Level" ToRole="General" />
         </EntityType>
+        <EntityType Name="Ref_Unit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ref_Department" Relationship="GaptModel.Ref_Unit_fk0" FromRole="Ref_Unit" ToRole="Ref_Department" />
+          <NavigationProperty Name="Year_Unit" Relationship="GaptModel.Year_Unit_fk1" FromRole="Ref_Unit" ToRole="Year_Unit" />
+        </EntityType>
+        <EntityType Name="TentativeP">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ProgrammeRationales" Relationship="GaptModel.ProgrammeRationale_fk3" FromRole="TentativeP" ToRole="ProgrammeRationale" />
+          <NavigationProperty Name="Years" Relationship="GaptModel.Year_fk0" FromRole="TentativeP" ToRole="Year" />
+        </EntityType>
+        <EntityType Name="Year">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TotalEcts" Type="Int32" />
+          <Property Name="TentativePsId" Type="Int32" />
+          <Property Name="YearNo" Type="Int32" />
+          <NavigationProperty Name="TentativeP" Relationship="GaptModel.Year_fk0" FromRole="Year" ToRole="TentativeP" />
+          <NavigationProperty Name="Year_Unit" Relationship="GaptModel.Year_Unit_fk0" FromRole="Year" ToRole="Year_Unit" />
+        </EntityType>
+        <EntityType Name="Year_Unit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="YearId" Type="Int32" Nullable="false" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <Property Name="Period" Type="Int32" />
+          <Property Name="Coe" Type="Int32" />
+          <Property Name="Ects" Type="Int32" />
+          <Property Name="Lecturer" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+          <Property Name="Compensating" Type="Int32" />
+          <Property Name="CompensatingReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Ref_Unit" Relationship="GaptModel.Year_Unit_fk1" FromRole="Year_Unit" ToRole="Ref_Unit" />
+          <NavigationProperty Name="Year" Relationship="GaptModel.Year_Unit_fk0" FromRole="Year_Unit" ToRole="Year" />
+        </EntityType>
+        <Association Name="ProgrammeRationale_fk1">
+          <End Type="GaptModel.Demand" Role="Demand" Multiplicity="0..1" />
+          <End Type="GaptModel.ProgrammeRationale" Role="ProgrammeRationale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Demand">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProgrammeRationale">
+              <PropertyRef Name="DemandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Department_General_fk0">
           <End Type="GaptModel.General" Role="General" Multiplicity="1" />
           <End Type="GaptModel.Department_General" Role="Department_General" Multiplicity="*" />
@@ -431,6 +809,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ProgrammeRationale_fk2">
+          <End Type="GaptModel.ProgrammeOfStudy" Role="ProgrammeOfStudy" Multiplicity="0..1" />
+          <End Type="GaptModel.ProgrammeRationale" Role="ProgrammeRationale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProgrammeOfStudy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProgrammeRationale">
+              <PropertyRef Name="PsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProgrammeRationale_fk0">
+          <End Type="GaptModel.Rationale" Role="Rationale" Multiplicity="0..1" />
+          <End Type="GaptModel.ProgrammeRationale" Role="ProgrammeRationale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rationale">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProgrammeRationale">
+              <PropertyRef Name="RationaleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProgrammeRationale_fk3">
+          <End Type="GaptModel.TentativeP" Role="TentativeP" Multiplicity="0..1" />
+          <End Type="GaptModel.ProgrammeRationale" Role="ProgrammeRationale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TentativeP">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProgrammeRationale">
+              <PropertyRef Name="TentativePsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Proposal_fk1">
+          <End Type="GaptModel.ProgrammeRationale" Role="ProgrammeRationale" Multiplicity="0..1" />
+          <End Type="GaptModel.Proposal" Role="Proposal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProgrammeRationale">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Proposal">
+              <PropertyRef Name="ProgrammeRationaleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Ref_Department_fk0">
           <End Type="GaptModel.Ref_Faculty" Role="Ref_Faculty" Multiplicity="1" />
           <End Type="GaptModel.Ref_Department" Role="Ref_Department" Multiplicity="*" />
@@ -443,12 +869,69 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="Ref_Unit_fk0">
+          <End Type="GaptModel.Ref_Department" Role="Ref_Department" Multiplicity="1" />
+          <End Type="GaptModel.Ref_Unit" Role="Ref_Unit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ref_Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ref_Unit">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Year_Unit_fk1">
+          <End Type="GaptModel.Ref_Unit" Role="Ref_Unit" Multiplicity="1" />
+          <End Type="GaptModel.Year_Unit" Role="Year_Unit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ref_Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Year_Unit">
+              <PropertyRef Name="UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Year_fk0">
+          <End Type="GaptModel.TentativeP" Role="TentativeP" Multiplicity="0..1" />
+          <End Type="GaptModel.Year" Role="Year" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TentativeP">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Year">
+              <PropertyRef Name="TentativePsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Year_Unit_fk0">
+          <End Type="GaptModel.Year" Role="Year" Multiplicity="1" />
+          <End Type="GaptModel.Year_Unit" Role="Year_Unit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Year_Unit">
+              <PropertyRef Name="YearId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="GaptModelStoreContainer" CdmEntityContainer="GaptDbContext">
+          <EntitySetMapping Name="Demands">
+            <EntityTypeMapping TypeName="GaptModel.Demand">
+              <MappingFragment StoreEntitySet="Demand">
+                <ScalarProperty Name="Period" ColumnName="Period" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Department_General">
             <EntityTypeMapping TypeName="GaptModel.Department_General">
               <MappingFragment StoreEntitySet="Department_General">
@@ -476,9 +959,32 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ProgrammeOfStudies">
+            <EntityTypeMapping TypeName="GaptModel.ProgrammeOfStudy">
+              <MappingFragment StoreEntitySet="ProgrammeOfStudy">
+                <ScalarProperty Name="OtherSkills" ColumnName="OtherSkills" />
+                <ScalarProperty Name="KeyTransferableSkills" ColumnName="KeyTransferableSkills" />
+                <ScalarProperty Name="IntellectualDevelopment" ColumnName="IntellectualDevelopment" />
+                <ScalarProperty Name="KnowledgeUnderstanding" ColumnName="KnowledgeUnderstanding" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProgrammeRationales">
+            <EntityTypeMapping TypeName="GaptModel.ProgrammeRationale">
+              <MappingFragment StoreEntitySet="ProgrammeRationale">
+                <ScalarProperty Name="TentativePsId" ColumnName="TentativePsId" />
+                <ScalarProperty Name="PsId" ColumnName="PsId" />
+                <ScalarProperty Name="DemandId" ColumnName="DemandId" />
+                <ScalarProperty Name="RationaleId" ColumnName="RationaleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Proposals">
             <EntityTypeMapping TypeName="GaptModel.Proposal">
               <MappingFragment StoreEntitySet="Proposal">
+                <ScalarProperty Name="ProgrammeRationaleId" ColumnName="ProgrammeRationaleId" />
                 <ScalarProperty Name="GeneralId" ColumnName="GeneralId" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -491,6 +997,16 @@
               <MappingFragment StoreEntitySet="Proposer_General">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="GeneralId" ColumnName="GeneralId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rationales">
+            <EntityTypeMapping TypeName="GaptModel.Rationale">
+              <MappingFragment StoreEntitySet="Rationale">
+                <ScalarProperty Name="Differences" ColumnName="Differences" />
+                <ScalarProperty Name="Fit" ColumnName="Fit" />
+                <ScalarProperty Name="Justification" ColumnName="Justification" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -524,6 +1040,48 @@
             <EntityTypeMapping TypeName="GaptModel.Ref_Level">
               <MappingFragment StoreEntitySet="Ref_Level">
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ref_Unit">
+            <EntityTypeMapping TypeName="GaptModel.Ref_Unit">
+              <MappingFragment StoreEntitySet="Ref_Unit">
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TentativePs">
+            <EntityTypeMapping TypeName="GaptModel.TentativeP">
+              <MappingFragment StoreEntitySet="TentativePs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Years">
+            <EntityTypeMapping TypeName="GaptModel.Year">
+              <MappingFragment StoreEntitySet="Year">
+                <ScalarProperty Name="YearNo" ColumnName="YearNo" />
+                <ScalarProperty Name="TentativePsId" ColumnName="TentativePsId" />
+                <ScalarProperty Name="TotalEcts" ColumnName="TotalEcts" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Year_Unit">
+            <EntityTypeMapping TypeName="GaptModel.Year_Unit">
+              <MappingFragment StoreEntitySet="Year_Unit">
+                <ScalarProperty Name="CompensatingReason" ColumnName="CompensatingReason" />
+                <ScalarProperty Name="Compensating" ColumnName="Compensating" />
+                <ScalarProperty Name="Lecturer" ColumnName="Lecturer" />
+                <ScalarProperty Name="Ects" ColumnName="Ects" />
+                <ScalarProperty Name="Coe" ColumnName="Coe" />
+                <ScalarProperty Name="Period" ColumnName="Period" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="YearId" ColumnName="YearId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

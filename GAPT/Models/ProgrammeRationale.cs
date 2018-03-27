@@ -12,23 +12,25 @@ namespace GAPT.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Ref_Department
+    public partial class ProgrammeRationale
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Ref_Department()
+        public ProgrammeRationale()
         {
-            this.Department_General = new HashSet<Department_General>();
-            this.Ref_Unit = new HashSet<Ref_Unit>();
+            this.Proposals = new HashSet<Proposal>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
-        public int FacultyId { get; set; }
+        public Nullable<int> RationaleId { get; set; }
+        public Nullable<int> DemandId { get; set; }
+        public Nullable<int> PsId { get; set; }
+        public Nullable<int> TentativePsId { get; set; }
     
+        public virtual Demand Demand { get; set; }
+        public virtual ProgrammeOfStudy ProgrammeOfStudy { get; set; }
+        public virtual Rationale Rationale { get; set; }
+        public virtual TentativeP TentativeP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Department_General> Department_General { get; set; }
-        public virtual Ref_Faculty Ref_Faculty { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ref_Unit> Ref_Unit { get; set; }
+        public virtual ICollection<Proposal> Proposals { get; set; }
     }
 }

@@ -1,0 +1,51 @@
+﻿@model GAPT.ViewModels.RationaleFormViewModel
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool exists;
+    var rationale = Model.Rationale;
+    if (rationale == null || rationale.Id == 0)
+    {
+        ViewBag.Title = "New Proposal";
+        exists = false;
+    }
+    else
+    {
+        ViewBag.Title = "Edit Proposal";
+        exists = true;
+
+    }
+    string heading = (exists == false) ? "New Proposal" : "Edit Proposal";
+}
+
+<h2>@heading</h2>
+<h2>Section B - Rationale For Programme</h2>
+<h2>Rationale</h2>
+@using (Html.BeginForm("Save", "Rationale"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Rationale.Justification)
+        @Html.TextAreaFor(m => m.Rationale.Justification, new { @class = "form-control", rows = 10 })
+        @Html.ValidationMessageFor(m => m.Rationale.Justification)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Rationale.Fit)
+        @Html.TextAreaFor(m => m.Rationale.Fit, new { @class = "form-control", rows = 10 })
+        @Html.ValidationMessageFor(m => m.Rationale.Fit)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Rationale.Differences)
+        @Html.TextAreaFor(m => m.Rationale.Differences, new { @class = "form-control", rows = 10 })
+        @Html.ValidationMessageFor(m => m.Rationale.Differences)
+    </div>
+    @Html.HiddenFor(m => m.Proposal.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" name="jump" value="-1" class="btn btn-primary">Previous</button>
+    <button type="submit" name="jump" value="0" class="btn btn-primary">Save</button>
+    <button type="submit" name="jump" value="1" class="btn btn-primary">Next</button>
+    if (@exists)
+    {
+        @Html.HiddenFor(m => m.Rationale.Id)
+        
+    }
+}

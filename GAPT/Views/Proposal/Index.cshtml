@@ -26,6 +26,10 @@ else
             {
                 <tr>
                     <td>@proposal.Id</td>
+                    <td>@proposal.CreatedBy</td>
+                    <td>@proposal.CreatedOn</td>
+                    <td>@proposal.GeneralId</td>
+                    <td>@Html.ActionLink("Edit", "Edit", "General", new { id = proposal.GeneralId }, null)</td>
                 </tr>
             }
         </tbody>

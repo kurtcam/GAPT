@@ -25,13 +25,21 @@ namespace GAPT.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Demand> Demands { get; set; }
         public virtual DbSet<Department_General> Department_General { get; set; }
         public virtual DbSet<General> Generals { get; set; }
+        public virtual DbSet<ProgrammeOfStudy> ProgrammeOfStudies { get; set; }
+        public virtual DbSet<ProgrammeRationale> ProgrammeRationales { get; set; }
         public virtual DbSet<Proposal> Proposals { get; set; }
         public virtual DbSet<Proposer_General> Proposer_General { get; set; }
+        public virtual DbSet<Rationale> Rationales { get; set; }
         public virtual DbSet<Ref_Delivery> Ref_Delivery { get; set; }
         public virtual DbSet<Ref_Department> Ref_Department { get; set; }
         public virtual DbSet<Ref_Faculty> Ref_Faculty { get; set; }
         public virtual DbSet<Ref_Level> Ref_Level { get; set; }
+        public virtual DbSet<Ref_Unit> Ref_Unit { get; set; }
+        public virtual DbSet<TentativeP> TentativePs { get; set; }
+        public virtual DbSet<Year> Years { get; set; }
+        public virtual DbSet<Year_Unit> Year_Unit { get; set; }
     }
 }

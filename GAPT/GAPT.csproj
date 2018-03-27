@@ -192,14 +192,22 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DemandController.cs" />
     <Compile Include="Controllers\GeneralController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProgrammeRationaleController.cs" />
+    <Compile Include="Controllers\ProgrammeStudyController.cs" />
     <Compile Include="Controllers\ProposalController.cs" />
+    <Compile Include="Controllers\RationaleController.cs" />
+    <Compile Include="Controllers\TentativePsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Demand.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Department_General.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
@@ -223,10 +231,21 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Metadata.cs" />
+    <Compile Include="Models\PartialClasses.cs" />
+    <Compile Include="Models\ProgrammeOfStudy.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProgrammeRationale.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Proposal.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Proposer_General.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Rationale.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Ref_Delivery.cs">
@@ -241,9 +260,26 @@
     <Compile Include="Models\Ref_Level.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Ref_Unit.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TentativeP.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Year.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Year_Unit.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\DemandFormViewModel.cs" />
     <Compile Include="ViewModels\GeneralFormViewModel.cs" />
+    <Compile Include="ViewModels\ProgrammeStudyFormViewModel.cs" />
+    <Compile Include="ViewModels\RationaleFormViewModel.cs" />
+    <Compile Include="ViewModels\TentativePsFormViewModel.cs" />
+    <Compile Include="ViewModels\YearTotalsFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datetimepicker.css" />
@@ -339,9 +375,15 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Proposal\Index.cshtml" />
     <Content Include="Views\General\Form.cshtml" />
+    <Content Include="Views\Rationale\Form.cshtml" />
+    <Content Include="Views\Demand\Form.cshtml" />
+    <Content Include="Views\ProgrammeStudy\Form.cshtml" />
+    <Content Include="Views\TentativePs\Form.cshtml" />
+    <Content Include="Views\TentativePs\YearTotalsForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ProgrammeRationale\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

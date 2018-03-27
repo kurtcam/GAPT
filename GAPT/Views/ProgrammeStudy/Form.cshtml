@@ -1,0 +1,56 @@
+﻿@model GAPT.ViewModels.ProgrammeStudyFormViewModel
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool exists;
+    var programmeStudy = Model.ProgrammeStudy;
+    if (programmeStudy == null || programmeStudy.Id == 0)
+    {
+        ViewBag.Title = "New Proposal";
+        exists = false;
+    }
+    else
+    {
+        ViewBag.Title = "Edit Proposal";
+        exists = true;
+
+    }
+    string heading = (exists == false) ? "New Proposal" : "Edit Proposal";
+}
+
+<h2>@heading</h2>
+<h2>Section B - Rationale For Programme</h2>
+<h2>Programme of Study</h2>
+@using (Html.BeginForm("Save", "ProgrammeStudy"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProgrammeStudy.KnowledgeUnderstanding)
+        @Html.TextAreaFor(m => m.ProgrammeStudy.KnowledgeUnderstanding, new { @class = "form-control", rows = 10 })
+        @Html.ValidationMessageFor(m => m.ProgrammeStudy.KnowledgeUnderstanding)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProgrammeStudy.IntellectualDevelopment)
+        @Html.TextAreaFor(m => m.ProgrammeStudy.IntellectualDevelopment, new { @class = "form-control", rows = 10 })
+        @Html.ValidationMessageFor(m => m.ProgrammeStudy.IntellectualDevelopment)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProgrammeStudy.KeyTransferableSkills)
+        @Html.TextAreaFor(m => m.ProgrammeStudy.KeyTransferableSkills, new { @class = "form-control", rows = 10 })
+        @Html.ValidationMessageFor(m => m.ProgrammeStudy.KeyTransferableSkills)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProgrammeStudy.OtherSkills)
+        @Html.TextAreaFor(m => m.ProgrammeStudy.OtherSkills, new { @class = "form-control", rows = 10 })
+        @Html.ValidationMessageFor(m => m.ProgrammeStudy.OtherSkills)
+    </div>
+    @Html.HiddenFor(m => m.Proposal.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" name="jump" value="-1" class="btn btn-primary">Previous</button>
+    <button type="submit" name="jump" value="0" class="btn btn-primary">Save</button>
+    <button type="submit" name="jump" value="1" class="btn btn-primary">Next</button>
+    if (@exists)
+    {
+        @Html.HiddenFor(m => m.ProgrammeStudy.Id)
+
+    }
+}
