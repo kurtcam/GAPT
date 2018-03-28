@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -27,5 +28,11 @@ namespace GAPT.Models
     public class Year_UnitMetadata
     {
     }
+
+    public class ExternalReviewMetadata
+    {
+    }
+
+   
 
 }

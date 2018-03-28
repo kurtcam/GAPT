@@ -27,6 +27,8 @@ namespace GAPT.Models
     
         public virtual DbSet<Demand> Demands { get; set; }
         public virtual DbSet<Department_General> Department_General { get; set; }
+        public virtual DbSet<ExternalReview> ExternalReviews { get; set; }
+        public virtual DbSet<ExternalReview_Reviewer> ExternalReview_Reviewer { get; set; }
         public virtual DbSet<General> Generals { get; set; }
         public virtual DbSet<ProgrammeOfStudy> ProgrammeOfStudies { get; set; }
         public virtual DbSet<ProgrammeRationale> ProgrammeRationales { get; set; }
@@ -38,6 +40,7 @@ namespace GAPT.Models
         public virtual DbSet<Ref_Faculty> Ref_Faculty { get; set; }
         public virtual DbSet<Ref_Level> Ref_Level { get; set; }
         public virtual DbSet<Ref_Unit> Ref_Unit { get; set; }
+        public virtual DbSet<Reviewer> Reviewers { get; set; }
         public virtual DbSet<TentativeP> TentativePs { get; set; }
         public virtual DbSet<Year> Years { get; set; }
         public virtual DbSet<Year_Unit> Year_Unit { get; set; }

@@ -1,0 +1,64 @@
+﻿@model GAPT.ViewModels.ReviewerFormViewModel
+@using GAPT.Models
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var reviewer = Model.Reviewer;
+    bool exists;
+    if (reviewer == null || reviewer.Id == 0)
+    {
+        ViewBag.Title = "New Reviewer";
+        exists = false;
+    }
+    else
+    {
+        ViewBag.Title = "Edit Reviewer";
+        exists = true;
+
+    }
+    string heading = (exists == false) ? "New Reviewer" : "Edit Reviewer";
+}
+<h2>@heading</h2>
+@using (Html.BeginForm("Save", "Reviewer"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Reviewer.Name)
+        @Html.TextBoxFor(m => m.Reviewer.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Reviewer.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Reviewer.Affiliation)
+        @Html.TextBoxFor(m => m.Reviewer.Affiliation, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Reviewer.Affiliation)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Reviewer.Address)
+        @Html.TextAreaFor(m => m.Reviewer.Address, new { @class = "form-control", rows = 4 })
+        @Html.ValidationMessageFor(m => m.Reviewer.Address)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Reviewer.Email)
+        @Html.TextBoxFor(m => m.Reviewer.Email, new { type="email", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Reviewer.Email)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Reviewer.Telephone)
+        @Html.TextBoxFor(m => m.Reviewer.Telephone, new { type = "number", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Reviewer.Telephone)
+    </div>
+    @Html.HiddenFor(m => m.Proposal.Id)
+    @Html.AntiForgeryToken()
+    if (@exists)
+    {
+        @Html.HiddenFor(m => m.Reviewer.Id)
+        @*<input type="button" class="btn btn-danger" value="Delete review" onclick="location.href='@Url.Action("Remove", "Review", new { id = Model.Id })'" />*@
+    }
+    <button type="submit" class="btn btn-primary">Save</button>
+    <input type="button" class="btn btn-danger" value="Cancel" onclick="location.href='@Url.Action("Index", "ExternalReview", new { id = Model.Proposal.Id })'" />
+}
+    
+@section Scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

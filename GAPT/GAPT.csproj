@@ -193,6 +193,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DemandController.cs" />
+    <Compile Include="Controllers\ExternalReviewController.cs" />
     <Compile Include="Controllers\GeneralController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="Controllers\ProgrammeStudyController.cs" />
     <Compile Include="Controllers\ProposalController.cs" />
     <Compile Include="Controllers\RationaleController.cs" />
+    <Compile Include="Controllers\ReviewerController.cs" />
     <Compile Include="Controllers\TentativePsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -209,6 +211,12 @@
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Department_General.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ExternalReview.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ExternalReview_Reviewer.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GaptModel.Context.cs">
@@ -263,6 +271,9 @@
     <Compile Include="Models\Ref_Unit.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Reviewer.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TentativeP.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
@@ -275,9 +286,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\DemandFormViewModel.cs" />
+    <Compile Include="ViewModels\ExternalReviewIndexViewModel.cs" />
     <Compile Include="ViewModels\GeneralFormViewModel.cs" />
     <Compile Include="ViewModels\ProgrammeStudyFormViewModel.cs" />
     <Compile Include="ViewModels\RationaleFormViewModel.cs" />
+    <Compile Include="ViewModels\ReviewerFormViewModel.cs" />
     <Compile Include="ViewModels\TentativePsFormViewModel.cs" />
     <Compile Include="ViewModels\YearTotalsFormViewModel.cs" />
   </ItemGroup>
@@ -380,6 +393,8 @@
     <Content Include="Views\ProgrammeStudy\Form.cshtml" />
     <Content Include="Views\TentativePs\Form.cshtml" />
     <Content Include="Views\TentativePs\YearTotalsForm.cshtml" />
+    <Content Include="Views\ExternalReview\Index.cshtml" />
+    <Content Include="Views\Reviewer\Form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

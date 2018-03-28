@@ -334,7 +334,7 @@ namespace GAPT.Controllers
             else if (jump == "1")
             {
                 // Next pressed -> return next page
-                return RedirectToAction("Index", "Proposal");
+                return RedirectToAction("Jump", "ExternalReview", new { id = proposal.Id});
             }
             else
             {

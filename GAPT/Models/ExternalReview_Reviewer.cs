@@ -12,17 +12,13 @@ namespace GAPT.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Proposal
+    public partial class ExternalReview_Reviewer
     {
         public int Id { get; set; }
-        public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedOn { get; set; }
-        public Nullable<int> GeneralId { get; set; }
-        public Nullable<int> ProgrammeRationaleId { get; set; }
-        public Nullable<int> ExternalReviewId { get; set; }
+        public int ExternalReviewId { get; set; }
+        public int ReviewerId { get; set; }
     
         public virtual ExternalReview ExternalReview { get; set; }
-        public virtual General General { get; set; }
-        public virtual ProgrammeRationale ProgrammeRationale { get; set; }
+        public virtual Reviewer Reviewer { get; set; }
     }
 }

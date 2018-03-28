@@ -73,4 +73,23 @@ namespace GAPT.Models
 
     }
 
+    [MetadataType(typeof(ExternalReviewMetadata))]
+    public partial class ExternalReview
+    {
+        public List<Reviewer> GetReviewers()
+        {
+            GaptDbContext db = new GaptDbContext();
+            var reviewerIds = db.Database.SqlQuery<int>("Select ReviewerId From dbo.ExternalReview_Reviewer Where ExternalReviewId = " + Id).ToList();
+            List<Reviewer> reviewers = new List<Reviewer>();
+
+            foreach (int id in reviewerIds) {
+                var reviewer = db.Reviewers.SingleOrDefault(m => m.Id == id);
+                reviewers.Add(reviewer);
+            }
+            var sorted = reviewers.OrderBy(m => m.Name).ToList();
+            return sorted;
+        }
+
+
+    }
 }

@@ -22,6 +22,20 @@
           <Property Name="DepartmentId" Type="int" Nullable="false" />
           <Property Name="Type" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="ExternalReview">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExternalReview_Reviewer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExternalReviewId" Type="int" Nullable="false" />
+          <Property Name="ReviewerId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="General">
           <Key>
             <PropertyRef Name="Id" />
@@ -67,6 +81,7 @@
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="GeneralId" Type="int" />
           <Property Name="ProgrammeRationaleId" Type="int" />
+          <Property Name="ExternalReviewId" Type="int" />
         </EntityType>
         <EntityType Name="Proposer_General">
           <Key>
@@ -123,6 +138,17 @@
           <Property Name="Title" Type="varchar" MaxLength="225" Nullable="false" />
           <Property Name="DepartmentId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Reviewer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="225" />
+          <Property Name="Affiliation" Type="varchar" MaxLength="225" />
+          <Property Name="Address" Type="text" />
+          <Property Name="Email" Type="varchar" MaxLength="225" />
+          <Property Name="Telephone" Type="varchar" MaxLength="225" />
+        </EntityType>
         <EntityType Name="TentativePs">
           <Key>
             <PropertyRef Name="Id" />
@@ -173,6 +199,30 @@
             </Principal>
             <Dependent Role="Department_General">
               <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExternalReview_Reviewer_fk0">
+          <End Role="ExternalReview" Type="Self.ExternalReview" Multiplicity="1" />
+          <End Role="ExternalReview_Reviewer" Type="Self.ExternalReview_Reviewer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExternalReview">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExternalReview_Reviewer">
+              <PropertyRef Name="ExternalReviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExternalReview_Reviewer_fk1">
+          <End Role="Reviewer" Type="Self.Reviewer" Multiplicity="1" />
+          <End Role="ExternalReview_Reviewer" Type="Self.ExternalReview_Reviewer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reviewer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExternalReview_Reviewer">
+              <PropertyRef Name="ReviewerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -284,6 +334,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="Proposal_fk2">
+          <End Role="ExternalReview" Type="Self.ExternalReview" Multiplicity="0..1" />
+          <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExternalReview">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Proposal">
+              <PropertyRef Name="ExternalReviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Proposer_General_fk0">
           <End Role="General" Type="Self.General" Multiplicity="1" />
           <End Role="Proposer_General" Type="Self.Proposer_General" Multiplicity="*" />
@@ -359,6 +421,8 @@
         <EntityContainer Name="GaptModelStoreContainer">
           <EntitySet Name="Demand" EntityType="Self.Demand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department_General" EntityType="Self.Department_General" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExternalReview" EntityType="Self.ExternalReview" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExternalReview_Reviewer" EntityType="Self.ExternalReview_Reviewer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="General" EntityType="Self.General" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProgrammeOfStudy" EntityType="Self.ProgrammeOfStudy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProgrammeRationale" EntityType="Self.ProgrammeRationale" Schema="dbo" store:Type="Tables" />
@@ -370,6 +434,7 @@
           <EntitySet Name="Ref_Faculty" EntityType="Self.Ref_Faculty" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ref_Level" EntityType="Self.Ref_Level" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ref_Unit" EntityType="Self.Ref_Unit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reviewer" EntityType="Self.Reviewer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TentativePs" EntityType="Self.TentativePs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Year" EntityType="Self.Year" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Year_Unit" EntityType="Self.Year_Unit" Schema="dbo" store:Type="Tables" />
@@ -380,6 +445,14 @@
           <AssociationSet Name="Department_General_fk1" Association="Self.Department_General_fk1">
             <End Role="Ref_Department" EntitySet="Ref_Department" />
             <End Role="Department_General" EntitySet="Department_General" />
+          </AssociationSet>
+          <AssociationSet Name="ExternalReview_Reviewer_fk0" Association="Self.ExternalReview_Reviewer_fk0">
+            <End Role="ExternalReview" EntitySet="ExternalReview" />
+            <End Role="ExternalReview_Reviewer" EntitySet="ExternalReview_Reviewer" />
+          </AssociationSet>
+          <AssociationSet Name="ExternalReview_Reviewer_fk1" Association="Self.ExternalReview_Reviewer_fk1">
+            <End Role="Reviewer" EntitySet="Reviewer" />
+            <End Role="ExternalReview_Reviewer" EntitySet="ExternalReview_Reviewer" />
           </AssociationSet>
           <AssociationSet Name="General_fk0" Association="Self.General_fk0">
             <End Role="Ref_Level" EntitySet="Ref_Level" />
@@ -417,6 +490,10 @@
             <End Role="ProgrammeRationale" EntitySet="ProgrammeRationale" />
             <End Role="Proposal" EntitySet="Proposal" />
           </AssociationSet>
+          <AssociationSet Name="Proposal_fk2" Association="Self.Proposal_fk2">
+            <End Role="ExternalReview" EntitySet="ExternalReview" />
+            <End Role="Proposal" EntitySet="Proposal" />
+          </AssociationSet>
           <AssociationSet Name="Proposer_General_fk0" Association="Self.Proposer_General_fk0">
             <End Role="General" EntitySet="General" />
             <End Role="Proposer_General" EntitySet="Proposer_General" />
@@ -449,6 +526,8 @@
         <EntityContainer Name="GaptDbContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Demands" EntityType="GaptModel.Demand" />
           <EntitySet Name="Department_General" EntityType="GaptModel.Department_General" />
+          <EntitySet Name="ExternalReviews" EntityType="GaptModel.ExternalReview" />
+          <EntitySet Name="ExternalReview_Reviewer" EntityType="GaptModel.ExternalReview_Reviewer" />
           <EntitySet Name="Generals" EntityType="GaptModel.General" />
           <EntitySet Name="ProgrammeOfStudies" EntityType="GaptModel.ProgrammeOfStudy" />
           <EntitySet Name="ProgrammeRationales" EntityType="GaptModel.ProgrammeRationale" />
@@ -460,6 +539,7 @@
           <EntitySet Name="Ref_Faculty" EntityType="GaptModel.Ref_Faculty" />
           <EntitySet Name="Ref_Level" EntityType="GaptModel.Ref_Level" />
           <EntitySet Name="Ref_Unit" EntityType="GaptModel.Ref_Unit" />
+          <EntitySet Name="Reviewers" EntityType="GaptModel.Reviewer" />
           <EntitySet Name="TentativePs" EntityType="GaptModel.TentativeP" />
           <EntitySet Name="Years" EntityType="GaptModel.Year" />
           <EntitySet Name="Year_Unit" EntityType="GaptModel.Year_Unit" />
@@ -474,6 +554,18 @@
           <AssociationSet Name="Department_General_fk1" Association="GaptModel.Department_General_fk1">
             <End Role="Ref_Department" EntitySet="Ref_Department" />
             <End Role="Department_General" EntitySet="Department_General" />
+          </AssociationSet>
+          <AssociationSet Name="ExternalReview_Reviewer_fk0" Association="GaptModel.ExternalReview_Reviewer_fk0">
+            <End Role="ExternalReview" EntitySet="ExternalReviews" />
+            <End Role="ExternalReview_Reviewer" EntitySet="ExternalReview_Reviewer" />
+          </AssociationSet>
+          <AssociationSet Name="Proposal_fk2" Association="GaptModel.Proposal_fk2">
+            <End Role="ExternalReview" EntitySet="ExternalReviews" />
+            <End Role="Proposal" EntitySet="Proposals" />
+          </AssociationSet>
+          <AssociationSet Name="ExternalReview_Reviewer_fk1" Association="GaptModel.ExternalReview_Reviewer_fk1">
+            <End Role="Reviewer" EntitySet="Reviewers" />
+            <End Role="ExternalReview_Reviewer" EntitySet="ExternalReview_Reviewer" />
           </AssociationSet>
           <AssociationSet Name="General_fk0" Association="GaptModel.General_fk0">
             <End Role="Ref_Level" EntitySet="Ref_Level" />
@@ -552,6 +644,24 @@
           <NavigationProperty Name="General" Relationship="GaptModel.Department_General_fk0" FromRole="Department_General" ToRole="General" />
           <NavigationProperty Name="Ref_Department" Relationship="GaptModel.Department_General_fk1" FromRole="Department_General" ToRole="Ref_Department" />
         </EntityType>
+        <EntityType Name="ExternalReview">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ExternalReview_Reviewer" Relationship="GaptModel.ExternalReview_Reviewer_fk0" FromRole="ExternalReview" ToRole="ExternalReview_Reviewer" />
+          <NavigationProperty Name="Proposals" Relationship="GaptModel.Proposal_fk2" FromRole="ExternalReview" ToRole="Proposal" />
+        </EntityType>
+        <EntityType Name="ExternalReview_Reviewer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExternalReviewId" Type="Int32" Nullable="false" />
+          <Property Name="ReviewerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ExternalReview" Relationship="GaptModel.ExternalReview_Reviewer_fk0" FromRole="ExternalReview_Reviewer" ToRole="ExternalReview" />
+          <NavigationProperty Name="Reviewer" Relationship="GaptModel.ExternalReview_Reviewer_fk1" FromRole="ExternalReview_Reviewer" ToRole="Reviewer" />
+        </EntityType>
         <EntityType Name="General">
           <Key>
             <PropertyRef Name="Id" />
@@ -609,6 +719,8 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="GeneralId" Type="Int32" />
           <Property Name="ProgrammeRationaleId" Type="Int32" />
+          <Property Name="ExternalReviewId" Type="Int32" />
+          <NavigationProperty Name="ExternalReview" Relationship="GaptModel.Proposal_fk2" FromRole="Proposal" ToRole="ExternalReview" />
           <NavigationProperty Name="General" Relationship="GaptModel.Proposal_fk0" FromRole="Proposal" ToRole="General" />
           <NavigationProperty Name="ProgrammeRationale" Relationship="GaptModel.Proposal_fk1" FromRole="Proposal" ToRole="ProgrammeRationale" />
         </EntityType>
@@ -678,6 +790,18 @@
           <NavigationProperty Name="Ref_Department" Relationship="GaptModel.Ref_Unit_fk0" FromRole="Ref_Unit" ToRole="Ref_Department" />
           <NavigationProperty Name="Year_Unit" Relationship="GaptModel.Year_Unit_fk1" FromRole="Ref_Unit" ToRole="Year_Unit" />
         </EntityType>
+        <EntityType Name="Reviewer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+          <Property Name="Affiliation" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+          <Property Name="Telephone" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ExternalReview_Reviewer" Relationship="GaptModel.ExternalReview_Reviewer_fk1" FromRole="Reviewer" ToRole="ExternalReview_Reviewer" />
+        </EntityType>
         <EntityType Name="TentativeP">
           <Key>
             <PropertyRef Name="Id" />
@@ -746,6 +870,42 @@
             </Principal>
             <Dependent Role="Department_General">
               <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExternalReview_Reviewer_fk0">
+          <End Type="GaptModel.ExternalReview" Role="ExternalReview" Multiplicity="1" />
+          <End Type="GaptModel.ExternalReview_Reviewer" Role="ExternalReview_Reviewer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExternalReview">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExternalReview_Reviewer">
+              <PropertyRef Name="ExternalReviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Proposal_fk2">
+          <End Type="GaptModel.ExternalReview" Role="ExternalReview" Multiplicity="0..1" />
+          <End Type="GaptModel.Proposal" Role="Proposal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExternalReview">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Proposal">
+              <PropertyRef Name="ExternalReviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExternalReview_Reviewer_fk1">
+          <End Type="GaptModel.Reviewer" Role="Reviewer" Multiplicity="1" />
+          <End Type="GaptModel.ExternalReview_Reviewer" Role="ExternalReview_Reviewer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reviewer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExternalReview_Reviewer">
+              <PropertyRef Name="ReviewerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -942,6 +1102,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ExternalReviews">
+            <EntityTypeMapping TypeName="GaptModel.ExternalReview">
+              <MappingFragment StoreEntitySet="ExternalReview">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExternalReview_Reviewer">
+            <EntityTypeMapping TypeName="GaptModel.ExternalReview_Reviewer">
+              <MappingFragment StoreEntitySet="ExternalReview_Reviewer">
+                <ScalarProperty Name="ReviewerId" ColumnName="ReviewerId" />
+                <ScalarProperty Name="ExternalReviewId" ColumnName="ExternalReviewId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Generals">
             <EntityTypeMapping TypeName="GaptModel.General">
               <MappingFragment StoreEntitySet="General">
@@ -984,6 +1160,7 @@
           <EntitySetMapping Name="Proposals">
             <EntityTypeMapping TypeName="GaptModel.Proposal">
               <MappingFragment StoreEntitySet="Proposal">
+                <ScalarProperty Name="ExternalReviewId" ColumnName="ExternalReviewId" />
                 <ScalarProperty Name="ProgrammeRationaleId" ColumnName="ProgrammeRationaleId" />
                 <ScalarProperty Name="GeneralId" ColumnName="GeneralId" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
@@ -1050,6 +1227,18 @@
                 <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviewers">
+            <EntityTypeMapping TypeName="GaptModel.Reviewer">
+              <MappingFragment StoreEntitySet="Reviewer">
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Affiliation" ColumnName="Affiliation" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

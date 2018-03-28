@@ -1,0 +1,60 @@
+﻿@model GAPT.ViewModels.ExternalReviewIndexViewModel
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var reviewers = Model.Reviewers;
+    //bool exists;
+    //var programmeStudy = Model.ProgrammeStudy;
+    //if (programmeStudy == null || programmeStudy.Id == 0)
+    //{
+    //    ViewBag.Title = "New Proposal";
+    //    exists = false;
+    //}
+    //else
+    //{
+    //    ViewBag.Title = "Edit Proposal";
+    //    exists = true;
+
+    //}
+    //string heading = (exists == false) ? "New Proposal" : "Edit Proposal";
+}
+
+@*<h2>@heading</h2>*@
+<h2>Section C - External Review</h2>
+@if (reviewers.Count() == 0)
+{
+    <p>This Proposal does not have any External Reviewers yet.</p>
+}
+else
+{
+    <table id="reviewers" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Affiliation</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Telephone</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reviewer in reviewers)
+            {
+                <tr>
+                    <td>@reviewer.Id</td>
+                    <td>@reviewer.Name</td>
+                    <td>@reviewer.Affiliation</td>
+                    <td>@reviewer.Address</td>
+                    <td>@reviewer.Email</td>
+                    <td>@reviewer.Telephone</td>
+                    <td>@Html.ActionLink("Edit", "Edit", "Reviewer", new { rid = reviewer.Id, pid = Model.Proposal.Id }, null) - @Html.ActionLink("Remove", "Delete", "Reviewer", new { rid = reviewer.Id, pid = Model.Proposal.Id }, null)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<input type="button" class="btn btn-success" value="New Reviewer" onclick="location.href='@Url.Action("New", "Reviewer", new { id = Model.Proposal.Id})'" /><br><br>
+<button type="submit" name="jump" value="-1" class="btn btn-primary">Previous</button>
+<button type="submit" name="jump" value="1" class="btn btn-primary">Next</button>
