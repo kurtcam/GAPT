@@ -22,6 +22,12 @@
 <h2>Section A - General</h2>
 @using (Html.BeginForm("Save", "General"))
 {
+    <div id="navbar">
+        <button type="submit" name="jump" value="A" class="btn btn-warning">Section A</button>
+        <button type="submit" name="jump" value="B" class="btn btn-warning">Section B</button>
+        <button type="submit" name="jump" value="C" class="btn btn-warning">Section C</button>
+    </div>
+    <br>
     <div class="form-group">
         @Html.LabelFor(m => m.General.Title)
         @Html.TextBoxFor(m => m.General.Title, new { @class = "form-control"})

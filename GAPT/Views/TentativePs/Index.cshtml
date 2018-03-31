@@ -1,0 +1,66 @@
+﻿@model GAPT.ViewModels.TentativePsIndexViewModel
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var years = Model.Years;
+    //bool exists;
+    //var programmeStudy = Model.ProgrammeStudy;
+    //if (programmeStudy == null || programmeStudy.Id == 0)
+    //{
+    //    ViewBag.Title = "New Proposal";
+    //    exists = false;
+    //}
+    //else
+    //{
+    //    ViewBag.Title = "Edit Proposal";
+    //    exists = true;
+
+    //}
+    //string heading = (exists == false) ? "New Proposal" : "Edit Proposal";
+}
+
+@*<h2>@heading</h2>*@
+<h2>Section B - Rationale For Programme</h2>
+<h2>Tentative Programme Of Study</h2>
+@using (Html.BeginForm("DummySave", "TentativePs"))
+{
+    <div id="navbar">
+        <button type="submit" name="jump" value="A" class="btn btn-warning">Section A</button>
+        <button type="submit" name="jump" value="B" class="btn btn-warning">Section B</button>
+        <button type="submit" name="jump" value="C" class="btn btn-warning">Section C</button>
+    </div>
+    <br>
+    if (years.Count() == 0)
+    {
+        <p>This Proposal does not have any Scholastic Years yet.</p>
+    }
+    else
+    {
+        <table id="years" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Year Number</th>
+                    <th>Total ECTs</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var year in years)
+                {
+                    <tr>
+                        <td>@year.Id</td>
+                        <td>@year.YearNo</td>
+                        <td>@year.TotalEcts</td>
+                        <td>@Html.ActionLink("Edit", "Edit", "Year", new { yid = year.Id, pid = Model.Proposal.Id }, null)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    @Html.HiddenFor(m => m.Proposal.Id)
+    <input type="button" class="btn btn-success" value="New Year" onclick="location.href='@Url.Action("New", "Year", new { id = Model.Proposal.Id})'" /><br><br>
+    <button type="submit" name="jump" value="-1" class="btn btn-primary">Previous</button>
+    <button type="submit" name="jump" value="1" class="btn btn-primary">Next</button>
+}
+

@@ -1,6 +1,7 @@
 ﻿@model GAPT.ViewModels.TentativePsFormViewModel
 @using GAPT.Models
 @{
+    
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
     bool exists;
@@ -25,6 +26,13 @@
 
 @using (Html.BeginForm("Save", "TentativePs"))
 {
+    <div id="navbar">
+        <button id="AB" type="button" name="jump" value="A" class="btn btn-warning" onclick="checkSearch()">Section A</button>
+        <button id="BB" type="button" name="jump" value="B" class="btn btn-warning" onclick="checkSearch()">Section B</button>
+        <button id="CB" type="button" name="jump" value="C" class="btn btn-warning" onclick="checkSearch()">Section C</button>
+    </div>
+    <br>
+
     if (!exists)
     {
         <table class="table table-bordered table-hover">
@@ -76,7 +84,7 @@
     }
     else
     {
-        <table class="table table-bordered table-hover">
+        <table id="units-table" class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Unit Id</th>
@@ -153,12 +161,15 @@
     @Html.HiddenFor(m => m.TentativePs.Id)
     @Html.HiddenFor(m => m.Proposal.Id)
     @Html.AntiForgeryToken()
-    <button type="submit" name="jump" value="-1" class="btn btn-primary">Previous</button>
-    <button type="submit" name="jump" value="0" class="btn btn-primary">Save</button>
-    <button type="submit" name="jump" value="1" class="btn btn-primary">Next</button>
-    
+    <br>
+    <button id="PrevB" type="button" name="jump" value="-1" class="btn btn-primary" onclick="checkSearch()">Previous</button>
+    <button id="SaveB" type="button" name="jump" value="0" class="btn btn-primary" onclick="checkSearch()">Save</button>
+    <button id="NextB" type="button" name="jump" value="1" class="btn btn-primary" onclick="checkSearch()">Next</button>
+
 }
 @section Scripts{
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.1/sl-1.2.5/datatables.min.js"></script>
+
     <script>
         $(document).ready(function () {
             $('.clickable').click(function (event) {
@@ -174,6 +185,57 @@
                     $(this).closest('tr').removeClass("highlight-row");
                 }
             });
+
+            $(document).ready(function () {
+                $('#units-table').DataTable(
+                    {
+                        "columnDefs": [
+                            { "orderable": false, "targets": [3,4,5,6,7,8] }
+                        ]
+                    }
+                );
+            });
         });
     </script>
+    
+    <script>
+        function checkSearch() {
+            var value = $('.dataTables_filter input').val();
+            var n = value.length;
+            if (n > 0) {
+                var pb = document.getElementById("PrevB");
+                var sb = document.getElementById("SaveB");
+                var nb = document.getElementById("NextB");
+                var ab = document.getElementById("AB");
+                var bb = document.getElementById("BB");
+                var cb = document.getElementById("CB");
+                pb.type = "button";
+                sb.type = "button";
+                nb.type = "button";
+                ab.type = "button";
+                bb.type = "button";
+                cb.type = "button";
+                alert("Please clear search field.");
+            } else {
+                var pb = document.getElementById("PrevB");
+                var sb = document.getElementById("SaveB");
+                var nb = document.getElementById("NextB");
+                var ab = document.getElementById("AB");
+                var bb = document.getElementById("BB");
+                var cb = document.getElementById("CB");
+                pb.type = "submit";
+                sb.type = "submit";
+                nb.type = "submit";
+                ab.type = "submit";
+                bb.type = "submit";
+                cb.type = "submit";
+            }
+        }
+    </script>
+
+}
+
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.1/sl-1.2.5/datatables.min.css" />
+
 }

@@ -202,7 +202,9 @@
     <Compile Include="Controllers\ProposalController.cs" />
     <Compile Include="Controllers\RationaleController.cs" />
     <Compile Include="Controllers\ReviewerController.cs" />
+    <Compile Include="Controllers\TentativePs2Controller.cs" />
     <Compile Include="Controllers\TentativePsController.cs" />
+    <Compile Include="Controllers\YearController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -292,6 +294,8 @@
     <Compile Include="ViewModels\RationaleFormViewModel.cs" />
     <Compile Include="ViewModels\ReviewerFormViewModel.cs" />
     <Compile Include="ViewModels\TentativePsFormViewModel.cs" />
+    <Compile Include="ViewModels\TentativePsIndexViewModel.cs" />
+    <Compile Include="ViewModels\YearFormViewModel.cs" />
     <Compile Include="ViewModels\YearTotalsFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -391,10 +395,12 @@
     <Content Include="Views\Rationale\Form.cshtml" />
     <Content Include="Views\Demand\Form.cshtml" />
     <Content Include="Views\ProgrammeStudy\Form.cshtml" />
-    <Content Include="Views\TentativePs\Form.cshtml" />
-    <Content Include="Views\TentativePs\YearTotalsForm.cshtml" />
+    <Content Include="Views\TentativePs2\Form.cshtml" />
+    <Content Include="Views\TentativePs2\YearTotalsForm.cshtml" />
     <Content Include="Views\ExternalReview\Index.cshtml" />
     <Content Include="Views\Reviewer\Form.cshtml" />
+    <Content Include="Views\TentativePs\Index.cshtml" />
+    <Content Include="Views\Year\Form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

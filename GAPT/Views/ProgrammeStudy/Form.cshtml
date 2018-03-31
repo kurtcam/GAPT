@@ -23,6 +23,12 @@
 <h2>Programme of Study</h2>
 @using (Html.BeginForm("Save", "ProgrammeStudy"))
 {
+    <div id="navbar">
+        <button type="submit" name="jump" value="A" class="btn btn-warning">Section A</button>
+        <button type="submit" name="jump" value="B" class="btn btn-warning">Section B</button>
+        <button type="submit" name="jump" value="C" class="btn btn-warning">Section C</button>
+    </div>
+    <br>
     <div class="form-group">
         @Html.LabelFor(m => m.ProgrammeStudy.KnowledgeUnderstanding)
         @Html.TextAreaFor(m => m.ProgrammeStudy.KnowledgeUnderstanding, new { @class = "form-control", rows = 10 })

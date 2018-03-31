@@ -77,24 +77,42 @@ namespace GAPT.Controllers
 
             _context.SaveChanges();
             var jump = Request["jump"];
-            if (jump == "-1")
+            switch (jump)
             {
-                //go previous
-                return RedirectToAction("Edit", "Rationale", new { id = proposal.Id });
-            }
-            else if (jump == "0")
-            {
-                // Save pressed -> return form
-                return RedirectToAction("Edit", "Demand", new { id = proposal.Id });
-            }
-            else if (jump == "1")
-            {
-                // Next pressed -> return next page
-                return RedirectToAction("Jump", "Demand", new { id = proposal.Id });
-            }
-            else
-            {
-                return RedirectToAction("Index", "Proposal");
+                case "0":
+                    {
+                        // Save pressed -> return form
+                        return RedirectToAction("Edit", "Demand", new { id = proposal.Id });
+                    }
+                case "-1":
+                    {
+                        // Previous pressed -> return form
+                        return RedirectToAction("Edit", "Rationale", new { id = proposal.Id });
+                    }
+                case "1":
+                    {
+                        // Next pressed -> return next page
+                        return RedirectToAction("Jump", "Demand", new { id = proposal.Id });
+                    }
+                case "A":
+                    {
+                        // A pressed -> go to Section A
+                        return RedirectToAction("Edit", "General", new { id = proposal.Id });
+                    }
+                case "B":
+                    {
+                        // B pressed -> go to Section B
+                        return RedirectToAction("Edit", "Rationale", new { id = proposal.Id });
+                    }
+                case "C":
+                    {
+                        // C pressed -> go to Section C
+                        return RedirectToAction("Jump", "ExternalReview", new { id = proposal.Id });
+                    }
+                default:
+                    {
+                        return RedirectToAction("Index", "Proposal");
+                    }
             }
 
         }

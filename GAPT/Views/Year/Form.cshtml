@@ -1,0 +1,237 @@
+﻿@model GAPT.ViewModels.YearFormViewModel
+@using GAPT.Models
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var year = Model.Year;
+    bool exists;
+    if (year == null || year.Id == 0)
+    {
+        exists = false;
+    }
+    else
+    {
+        exists = true;
+
+    }
+}
+<h2>Year @year.YearNo</h2>
+@using (Html.BeginForm("Save", "Year"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Year.TotalEcts)
+        @Html.TextBoxFor(m => m.Year.TotalEcts, new { @class = "form-control", type="number" })
+        @Html.ValidationMessageFor(m => m.Year.TotalEcts)
+    </div>
+    if (!exists)
+    {
+        <table id="units-table" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Code</th>
+                    <th>Title</th>
+                    <th>Period</th>
+                    <th>Credit Value</th>
+                    <th>C/O/E</th>
+                    <th>Lecturer</th>
+                    @if (Model.Proposal.GetGeneral().LevelId == 1)
+                    {
+                        <th>Compensating</th>
+                        <th>Reason</th>
+                    }
+                    <th>Select</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Ref_Unit unit in Model.AllUnits)
+                {
+                    <tr class='clickable-row'>
+                        <td>@unit.Id</td>
+                        <td>@unit.Code</td>
+                        <td>@unit.Title</td>
+                        <td>
+                            <select class="form-control" name="period_@unit.Id">
+                                <option value="1">Sem 1</option>
+                                <option value="2">Sem 2</option>
+                                <option value="3">YR</option>
+                                <option value="4">SP</option>
+                            </select>
+                        </td>
+                        <td><input name="credits_@unit.Id" style="width:100%" class="form-control" placeholder="Choose credit value" min=0 type="number"></td>
+
+                        <td>
+                            <select class="form-control" name="coe_@unit.Id">
+                                <option value="1">Compulsory</option>
+                                <option value="2">Optional</option>
+                                <option value="3">Elective</option>
+                            </select>
+                        </td>
+                        <td><input name="lecturer_@unit.Id" style="width:100%" class="form-control" placeholder="Enter lecturers' names" type="text"></td>
+                        @if (Model.Proposal.GetGeneral().LevelId == 1)
+                        {
+                            <td class="clickable"><input type="checkbox" name="comp_@unit.Id"></td>
+                            <td><input name="reason_@unit.Id" style="width:100%" class="form-control" placeholder="Enter compensating reason" type="text"></td>
+                        }
+                        <td class="clickable selectable"><input class="selectable" type="checkbox" name=@unit.Id></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <table id="units-table" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Unit Id</th>
+                    <th>Code</th>
+                    <th>Title</th>
+                    <th>Period</th>
+                    <th>Credit Value</th>
+                    <th>C/O/E</th>
+                    <th>Lecturer</th>
+                    @if (Model.Proposal.GetGeneral().LevelId == 1)
+                    {
+                        <th>Compensating</th>
+                        <th>Reason</th>
+                    }
+                    <th>Select</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Year_Unit yu in Model.SelectedUnits)
+                {
+                    <tr class='highlight-row'>
+                        <td>@yu.GetUnit().Id</td>
+                        <td>@yu.GetUnit().Code</td>
+                        <td>@yu.GetUnit().Title</td>
+                        <td>
+                            <select value="@yu.Period" class="form-control" name="period_@yu.UnitId">
+                                <option selected=@(yu.Period == 1?true:false) value="1">Sem 1</option>
+                                <option selected=@(yu.Period == 2?true:false) value="2">Sem 2</option>
+                                <option selected=@(yu.Period == 3?true:false) value="3">YR</option>
+                                <option selected=@(yu.Period == 4?true:false) value="4">SP</option>
+                            </select>
+                        </td>
+                        <td><input value="@yu.Ects" name="credits_@yu.UnitId" style="width:100%" class="form-control" placeholder="Choose credit value" min=0 type="number"></td>
+
+                        <td>
+                            <select class="form-control" name="coe_@yu.UnitId">
+                                <option selected=@(yu.Coe == 1?true:false) value="1">Compulsory</option>
+                                <option selected=@(yu.Coe == 2?true:false) value="2">Optional</option>
+                                <option selected=@(yu.Coe == 3?true:false) value="3">Elective</option>
+                            </select>
+                        </td>
+                        <td><input value="@yu.Lecturer" name="lecturer_@yu.UnitId" style="width:100%" class="form-control" placeholder="Enter lecturers' names" type="text"></td>
+                        @if (Model.Proposal.GetGeneral().LevelId == 1)
+                        {
+                            <td class="clickable"><input checked=@(yu.Compensating == 1?true:false) type="checkbox" name="comp_@yu.UnitId"></td>
+                            <td><input value="@yu.CompensatingReason" name="reason_@yu.UnitId" style="width:100%" class="form-control" placeholder="Enter compensating reason" type="text"></td>
+                        }
+                        <td class="clickable selectable"><input class="selectable" checked type="checkbox" name=@yu.UnitId></td>
+                    </tr>
+                }
+                @foreach (Ref_Unit unit in Model.UnselectedUnits)
+                {
+                    <tr>
+                        <td>@unit.Id</td>
+                        <td>@unit.Code</td>
+                        <td>@unit.Title</td>
+                        <td>
+                            <select class="form-control" name="period_@unit.Id">
+                                <option value="1">Sem 1</option>
+                                <option value="2">Sem 2</option>
+                                <option value="3">YR</option>
+                                <option value="4">SP</option>
+                            </select>
+                        </td>
+                        <td><input name="credits_@unit.Id" style="width:100%" class="form-control" placeholder="Choose credit value" min=0 type="number"></td>
+
+                        <td>
+                            <select class="form-control" name="coe_@unit.Id">
+                                <option value="1">Compulsory</option>
+                                <option value="2">Optional</option>
+                                <option value="3">Elective</option>
+                            </select>
+                        </td>
+                        <td><input name="lecturer_@unit.Id" style="width:100%" class="form-control" placeholder="Enter lecturers' names" type="text"></td>
+                        @if (Model.Proposal.GetGeneral().LevelId == 1)
+                        {
+                            <td class="clickable"><input type="checkbox" name="comp_@unit.Id"></td>
+                            <td><input name="reason_@unit.Id" style="width:100%" class="form-control" placeholder="Enter compensating reason" type="text"></td>
+                        }
+                        <td class="clickable"><input class="selectable" type="checkbox" name=@unit.Id></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    @Html.HiddenFor(m => m.Proposal.Id)
+    @Html.HiddenFor(m => m.Year.YearNo)
+    @Html.AntiForgeryToken()
+    if (@exists)
+    {
+        @Html.HiddenFor(m => m.Year.Id)
+        @*<input type="button" class="btn btn-danger" value="Delete review" onclick="location.href='@Url.Action("Remove", "Review", new { id = Model.Id })'" />*@
+    }
+    <button id="SaveB" type="button" class="btn btn-primary" onclick="checkSearch()">Save</button>
+    <input type="button" class="btn btn-danger" value="Cancel" onclick="location.href='@Url.Action("Index", "TentativePs", new { id = Model.Proposal.Id })'" />
+}
+@section Scripts{
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.1/sl-1.2.5/datatables.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $('.clickable').click(function (event) {
+                if (event.target.type !== 'checkbox') {
+                    $(':checkbox', this).trigger('click');
+                }
+            });
+
+            $("input[type='checkbox']").change(function (e) {
+                if ($(this).hasClass("selectable")) {
+                    if ($(this).is(":checked")) {
+                        $(this).closest('tr').addClass("highlight-row");
+                    } else {
+                        $(this).closest('tr').removeClass("highlight-row");
+                    }
+                }
+                
+            });
+
+            $(document).ready(function () {
+                $('#units-table').DataTable(
+                    {
+                        "columnDefs": [
+                            { "orderable": false, "targets": [3, 4, 5, 6, 7, 8, 9] }
+                        ],
+                        /* Disable initial sort */
+                        "aaSorting": []
+                    }
+                );
+            });
+        });
+    </script>
+
+    <script>
+            function checkSearch() {
+                var value = $('.dataTables_filter input').val();
+                var n = value.length;
+                if (n > 0) {
+                    var sb = document.getElementById("SaveB");
+                    sb.type = "button";
+                    alert("Please clear search field.");
+                } else {
+                    var sb = document.getElementById("SaveB");
+                    sb.type = "submit";
+                }
+            }
+    </script>
+}
+
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.1/sl-1.2.5/datatables.min.css" />
+
+}

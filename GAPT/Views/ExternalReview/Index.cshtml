@@ -21,12 +21,20 @@
 
 @*<h2>@heading</h2>*@
 <h2>Section C - External Review</h2>
-@if (reviewers.Count() == 0)
+@using (Html.BeginForm("DummySave", "ExternalReview"))
 {
+    <div id="navbar">
+        <button type="submit" name="jump" value="A" class="btn btn-warning">Section A</button>
+        <button type="submit" name="jump" value="B" class="btn btn-warning">Section B</button>
+        <button type="submit" name="jump" value="C" class="btn btn-warning">Section C</button>
+    </div>
+    <br>
+    if (reviewers.Count() == 0)
+    {
     <p>This Proposal does not have any External Reviewers yet.</p>
-}
-else
-{
+   }
+   else
+   {
     <table id="reviewers" class="table table-bordered table-hover">
         <thead>
             <tr>
@@ -54,7 +62,10 @@ else
             }
         </tbody>
     </table>
+    }
+    @Html.HiddenFor(m => m.Proposal.Id)
+    <input type="button" class="btn btn-success" value="New Reviewer" onclick="location.href='@Url.Action("New", "Reviewer", new { id = Model.Proposal.Id})'" /><br><br>
+    <button type="submit" name="jump" value="-1" class="btn btn-primary">Previous</button>
+    <button type="submit" name="jump" value="1" class="btn btn-primary">Next</button>
 }
-<input type="button" class="btn btn-success" value="New Reviewer" onclick="location.href='@Url.Action("New", "Reviewer", new { id = Model.Proposal.Id})'" /><br><br>
-<button type="submit" name="jump" value="-1" class="btn btn-primary">Previous</button>
-<button type="submit" name="jump" value="1" class="btn btn-primary">Next</button>
+

@@ -23,8 +23,14 @@
 <h2>Section B - Rationale For Programme</h2>
 <h2>Tentative Programme Of Study</h2>
 
-@using (Html.BeginForm("UpdateCredits", "TentativePs", new { id = Model.Proposal.Id}))
+@using (Html.BeginForm("UpdateCredits", "TentativePs", new { id = Model.Proposal.Id }))
 {
+    <div id="navbar">
+        <button type="submit" name="jump" value="A" class="btn btn-warning">Section A</button>
+        <button type="submit" name="jump" value="B" class="btn btn-warning">Section B</button>
+        <button type="submit" name="jump" value="C" class="btn btn-warning">Section C</button>
+    </div>
+    <br>
     foreach (int yearNo in Model.Pairs.Keys)
     {
         <div class="form-group">

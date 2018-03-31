@@ -21,7 +21,7 @@ namespace GAPT.Controllers
         {
             _context.Dispose();
         }
-        
+
         public ActionResult Index(int id)
         {
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == id);
@@ -59,6 +59,46 @@ namespace GAPT.Controllers
             {
                 return RedirectToAction("Index", "ExternalReview", new { id = proposal.Id });
             }
+        }
+
+        [HttpPost]
+        public ActionResult DummySave(ExternalReviewIndexViewModel vm)
+        {
+            var proposal = _context.Proposals.SingleOrDefault(m => m.Id == vm.Proposal.Id);
+            var jump = Request["jump"];
+            switch (jump)
+            {
+                case "-1":
+                    {
+                        // Previous pressed -> return form
+                        return RedirectToAction("Index", "TentativePs", new { id = proposal.Id });
+                    }
+                case "1":
+                    {
+                        // Next pressed -> return next page
+                        return RedirectToAction("Jump", "Demand", new { id = proposal.Id });
+                    }
+                case "A":
+                    {
+                        // A pressed -> go to Section A
+                        return RedirectToAction("Edit", "General", new { id = proposal.Id });
+                    }
+                case "B":
+                    {
+                        // B pressed -> go to Section B
+                        return RedirectToAction("Jump", "Rationale", new { id = proposal.Id });
+                    }
+                case "C":
+                    {
+                        // C pressed -> go to Section C
+                        return RedirectToAction("Index", "ExternalReview", new { id = proposal.Id });
+                    }
+                default:
+                    {
+                        return RedirectToAction("Index", "Proposal");
+                    }
+            }
+
         }
     }
 }

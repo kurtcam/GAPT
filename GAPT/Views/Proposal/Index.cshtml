@@ -18,6 +18,7 @@ else
                 <th>Created By</th>
                 <th>Created On</th>
                 <th>General Id</th>
+                <th>PR Id</th>
                 <th></th>
             </tr>
         </thead>
@@ -29,6 +30,7 @@ else
                     <td>@proposal.CreatedBy</td>
                     <td>@proposal.CreatedOn</td>
                     <td>@proposal.GeneralId</td>
+                    <td>@proposal.ProgrammeRationaleId</td>
                     <td>@Html.ActionLink("Edit", "Edit", "General", new { id = proposal.GeneralId }, null)</td>
                 </tr>
             }

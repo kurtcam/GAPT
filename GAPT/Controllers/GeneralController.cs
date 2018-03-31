@@ -149,18 +149,35 @@ namespace GAPT.Controllers
             _context.SaveChanges();
             var jump = Request["jump"];
             var prop = general.GetProposal();
-            if (jump == "0")
-            {
-                // Save pressed -> return form
-                return RedirectToAction("Edit", "General", new { id = general.Id});
-            }
-            else if (jump == "1")
-            {
-                // Next pressed -> return next page
-                return RedirectToAction("Jump", "ProgrammeRationale", new { id = prop.Id});
-            }
-            else {
-                return RedirectToAction("Index", "Proposal");
+            switch (jump) {
+                case "0": {
+                        // Save pressed -> return form
+                        return RedirectToAction("Edit", "General", new { id = general.Id });
+                    }
+                case "1":
+                    {
+                        // Next pressed -> return next page
+                        return RedirectToAction("Jump", "ProgrammeRationale", new { id = prop.Id });
+                    }
+                case "A":
+                    {
+                        // A pressed -> go to Section A
+                        return RedirectToAction("Edit", "General", new { id = general.Id });
+                    }
+                case "B":
+                    {
+                        // B pressed -> go to Section B
+                        return RedirectToAction("Jump", "ProgrammeRationale", new { id = prop.Id });
+                    }
+                case "C":
+                    {
+                        // C pressed -> go to Section C
+                        return RedirectToAction("Jump", "ExternalReview", new { id = prop.Id });
+                    }
+                default:
+                    {
+                        return RedirectToAction("Index", "Proposal");
+                    }
             }
             
         }
