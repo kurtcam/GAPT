@@ -76,7 +76,7 @@ namespace GAPT.Controllers
                 case "1":
                     {
                         // Next pressed -> return next page
-                        return RedirectToAction("Jump", "Demand", new { id = proposal.Id });
+                        return RedirectToAction("Index", "EndorsementStatement", new { id = proposal.Id });
                     }
                 case "A":
                     {

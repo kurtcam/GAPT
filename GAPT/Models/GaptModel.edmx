@@ -22,11 +22,30 @@
           <Property Name="DepartmentId" Type="int" Nullable="false" />
           <Property Name="Type" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="EndorsementCollab">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentId" Type="int" />
+          <Property Name="Selection" Type="bit" />
+          <Property Name="HeldDate" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SignedBy" Type="varchar" MaxLength="225" />
+          <Property Name="SignedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="ExternalReview">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExternalReview_Endorsement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExternalReviewId" Type="int" Nullable="false" />
+          <Property Name="EndorsementId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ExternalReview_Reviewer">
           <Key>
@@ -35,6 +54,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ExternalReviewId" Type="int" Nullable="false" />
           <Property Name="ReviewerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExternalReview_Statement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExternalReviewId" Type="int" Nullable="false" />
+          <Property Name="StatementId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="General">
           <Key>
@@ -149,6 +176,17 @@
           <Property Name="Email" Type="varchar" MaxLength="225" />
           <Property Name="Telephone" Type="varchar" MaxLength="225" />
         </EntityType>
+        <EntityType Name="StatementServ">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentId" Type="int" />
+          <Property Name="Selection" Type="bit" />
+          <Property Name="Reservations" Type="text" Nullable="false" />
+          <Property Name="SignedBy" Type="varchar" MaxLength="225" />
+          <Property Name="SignedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="TentativePs">
           <Key>
             <PropertyRef Name="Id" />
@@ -202,6 +240,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ExternalReview_Endorsement_fk0">
+          <End Role="ExternalReview" Type="Self.ExternalReview" Multiplicity="1" />
+          <End Role="ExternalReview_Endorsement" Type="Self.ExternalReview_Endorsement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExternalReview">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExternalReview_Endorsement">
+              <PropertyRef Name="ExternalReviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExternalReview_Endorsement_fk1">
+          <End Role="EndorsementCollab" Type="Self.EndorsementCollab" Multiplicity="1" />
+          <End Role="ExternalReview_Endorsement" Type="Self.ExternalReview_Endorsement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EndorsementCollab">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExternalReview_Endorsement">
+              <PropertyRef Name="EndorsementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="ExternalReview_Reviewer_fk0">
           <End Role="ExternalReview" Type="Self.ExternalReview" Multiplicity="1" />
           <End Role="ExternalReview_Reviewer" Type="Self.ExternalReview_Reviewer" Multiplicity="*" />
@@ -223,6 +285,42 @@
             </Principal>
             <Dependent Role="ExternalReview_Reviewer">
               <PropertyRef Name="ReviewerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExternalReview_Statement_fk0">
+          <End Role="ExternalReview" Type="Self.ExternalReview" Multiplicity="1" />
+          <End Role="ExternalReview_Statement" Type="Self.ExternalReview_Statement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExternalReview">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExternalReview_Statement">
+              <PropertyRef Name="ExternalReviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExternalReview_Statement_fk1">
+          <End Role="StatementServ" Type="Self.StatementServ" Multiplicity="1" />
+          <End Role="ExternalReview_Statement" Type="Self.ExternalReview_Statement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatementServ">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExternalReview_Statement">
+              <PropertyRef Name="StatementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Endorseme__Depar__6339AFF7">
+          <End Role="Ref_Department" Type="Self.Ref_Department" Multiplicity="0..1" />
+          <End Role="EndorsementCollab" Type="Self.EndorsementCollab" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ref_Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EndorsementCollab">
+              <PropertyRef Name="DepartmentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -382,6 +480,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="StatementServ_fk0">
+          <End Role="Ref_Department" Type="Self.Ref_Department" Multiplicity="0..1" />
+          <End Role="StatementServ" Type="Self.StatementServ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ref_Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StatementServ">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Year_fk0">
           <End Role="TentativePs" Type="Self.TentativePs" Multiplicity="0..1" />
           <End Role="Year" Type="Self.Year" Multiplicity="*" />
@@ -421,8 +531,11 @@
         <EntityContainer Name="GaptModelStoreContainer">
           <EntitySet Name="Demand" EntityType="Self.Demand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department_General" EntityType="Self.Department_General" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EndorsementCollab" EntityType="Self.EndorsementCollab" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExternalReview" EntityType="Self.ExternalReview" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExternalReview_Endorsement" EntityType="Self.ExternalReview_Endorsement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExternalReview_Reviewer" EntityType="Self.ExternalReview_Reviewer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExternalReview_Statement" EntityType="Self.ExternalReview_Statement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="General" EntityType="Self.General" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProgrammeOfStudy" EntityType="Self.ProgrammeOfStudy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProgrammeRationale" EntityType="Self.ProgrammeRationale" Schema="dbo" store:Type="Tables" />
@@ -435,6 +548,7 @@
           <EntitySet Name="Ref_Level" EntityType="Self.Ref_Level" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ref_Unit" EntityType="Self.Ref_Unit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reviewer" EntityType="Self.Reviewer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatementServ" EntityType="Self.StatementServ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TentativePs" EntityType="Self.TentativePs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Year" EntityType="Self.Year" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Year_Unit" EntityType="Self.Year_Unit" Schema="dbo" store:Type="Tables" />
@@ -446,6 +560,14 @@
             <End Role="Ref_Department" EntitySet="Ref_Department" />
             <End Role="Department_General" EntitySet="Department_General" />
           </AssociationSet>
+          <AssociationSet Name="ExternalReview_Endorsement_fk0" Association="Self.ExternalReview_Endorsement_fk0">
+            <End Role="ExternalReview" EntitySet="ExternalReview" />
+            <End Role="ExternalReview_Endorsement" EntitySet="ExternalReview_Endorsement" />
+          </AssociationSet>
+          <AssociationSet Name="ExternalReview_Endorsement_fk1" Association="Self.ExternalReview_Endorsement_fk1">
+            <End Role="EndorsementCollab" EntitySet="EndorsementCollab" />
+            <End Role="ExternalReview_Endorsement" EntitySet="ExternalReview_Endorsement" />
+          </AssociationSet>
           <AssociationSet Name="ExternalReview_Reviewer_fk0" Association="Self.ExternalReview_Reviewer_fk0">
             <End Role="ExternalReview" EntitySet="ExternalReview" />
             <End Role="ExternalReview_Reviewer" EntitySet="ExternalReview_Reviewer" />
@@ -453,6 +575,18 @@
           <AssociationSet Name="ExternalReview_Reviewer_fk1" Association="Self.ExternalReview_Reviewer_fk1">
             <End Role="Reviewer" EntitySet="Reviewer" />
             <End Role="ExternalReview_Reviewer" EntitySet="ExternalReview_Reviewer" />
+          </AssociationSet>
+          <AssociationSet Name="ExternalReview_Statement_fk0" Association="Self.ExternalReview_Statement_fk0">
+            <End Role="ExternalReview" EntitySet="ExternalReview" />
+            <End Role="ExternalReview_Statement" EntitySet="ExternalReview_Statement" />
+          </AssociationSet>
+          <AssociationSet Name="ExternalReview_Statement_fk1" Association="Self.ExternalReview_Statement_fk1">
+            <End Role="StatementServ" EntitySet="StatementServ" />
+            <End Role="ExternalReview_Statement" EntitySet="ExternalReview_Statement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Endorseme__Depar__6339AFF7" Association="Self.FK__Endorseme__Depar__6339AFF7">
+            <End Role="Ref_Department" EntitySet="Ref_Department" />
+            <End Role="EndorsementCollab" EntitySet="EndorsementCollab" />
           </AssociationSet>
           <AssociationSet Name="General_fk0" Association="Self.General_fk0">
             <End Role="Ref_Level" EntitySet="Ref_Level" />
@@ -506,6 +640,10 @@
             <End Role="Ref_Department" EntitySet="Ref_Department" />
             <End Role="Ref_Unit" EntitySet="Ref_Unit" />
           </AssociationSet>
+          <AssociationSet Name="StatementServ_fk0" Association="Self.StatementServ_fk0">
+            <End Role="Ref_Department" EntitySet="Ref_Department" />
+            <End Role="StatementServ" EntitySet="StatementServ" />
+          </AssociationSet>
           <AssociationSet Name="Year_fk0" Association="Self.Year_fk0">
             <End Role="TentativePs" EntitySet="TentativePs" />
             <End Role="Year" EntitySet="Year" />
@@ -526,8 +664,11 @@
         <EntityContainer Name="GaptDbContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Demands" EntityType="GaptModel.Demand" />
           <EntitySet Name="Department_General" EntityType="GaptModel.Department_General" />
+          <EntitySet Name="EndorsementCollabs" EntityType="GaptModel.EndorsementCollab" />
           <EntitySet Name="ExternalReviews" EntityType="GaptModel.ExternalReview" />
+          <EntitySet Name="ExternalReview_Endorsement" EntityType="GaptModel.ExternalReview_Endorsement" />
           <EntitySet Name="ExternalReview_Reviewer" EntityType="GaptModel.ExternalReview_Reviewer" />
+          <EntitySet Name="ExternalReview_Statement" EntityType="GaptModel.ExternalReview_Statement" />
           <EntitySet Name="Generals" EntityType="GaptModel.General" />
           <EntitySet Name="ProgrammeOfStudies" EntityType="GaptModel.ProgrammeOfStudy" />
           <EntitySet Name="ProgrammeRationales" EntityType="GaptModel.ProgrammeRationale" />
@@ -540,6 +681,7 @@
           <EntitySet Name="Ref_Level" EntityType="GaptModel.Ref_Level" />
           <EntitySet Name="Ref_Unit" EntityType="GaptModel.Ref_Unit" />
           <EntitySet Name="Reviewers" EntityType="GaptModel.Reviewer" />
+          <EntitySet Name="StatementServs" EntityType="GaptModel.StatementServ" />
           <EntitySet Name="TentativePs" EntityType="GaptModel.TentativeP" />
           <EntitySet Name="Years" EntityType="GaptModel.Year" />
           <EntitySet Name="Year_Unit" EntityType="GaptModel.Year_Unit" />
@@ -555,9 +697,25 @@
             <End Role="Ref_Department" EntitySet="Ref_Department" />
             <End Role="Department_General" EntitySet="Department_General" />
           </AssociationSet>
+          <AssociationSet Name="ExternalReview_Endorsement_fk1" Association="GaptModel.ExternalReview_Endorsement_fk1">
+            <End Role="EndorsementCollab" EntitySet="EndorsementCollabs" />
+            <End Role="ExternalReview_Endorsement" EntitySet="ExternalReview_Endorsement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Endorseme__Depar__6339AFF7" Association="GaptModel.FK__Endorseme__Depar__6339AFF7">
+            <End Role="Ref_Department" EntitySet="Ref_Department" />
+            <End Role="EndorsementCollab" EntitySet="EndorsementCollabs" />
+          </AssociationSet>
+          <AssociationSet Name="ExternalReview_Endorsement_fk0" Association="GaptModel.ExternalReview_Endorsement_fk0">
+            <End Role="ExternalReview" EntitySet="ExternalReviews" />
+            <End Role="ExternalReview_Endorsement" EntitySet="ExternalReview_Endorsement" />
+          </AssociationSet>
           <AssociationSet Name="ExternalReview_Reviewer_fk0" Association="GaptModel.ExternalReview_Reviewer_fk0">
             <End Role="ExternalReview" EntitySet="ExternalReviews" />
             <End Role="ExternalReview_Reviewer" EntitySet="ExternalReview_Reviewer" />
+          </AssociationSet>
+          <AssociationSet Name="ExternalReview_Statement_fk0" Association="GaptModel.ExternalReview_Statement_fk0">
+            <End Role="ExternalReview" EntitySet="ExternalReviews" />
+            <End Role="ExternalReview_Statement" EntitySet="ExternalReview_Statement" />
           </AssociationSet>
           <AssociationSet Name="Proposal_fk2" Association="GaptModel.Proposal_fk2">
             <End Role="ExternalReview" EntitySet="ExternalReviews" />
@@ -566,6 +724,10 @@
           <AssociationSet Name="ExternalReview_Reviewer_fk1" Association="GaptModel.ExternalReview_Reviewer_fk1">
             <End Role="Reviewer" EntitySet="Reviewers" />
             <End Role="ExternalReview_Reviewer" EntitySet="ExternalReview_Reviewer" />
+          </AssociationSet>
+          <AssociationSet Name="ExternalReview_Statement_fk1" Association="GaptModel.ExternalReview_Statement_fk1">
+            <End Role="StatementServ" EntitySet="StatementServs" />
+            <End Role="ExternalReview_Statement" EntitySet="ExternalReview_Statement" />
           </AssociationSet>
           <AssociationSet Name="General_fk0" Association="GaptModel.General_fk0">
             <End Role="Ref_Level" EntitySet="Ref_Level" />
@@ -611,6 +773,10 @@
             <End Role="Ref_Department" EntitySet="Ref_Department" />
             <End Role="Ref_Unit" EntitySet="Ref_Unit" />
           </AssociationSet>
+          <AssociationSet Name="StatementServ_fk0" Association="GaptModel.StatementServ_fk0">
+            <End Role="Ref_Department" EntitySet="Ref_Department" />
+            <End Role="StatementServ" EntitySet="StatementServs" />
+          </AssociationSet>
           <AssociationSet Name="Year_Unit_fk1" Association="GaptModel.Year_Unit_fk1">
             <End Role="Ref_Unit" EntitySet="Ref_Unit" />
             <End Role="Year_Unit" EntitySet="Year_Unit" />
@@ -644,13 +810,38 @@
           <NavigationProperty Name="General" Relationship="GaptModel.Department_General_fk0" FromRole="Department_General" ToRole="General" />
           <NavigationProperty Name="Ref_Department" Relationship="GaptModel.Department_General_fk1" FromRole="Department_General" ToRole="Ref_Department" />
         </EntityType>
+        <EntityType Name="EndorsementCollab">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="Selection" Type="Boolean" />
+          <Property Name="HeldDate" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SignedBy" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+          <Property Name="SignedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ExternalReview_Endorsement" Relationship="GaptModel.ExternalReview_Endorsement_fk1" FromRole="EndorsementCollab" ToRole="ExternalReview_Endorsement" />
+          <NavigationProperty Name="Ref_Department" Relationship="GaptModel.FK__Endorseme__Depar__6339AFF7" FromRole="EndorsementCollab" ToRole="Ref_Department" />
+        </EntityType>
         <EntityType Name="ExternalReview">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ExternalReview_Endorsement" Relationship="GaptModel.ExternalReview_Endorsement_fk0" FromRole="ExternalReview" ToRole="ExternalReview_Endorsement" />
           <NavigationProperty Name="ExternalReview_Reviewer" Relationship="GaptModel.ExternalReview_Reviewer_fk0" FromRole="ExternalReview" ToRole="ExternalReview_Reviewer" />
+          <NavigationProperty Name="ExternalReview_Statement" Relationship="GaptModel.ExternalReview_Statement_fk0" FromRole="ExternalReview" ToRole="ExternalReview_Statement" />
           <NavigationProperty Name="Proposals" Relationship="GaptModel.Proposal_fk2" FromRole="ExternalReview" ToRole="Proposal" />
+        </EntityType>
+        <EntityType Name="ExternalReview_Endorsement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExternalReviewId" Type="Int32" Nullable="false" />
+          <Property Name="EndorsementId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EndorsementCollab" Relationship="GaptModel.ExternalReview_Endorsement_fk1" FromRole="ExternalReview_Endorsement" ToRole="EndorsementCollab" />
+          <NavigationProperty Name="ExternalReview" Relationship="GaptModel.ExternalReview_Endorsement_fk0" FromRole="ExternalReview_Endorsement" ToRole="ExternalReview" />
         </EntityType>
         <EntityType Name="ExternalReview_Reviewer">
           <Key>
@@ -661,6 +852,16 @@
           <Property Name="ReviewerId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ExternalReview" Relationship="GaptModel.ExternalReview_Reviewer_fk0" FromRole="ExternalReview_Reviewer" ToRole="ExternalReview" />
           <NavigationProperty Name="Reviewer" Relationship="GaptModel.ExternalReview_Reviewer_fk1" FromRole="ExternalReview_Reviewer" ToRole="Reviewer" />
+        </EntityType>
+        <EntityType Name="ExternalReview_Statement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExternalReviewId" Type="Int32" Nullable="false" />
+          <Property Name="StatementId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ExternalReview" Relationship="GaptModel.ExternalReview_Statement_fk0" FromRole="ExternalReview_Statement" ToRole="ExternalReview" />
+          <NavigationProperty Name="StatementServ" Relationship="GaptModel.ExternalReview_Statement_fk1" FromRole="ExternalReview_Statement" ToRole="StatementServ" />
         </EntityType>
         <EntityType Name="General">
           <Key>
@@ -759,8 +960,10 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
           <Property Name="FacultyId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Department_General" Relationship="GaptModel.Department_General_fk1" FromRole="Ref_Department" ToRole="Department_General" />
+          <NavigationProperty Name="EndorsementCollabs" Relationship="GaptModel.FK__Endorseme__Depar__6339AFF7" FromRole="Ref_Department" ToRole="EndorsementCollab" />
           <NavigationProperty Name="Ref_Faculty" Relationship="GaptModel.Ref_Department_fk0" FromRole="Ref_Department" ToRole="Ref_Faculty" />
           <NavigationProperty Name="Ref_Unit" Relationship="GaptModel.Ref_Unit_fk0" FromRole="Ref_Department" ToRole="Ref_Unit" />
+          <NavigationProperty Name="StatementServs" Relationship="GaptModel.StatementServ_fk0" FromRole="Ref_Department" ToRole="StatementServ" />
         </EntityType>
         <EntityType Name="Ref_Faculty">
           <Key>
@@ -801,6 +1004,19 @@
           <Property Name="Email" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
           <Property Name="Telephone" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ExternalReview_Reviewer" Relationship="GaptModel.ExternalReview_Reviewer_fk1" FromRole="Reviewer" ToRole="ExternalReview_Reviewer" />
+        </EntityType>
+        <EntityType Name="StatementServ">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="Selection" Type="Boolean" />
+          <Property Name="Reservations" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SignedBy" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+          <Property Name="SignedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ExternalReview_Statement" Relationship="GaptModel.ExternalReview_Statement_fk1" FromRole="StatementServ" ToRole="ExternalReview_Statement" />
+          <NavigationProperty Name="Ref_Department" Relationship="GaptModel.StatementServ_fk0" FromRole="StatementServ" ToRole="Ref_Department" />
         </EntityType>
         <EntityType Name="TentativeP">
           <Key>
@@ -873,6 +1089,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ExternalReview_Endorsement_fk1">
+          <End Type="GaptModel.EndorsementCollab" Role="EndorsementCollab" Multiplicity="1" />
+          <End Type="GaptModel.ExternalReview_Endorsement" Role="ExternalReview_Endorsement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EndorsementCollab">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExternalReview_Endorsement">
+              <PropertyRef Name="EndorsementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Endorseme__Depar__6339AFF7">
+          <End Type="GaptModel.Ref_Department" Role="Ref_Department" Multiplicity="0..1" />
+          <End Type="GaptModel.EndorsementCollab" Role="EndorsementCollab" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ref_Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EndorsementCollab">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExternalReview_Endorsement_fk0">
+          <End Type="GaptModel.ExternalReview" Role="ExternalReview" Multiplicity="1" />
+          <End Type="GaptModel.ExternalReview_Endorsement" Role="ExternalReview_Endorsement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExternalReview">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExternalReview_Endorsement">
+              <PropertyRef Name="ExternalReviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="ExternalReview_Reviewer_fk0">
           <End Type="GaptModel.ExternalReview" Role="ExternalReview" Multiplicity="1" />
           <End Type="GaptModel.ExternalReview_Reviewer" Role="ExternalReview_Reviewer" Multiplicity="*" />
@@ -881,6 +1133,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ExternalReview_Reviewer">
+              <PropertyRef Name="ExternalReviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExternalReview_Statement_fk0">
+          <End Type="GaptModel.ExternalReview" Role="ExternalReview" Multiplicity="1" />
+          <End Type="GaptModel.ExternalReview_Statement" Role="ExternalReview_Statement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExternalReview">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExternalReview_Statement">
               <PropertyRef Name="ExternalReviewId" />
             </Dependent>
           </ReferentialConstraint>
@@ -906,6 +1170,18 @@
             </Principal>
             <Dependent Role="ExternalReview_Reviewer">
               <PropertyRef Name="ReviewerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExternalReview_Statement_fk1">
+          <End Type="GaptModel.StatementServ" Role="StatementServ" Multiplicity="1" />
+          <End Type="GaptModel.ExternalReview_Statement" Role="ExternalReview_Statement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatementServ">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExternalReview_Statement">
+              <PropertyRef Name="StatementId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1041,6 +1317,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="StatementServ_fk0">
+          <End Type="GaptModel.Ref_Department" Role="Ref_Department" Multiplicity="0..1" />
+          <End Type="GaptModel.StatementServ" Role="StatementServ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ref_Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StatementServ">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Year_Unit_fk1">
           <End Type="GaptModel.Ref_Unit" Role="Ref_Unit" Multiplicity="1" />
           <End Type="GaptModel.Year_Unit" Role="Year_Unit" Multiplicity="*" />
@@ -1102,9 +1390,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="EndorsementCollabs">
+            <EntityTypeMapping TypeName="GaptModel.EndorsementCollab">
+              <MappingFragment StoreEntitySet="EndorsementCollab">
+                <ScalarProperty Name="SignedDate" ColumnName="SignedDate" />
+                <ScalarProperty Name="SignedBy" ColumnName="SignedBy" />
+                <ScalarProperty Name="HeldDate" ColumnName="HeldDate" />
+                <ScalarProperty Name="Selection" ColumnName="Selection" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ExternalReviews">
             <EntityTypeMapping TypeName="GaptModel.ExternalReview">
               <MappingFragment StoreEntitySet="ExternalReview">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExternalReview_Endorsement">
+            <EntityTypeMapping TypeName="GaptModel.ExternalReview_Endorsement">
+              <MappingFragment StoreEntitySet="ExternalReview_Endorsement">
+                <ScalarProperty Name="EndorsementId" ColumnName="EndorsementId" />
+                <ScalarProperty Name="ExternalReviewId" ColumnName="ExternalReviewId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1113,6 +1422,15 @@
             <EntityTypeMapping TypeName="GaptModel.ExternalReview_Reviewer">
               <MappingFragment StoreEntitySet="ExternalReview_Reviewer">
                 <ScalarProperty Name="ReviewerId" ColumnName="ReviewerId" />
+                <ScalarProperty Name="ExternalReviewId" ColumnName="ExternalReviewId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExternalReview_Statement">
+            <EntityTypeMapping TypeName="GaptModel.ExternalReview_Statement">
+              <MappingFragment StoreEntitySet="ExternalReview_Statement">
+                <ScalarProperty Name="StatementId" ColumnName="StatementId" />
                 <ScalarProperty Name="ExternalReviewId" ColumnName="ExternalReviewId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1239,6 +1557,18 @@
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Affiliation" ColumnName="Affiliation" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatementServs">
+            <EntityTypeMapping TypeName="GaptModel.StatementServ">
+              <MappingFragment StoreEntitySet="StatementServ">
+                <ScalarProperty Name="SignedDate" ColumnName="SignedDate" />
+                <ScalarProperty Name="SignedBy" ColumnName="SignedBy" />
+                <ScalarProperty Name="Reservations" ColumnName="Reservations" />
+                <ScalarProperty Name="Selection" ColumnName="Selection" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -17,6 +17,11 @@ namespace GAPT.Models
         
     }
 
+    public class Ref_DepartmentMetadata
+    {
+
+    }
+
     public class Department_GeneralMetadata
     {
         public int DepartmentId { get; set; }
@@ -33,6 +38,12 @@ namespace GAPT.Models
     {
     }
 
-   
+    public class StatementServMetadata
+    {
+        [Required]
+        public string Reservations { get; set; }
+    }
 
+
+    
 }

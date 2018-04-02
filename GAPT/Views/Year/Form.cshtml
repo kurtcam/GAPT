@@ -70,7 +70,7 @@
                         <td><input name="lecturer_@unit.Id" style="width:100%" class="form-control" placeholder="Enter lecturers' names" type="text"></td>
                         @if (Model.Proposal.GetGeneral().LevelId == 1)
                         {
-                            <td class="clickable"><input type="checkbox" name="comp_@unit.Id"></td>
+                            <td class="clickable"><input checked type="checkbox" name="comp_@unit.Id"></td>
                             <td><input name="reason_@unit.Id" style="width:100%" class="form-control" placeholder="Enter compensating reason" type="text"></td>
                         }
                         <td class="clickable selectable"><input class="selectable" type="checkbox" name=@unit.Id></td>
@@ -159,7 +159,7 @@
                         <td><input name="lecturer_@unit.Id" style="width:100%" class="form-control" placeholder="Enter lecturers' names" type="text"></td>
                         @if (Model.Proposal.GetGeneral().LevelId == 1)
                         {
-                            <td class="clickable"><input type="checkbox" name="comp_@unit.Id"></td>
+                            <td class="clickable"><input checked type="checkbox" name="comp_@unit.Id"></td>
                             <td><input name="reason_@unit.Id" style="width:100%" class="form-control" placeholder="Enter compensating reason" type="text"></td>
                         }
                         <td class="clickable"><input class="selectable" type="checkbox" name=@unit.Id></td>

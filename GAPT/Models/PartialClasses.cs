@@ -38,6 +38,60 @@ namespace GAPT.Models
 
     }
 
+    [MetadataType(typeof(Ref_DepartmentMetadata))]
+    public partial class Ref_Department
+    {
+        public EndorsementCollab GetCollabEndorsement(int pid)
+        {
+            GaptDbContext db = new GaptDbContext();
+            var proposal = db.Proposals.SingleOrDefault(t => t.Id == pid);
+
+            var eres = db.ExternalReview_Endorsement.Where(m => m.ExternalReviewId == proposal.ExternalReviewId).ToList();
+
+            if (eres == null)
+            {
+                return null;
+            }
+            else
+            {
+                foreach (ExternalReview_Endorsement ere in eres) {
+                    var endCollab = db.EndorsementCollabs.SingleOrDefault(m => m.Id == ere.EndorsementId && m.DepartmentId == Id);
+                    if (endCollab != null) {
+                        return endCollab;
+                    }
+                }
+                return null;
+            }
+        }
+
+        public StatementServ GetServStatement(int pid)
+        {
+            GaptDbContext db = new GaptDbContext();
+            var proposal = db.Proposals.SingleOrDefault(t => t.Id == pid);
+
+            var erss = db.ExternalReview_Statement.Where(m => m.ExternalReviewId == proposal.ExternalReviewId).ToList();
+
+            if (erss == null)
+            {
+                return null;
+            }
+            else
+            {
+                foreach (ExternalReview_Statement ers in erss)
+                {
+                    var stmServ = db.StatementServs.SingleOrDefault(m => m.Id == ers.StatementId && m.DepartmentId == Id);
+                    if (stmServ != null)
+                    {
+                        return stmServ;
+                    }
+                }
+                return null;
+            }
+        }
+
+
+    }
+
     [MetadataType(typeof(Department_GeneralMetadata))]
     public partial class Department_General
     {
@@ -91,5 +145,10 @@ namespace GAPT.Models
         }
 
 
+    }
+
+    [MetadataType(typeof(StatementServMetadata))]
+    public partial class StatementServ
+    {
     }
 }

@@ -193,6 +193,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DemandController.cs" />
+    <Compile Include="Controllers\EndorsementCollabController.cs" />
+    <Compile Include="Controllers\EndorsementStatementController.cs" />
     <Compile Include="Controllers\ExternalReviewController.cs" />
     <Compile Include="Controllers\GeneralController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -202,6 +204,7 @@
     <Compile Include="Controllers\ProposalController.cs" />
     <Compile Include="Controllers\RationaleController.cs" />
     <Compile Include="Controllers\ReviewerController.cs" />
+    <Compile Include="Controllers\StatementServController.cs" />
     <Compile Include="Controllers\TentativePs2Controller.cs" />
     <Compile Include="Controllers\TentativePsController.cs" />
     <Compile Include="Controllers\YearController.cs" />
@@ -215,10 +218,19 @@
     <Compile Include="Models\Department_General.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EndorsementCollab.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ExternalReview.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ExternalReview_Endorsement.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ExternalReview_Reviewer.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ExternalReview_Statement.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GaptModel.Context.cs">
@@ -276,6 +288,9 @@
     <Compile Include="Models\Reviewer.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StatementServ.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TentativeP.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
@@ -288,11 +303,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\DemandFormViewModel.cs" />
+    <Compile Include="ViewModels\EndorsementCollabFormViewModel.cs" />
+    <Compile Include="ViewModels\EndorsementStatementIndexViewModel.cs" />
     <Compile Include="ViewModels\ExternalReviewIndexViewModel.cs" />
     <Compile Include="ViewModels\GeneralFormViewModel.cs" />
     <Compile Include="ViewModels\ProgrammeStudyFormViewModel.cs" />
     <Compile Include="ViewModels\RationaleFormViewModel.cs" />
     <Compile Include="ViewModels\ReviewerFormViewModel.cs" />
+    <Compile Include="ViewModels\StatementServFormViewModel.cs" />
     <Compile Include="ViewModels\TentativePsFormViewModel.cs" />
     <Compile Include="ViewModels\TentativePsIndexViewModel.cs" />
     <Compile Include="ViewModels\YearFormViewModel.cs" />
@@ -401,6 +419,11 @@
     <Content Include="Views\Reviewer\Form.cshtml" />
     <Content Include="Views\TentativePs\Index.cshtml" />
     <Content Include="Views\Year\Form.cshtml" />
+    <Content Include="Views\EndorsementStatement\Index.cshtml" />
+    <Content Include="Views\EndorsementCollab\Form.cshtml" />
+    <Content Include="Views\EndorsementCollab\Accepted.cshtml" />
+    <Content Include="Views\EndorsementCollab\Rejected.cshtml" />
+    <Content Include="Views\StatementServ\Form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

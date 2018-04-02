@@ -18,7 +18,9 @@ namespace GAPT.Models
         public Ref_Department()
         {
             this.Department_General = new HashSet<Department_General>();
+            this.EndorsementCollabs = new HashSet<EndorsementCollab>();
             this.Ref_Unit = new HashSet<Ref_Unit>();
+            this.StatementServs = new HashSet<StatementServ>();
         }
     
         public int Id { get; set; }
@@ -27,8 +29,12 @@ namespace GAPT.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Department_General> Department_General { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EndorsementCollab> EndorsementCollabs { get; set; }
         public virtual Ref_Faculty Ref_Faculty { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ref_Unit> Ref_Unit { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StatementServ> StatementServs { get; set; }
     }
 }
