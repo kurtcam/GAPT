@@ -27,6 +27,8 @@
         <button type="submit" name="jump" value="A" class="btn btn-warning">Section A</button>
         <button type="submit" name="jump" value="B" class="btn btn-warning">Section B</button>
         <button type="submit" name="jump" value="C" class="btn btn-warning">Section C</button>
+        <button type="submit" name="jump" value="D" class="btn btn-warning">Section D</button>
+        <button type="submit" name="jump" value="E" class="btn btn-warning">Section E</button>
     </div>
     <br>
     if (reviewers.Count() == 0)
@@ -57,7 +59,7 @@
                     <td>@reviewer.Address</td>
                     <td>@reviewer.Email</td>
                     <td>@reviewer.Telephone</td>
-                    <td>@Html.ActionLink("Edit", "Edit", "Reviewer", new { rid = reviewer.Id, pid = Model.Proposal.Id }, null) - @Html.ActionLink("Remove", "Delete", "Reviewer", new { rid = reviewer.Id, pid = Model.Proposal.Id }, null)</td>
+                    <td>@Html.ActionLink("Edit", "Edit", "Reviewer", new { id = reviewer.Id}, null) - @Html.ActionLink("Remove", "Delete", "Reviewer", new { id = reviewer.Id}, null)</td>
                 </tr>
             }
         </tbody>

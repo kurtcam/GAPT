@@ -1,0 +1,24 @@
+﻿@model GAPT.ViewModels.RecommendationFicsFormViewModel
+@{
+    ViewBag.Title = "Accepted";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+<h2>@Model.Recommendation.Ref_Faculty.Name</h2>
+
+<p>
+    This proposal has been considered by the Faculty/Institute/Centre/School
+    Board at a meeting held on <b><u><i>@Model.Recommendation.HeldDateA</i></u></b>, and is being
+    recommended for approval on the understanding that lectures will be
+    scheduled on dates and times when appropriate lecture venues are
+    available. No commitment shall be made with lecturers or students
+    regarding dates, times and venue before the Scheduling Office confirms
+    these. Venues may be outside the University Msida campus.
+</p>
+
+<label>Signed By</label>
+<p>@Model.Recommendation.SignedBy</p>
+<label>Signed On</label>
+<p>@Model.Recommendation.SignedDate</p>
+<input type="button" class="btn btn-danger" value="Cancel" onclick="location.href='@Url.Action("Index", "Approval", new { id = Model.Proposal.Id })'" />
+

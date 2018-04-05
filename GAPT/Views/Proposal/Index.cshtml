@@ -17,8 +17,11 @@ else
                 <th>Id</th>
                 <th>Created By</th>
                 <th>Created On</th>
-                <th>General Id</th>
-                <th>PR Id</th>
+                <th>(A) General Id</th>
+                <th>(B) PR Id</th>
+                <th>(C) ER Id</th>
+                <th>(D) IE Id</th>
+                <th>(E) Approval Id</th>
                 <th></th>
             </tr>
         </thead>
@@ -31,6 +34,9 @@ else
                     <td>@proposal.CreatedOn</td>
                     <td>@proposal.GeneralId</td>
                     <td>@proposal.ProgrammeRationaleId</td>
+                    <td>@proposal.ExternalReviewId</td>
+                    <td>@proposal.IncomeExpenditureId</td>
+                    <td>@proposal.ApprovalId</td>
                     <td>@Html.ActionLink("Edit", "Edit", "General", new { id = proposal.GeneralId }, null)</td>
                 </tr>
             }

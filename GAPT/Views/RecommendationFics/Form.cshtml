@@ -1,0 +1,86 @@
+﻿@model GAPT.ViewModels.RecommendationFicsFormViewModel
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+<h2>@Model.Recommendation.Ref_Faculty.Name</h2>
+@using (Html.BeginForm("Save", "RecommendationFics"))
+{
+    <p>
+        (a) This proposal has been considered by the Faculty/Institute/Centre/School
+            Board at a meeting held on <u><i>(Select date below)</i></u>, and is being
+            recommended for approval on the understanding that lectures will be
+            scheduled on dates and times when appropriate lecture venues are
+            available. No commitment shall be made with lecturers or students
+            regarding dates, times and venue before the Scheduling Office confirms
+            these. Venues may be outside the University Msida campus.
+    </p>
+    <div class="form-group">
+        <div class='input-group date' id='HeldDateA' style="width:280px">
+            @Html.TextBoxFor(m => m.Recommendation.HeldDateA, new { id = "heldDateAField", @class = "form-control"})
+            <span class="input-group-addon" style="width:0">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+        @Html.ValidationMessageFor(m => m.Recommendation.HeldDateA)
+    </div>
+    @Html.RadioButtonFor(m => m.Recommendation.Selection, true, new { @checked = true, @onclick = "showA()" })
+    
+    <p>OR</p>
+    <p>
+        (b) This proposal, which has been considered at the meeting of the Board of
+            the Faculty/Institute/Centre/School held on <u><i>(Select date below)</i></u>,
+            is not being recommended for approval for the reasons detailed in the
+            attached report.
+    </p>
+    <div class="form-group">
+        <div class='input-group date' id='HeldDateB' style="width:280px">
+            @Html.TextBoxFor(m => m.Recommendation.HeldDateB, new { id="heldDateBField" , @class = "form-control", @style = "color:white" })
+            <span class="input-group-addon" style="width:0">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+        @Html.ValidationMessageFor(m => m.Recommendation.HeldDateB)
+    </div>
+    @Html.RadioButtonFor(m => m.Recommendation.Selection, false, new { @onclick = "showB()" })<br><br>
+    @Html.HiddenFor(m => Model.Recommendation.Id)
+    @Html.HiddenFor(m => Model.Proposal.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Sign</button>
+    <input type="button" class="btn btn-danger" value="Cancel" onclick="location.href='@Url.Action("Index", "Approval", new { id = Model.Proposal.Id })'" />
+}
+
+@section Scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('#HeldDateA').datetimepicker({
+                format: 'DD/MM/YYYY',
+            })
+        });
+    </script>
+    <script type="text/javascript">
+            $(function () {
+                $('#HeldDateB').datetimepicker({
+                    format: 'DD/MM/YYYY',
+                })
+            });
+    </script>
+    <script type="text/javascript">
+            function showA() {
+                document.getElementById("heldDateAField").style.color = "black";
+                document.getElementById("heldDateBField").style.color = "white";
+            }
+    </script>
+    <script type="text/javascript">
+            function showB() {
+                document.getElementById("heldDateAField").style.color = "white";
+                document.getElementById("heldDateBField").style.color = "black";
+            }
+    </script>
+
+}

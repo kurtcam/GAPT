@@ -10,7 +10,7 @@
     <p>
         (a) The department has been notified of the servicing requirements and find no objection to the inclusion of the study-units offered by the Department of <b><u><i>@Model.Statement.Ref_Department.Name</i></u></b> in the proposed programme of study.
     </p>
-    @Html.RadioButtonFor(m => m.Statement.Selection, true, new { @checked = true, @onclick="addSpace()"})
+    @Html.RadioButtonFor(m => m.Statement.Selection, true, new { @checked = true, @onclick="hideText()"})
     
     <p>OR</p>
     <p>
@@ -21,24 +21,24 @@
         @Html.TextAreaFor(m => m.Statement.Reservations, new { @style="color:white", @class = "form-control", rows=5, @id="Reservations"})
         @Html.ValidationMessageFor(m => m.Statement.Reservations)
     </div>
-    @Html.RadioButtonFor(m => m.Statement.Selection, false, new {@onclick="clearBox()"})<br><br>
+    @Html.RadioButtonFor(m => m.Statement.Selection, false, new {@onclick="showText()"})<br><br>
     @Html.HiddenFor(m => Model.Statement.Id)
     @Html.HiddenFor(m => Model.Proposal.Id)
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Sign</button>
-    <input type="button" class="btn btn-danger" value="Cancel" onclick="location.href='@Url.Action("Index", "EndorsementStatement", new { id = Model.Proposal.Id })'" />
+    <input type="button" class="btn btn-danger" value="Cancel" onclick="location.href='@Url.Action("Index", "Approval", new { id = Model.Proposal.Id })'" />
 }
 
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
-        function addSpace() {
+        function hideText() {
             document.getElementById("Reservations").value = "_";
             document.getElementById("Reservations").style.color = "white";
         }
     </script>
     <script type="text/javascript">
-            function clearBox() {
+            function showText() {
                 document.getElementById("Reservations").value = "";
                 document.getElementById("Reservations").style.color = "black";
             }

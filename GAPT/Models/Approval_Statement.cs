@@ -12,13 +12,13 @@ namespace GAPT.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ExternalReview_Endorsement
+    public partial class Approval_Statement
     {
         public int Id { get; set; }
-        public int ExternalReviewId { get; set; }
-        public int EndorsementId { get; set; }
+        public int ApprovalId { get; set; }
+        public int StatementId { get; set; }
     
-        public virtual EndorsementCollab EndorsementCollab { get; set; }
-        public virtual ExternalReview ExternalReview { get; set; }
+        public virtual Approval Approval { get; set; }
+        public virtual StatementServ StatementServ { get; set; }
     }
 }

@@ -38,8 +38,8 @@ namespace GAPT.Controllers
             }
 
             //get proposal
-            var ers = _context.ExternalReview_Statement.SingleOrDefault(m => m.StatementId == stmServ.Id);
-            var proposal = _context.Proposals.SingleOrDefault(m => m.ExternalReviewId == ers.ExternalReviewId);
+            var ers = _context.Approval_Statement.SingleOrDefault(m => m.StatementId == stmServ.Id);
+            var proposal = _context.Proposals.SingleOrDefault(m => m.ApprovalId == ers.ApprovalId);
 
             if (stmServ.SignedBy == null)
             {
@@ -101,7 +101,7 @@ namespace GAPT.Controllers
             statementInDb.Selection = statement.Selection;
 
             _context.SaveChanges();
-            return RedirectToAction("Index", "EndorsementStatement", new { id = proposal.Id });
+            return RedirectToAction("Index", "Approval", new { id = proposal.Id });
 
         }
     }

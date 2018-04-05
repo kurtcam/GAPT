@@ -18,6 +18,7 @@ namespace GAPT.Models
         public Ref_Faculty()
         {
             this.Generals = new HashSet<General>();
+            this.RecommendationFics = new HashSet<RecommendationFic>();
             this.Ref_Department = new HashSet<Ref_Department>();
         }
     
@@ -26,6 +27,8 @@ namespace GAPT.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<General> Generals { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RecommendationFic> RecommendationFics { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ref_Department> Ref_Department { get; set; }
     }

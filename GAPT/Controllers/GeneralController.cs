@@ -174,6 +174,16 @@ namespace GAPT.Controllers
                         // C pressed -> go to Section C
                         return RedirectToAction("Jump", "ExternalReview", new { id = prop.Id });
                     }
+                case "D":
+                    {
+                        // D pressed -> go to Section D
+                        return RedirectToAction("Jump", "IncomeExpenditure", new { id = prop.Id });
+                    }
+                case "E":
+                    {
+                        // E pressed -> go to Section E
+                        return RedirectToAction("Jump", "Approval", new { id = prop.Id });
+                    }
                 default:
                     {
                         return RedirectToAction("Index", "Proposal");
@@ -245,5 +255,6 @@ namespace GAPT.Controllers
             viewModel.SelectedServDepts = selectedS;
             return View("Form", viewModel);
         }
+
     }
 }

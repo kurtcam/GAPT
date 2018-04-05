@@ -22,6 +22,11 @@ namespace GAPT.Models
 
     }
 
+    public class Ref_FacultyMetadata
+    {
+
+    }
+
     public class Department_GeneralMetadata
     {
         public int DepartmentId { get; set; }
@@ -35,6 +40,10 @@ namespace GAPT.Models
     }
 
     public class ExternalReviewMetadata
+    {
+    }
+
+    public class IncomeExpenditureMetadata
     {
     }
 

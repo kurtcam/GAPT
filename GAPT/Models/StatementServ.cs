@@ -11,26 +11,24 @@ namespace GAPT.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class StatementServ
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public StatementServ()
         {
-            this.ExternalReview_Statement = new HashSet<ExternalReview_Statement>();
+            this.Approval_Statement = new HashSet<Approval_Statement>();
         }
     
         public int Id { get; set; }
         public Nullable<int> DepartmentId { get; set; }
         public Nullable<bool> Selection { get; set; }
-        
         public string Reservations { get; set; }
         public string SignedBy { get; set; }
         public Nullable<System.DateTime> SignedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ExternalReview_Statement> ExternalReview_Statement { get; set; }
+        public virtual ICollection<Approval_Statement> Approval_Statement { get; set; }
         public virtual Ref_Department Ref_Department { get; set; }
     }
 }

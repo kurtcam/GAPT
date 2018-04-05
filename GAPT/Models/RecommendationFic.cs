@@ -12,23 +12,24 @@ namespace GAPT.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class EndorsementCollab
+    public partial class RecommendationFic
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public EndorsementCollab()
+        public RecommendationFic()
         {
-            this.Approval_Endorsement = new HashSet<Approval_Endorsement>();
+            this.Approval_Recommendation = new HashSet<Approval_Recommendation>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> DepartmentId { get; set; }
+        public Nullable<int> FacultyId { get; set; }
         public Nullable<bool> Selection { get; set; }
-        public string HeldDate { get; set; }
+        public string HeldDateA { get; set; }
+        public string HeldDateB { get; set; }
         public string SignedBy { get; set; }
         public Nullable<System.DateTime> SignedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Approval_Endorsement> Approval_Endorsement { get; set; }
-        public virtual Ref_Department Ref_Department { get; set; }
+        public virtual ICollection<Approval_Recommendation> Approval_Recommendation { get; set; }
+        public virtual Ref_Faculty Ref_Faculty { get; set; }
     }
 }

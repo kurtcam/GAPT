@@ -1,0 +1,21 @@
+﻿@model GAPT.ViewModels.RecommendationFicsFormViewModel
+@{
+    ViewBag.Title = "Rejected";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<h2>@Model.Recommendation.Ref_Faculty.Name</h2>
+
+<p>
+    This proposal, which has been considered at the meeting of the Board of
+    the Faculty/Institute/Centre/School held on <b><u><i>@Model.Recommendation.HeldDateB</i></u></b>,
+    is not being recommended for approval for the reasons detailed in the
+    attached report.
+</p>
+
+<label>Signed By</label>
+<p>@Model.Recommendation.SignedBy</p>
+<label>Signed On</label>
+<p>@Model.Recommendation.SignedDate</p>
+<input type="button" class="btn btn-danger" value="Cancel" onclick="location.href='@Url.Action("Index", "Approval", new { id = Model.Proposal.Id })'" />
+

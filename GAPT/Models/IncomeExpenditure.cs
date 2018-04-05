@@ -12,23 +12,20 @@ namespace GAPT.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class EndorsementCollab
+    public partial class IncomeExpenditure
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public EndorsementCollab()
+        public IncomeExpenditure()
         {
-            this.Approval_Endorsement = new HashSet<Approval_Endorsement>();
+            this.IncomeExpenditure_StatementIE = new HashSet<IncomeExpenditure_StatementIE>();
+            this.Proposals = new HashSet<Proposal>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> DepartmentId { get; set; }
-        public Nullable<bool> Selection { get; set; }
-        public string HeldDate { get; set; }
-        public string SignedBy { get; set; }
-        public Nullable<System.DateTime> SignedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Approval_Endorsement> Approval_Endorsement { get; set; }
-        public virtual Ref_Department Ref_Department { get; set; }
+        public virtual ICollection<IncomeExpenditure_StatementIE> IncomeExpenditure_StatementIE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Proposal> Proposals { get; set; }
     }
 }

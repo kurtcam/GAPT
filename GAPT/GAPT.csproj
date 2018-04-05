@@ -194,16 +194,19 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DemandController.cs" />
     <Compile Include="Controllers\EndorsementCollabController.cs" />
-    <Compile Include="Controllers\EndorsementStatementController.cs" />
+    <Compile Include="Controllers\ApprovalController.cs" />
     <Compile Include="Controllers\ExternalReviewController.cs" />
     <Compile Include="Controllers\GeneralController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IncomeExpenditureController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProgrammeRationaleController.cs" />
     <Compile Include="Controllers\ProgrammeStudyController.cs" />
     <Compile Include="Controllers\ProposalController.cs" />
     <Compile Include="Controllers\RationaleController.cs" />
+    <Compile Include="Controllers\RecommendationFicsController.cs" />
     <Compile Include="Controllers\ReviewerController.cs" />
+    <Compile Include="Controllers\StatementIEController.cs" />
     <Compile Include="Controllers\StatementServController.cs" />
     <Compile Include="Controllers\TentativePs2Controller.cs" />
     <Compile Include="Controllers\TentativePsController.cs" />
@@ -212,6 +215,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Approval.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Approval_Endorsement.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Approval_Recommendation.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Approval_Statement.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Demand.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
@@ -224,13 +239,7 @@
     <Compile Include="Models\ExternalReview.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ExternalReview_Endorsement.cs">
-      <DependentUpon>GaptModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ExternalReview_Reviewer.cs">
-      <DependentUpon>GaptModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ExternalReview_Statement.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GaptModel.Context.cs">
@@ -252,6 +261,12 @@
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IncomeExpenditure.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IncomeExpenditure_StatementIE.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\PartialClasses.cs" />
@@ -268,6 +283,9 @@
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Rationale.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RecommendationFic.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Ref_Delivery.cs">
@@ -288,6 +306,9 @@
     <Compile Include="Models\Reviewer.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StatementIE.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\StatementServ.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
@@ -304,12 +325,15 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\DemandFormViewModel.cs" />
     <Compile Include="ViewModels\EndorsementCollabFormViewModel.cs" />
-    <Compile Include="ViewModels\EndorsementStatementIndexViewModel.cs" />
+    <Compile Include="ViewModels\ApprovalIndexViewModel.cs" />
     <Compile Include="ViewModels\ExternalReviewIndexViewModel.cs" />
     <Compile Include="ViewModels\GeneralFormViewModel.cs" />
+    <Compile Include="ViewModels\IncomeExpenditureIndexViewModel.cs" />
     <Compile Include="ViewModels\ProgrammeStudyFormViewModel.cs" />
     <Compile Include="ViewModels\RationaleFormViewModel.cs" />
+    <Compile Include="ViewModels\RecommendationFicsFormViewModel.cs" />
     <Compile Include="ViewModels\ReviewerFormViewModel.cs" />
+    <Compile Include="ViewModels\StatementIEFormViewModel.cs" />
     <Compile Include="ViewModels\StatementServFormViewModel.cs" />
     <Compile Include="ViewModels\TentativePsFormViewModel.cs" />
     <Compile Include="ViewModels\TentativePsIndexViewModel.cs" />
@@ -419,14 +443,22 @@
     <Content Include="Views\Reviewer\Form.cshtml" />
     <Content Include="Views\TentativePs\Index.cshtml" />
     <Content Include="Views\Year\Form.cshtml" />
-    <Content Include="Views\EndorsementStatement\Index.cshtml" />
+    <Content Include="Views\Approval\Index.cshtml" />
     <Content Include="Views\EndorsementCollab\Form.cshtml" />
     <Content Include="Views\EndorsementCollab\Accepted.cshtml" />
     <Content Include="Views\EndorsementCollab\Rejected.cshtml" />
     <Content Include="Views\StatementServ\Form.cshtml" />
+    <Content Include="Views\IncomeExpenditure\Index.cshtml" />
+    <Content Include="Views\StatementIE\Form.cshtml" />
+    <Content Include="Views\StatementServ\Accepted.cshtml" />
+    <Content Include="Views\StatementServ\Rejected.cshtml" />
+    <Content Include="Views\RecommendationFics\Form.cshtml" />
+    <Content Include="Views\RecommendationFics\Rejected.cshtml" />
+    <Content Include="Views\RecommendationFics\Accepted.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\" />
     <Folder Include="Views\ProgrammeRationale\" />
   </ItemGroup>
   <ItemGroup>

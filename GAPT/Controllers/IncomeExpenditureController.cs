@@ -8,11 +8,11 @@ using System.Web.Mvc;
 
 namespace GAPT.Controllers
 {
-    public class ExternalReviewController : Controller
+    public class IncomeExpenditureController : Controller
     {
         private GaptDbContext _context;
 
-        public ExternalReviewController()
+        public IncomeExpenditureController()
         {
             _context = new GaptDbContext();
         }
@@ -29,13 +29,13 @@ namespace GAPT.Controllers
             {
                 return HttpNotFound();
             }
-            var er = _context.ExternalReviews.SingleOrDefault(m => m.Id == proposal.ExternalReviewId);
-            var reviewers = er.GetReviewers();
+            var ie = _context.IncomeExpenditures.SingleOrDefault(m => m.Id == proposal.IncomeExpenditureId);
+            var statements = ie.GetStatements();
 
-            var viewModel = new ExternalReviewIndexViewModel
+            var viewModel = new IncomeExpenditureIndexViewModel
             {
                 Proposal = proposal,
-                Reviewers = reviewers
+                Statements = statements
             };
             return View(viewModel);
         }
@@ -47,17 +47,17 @@ namespace GAPT.Controllers
             {
                 return HttpNotFound();
             }
-            if (proposal.ExternalReviewId == null)
+            if (proposal.IncomeExpenditureId == null)
             {
-                ExternalReview er = new ExternalReview();
-                proposal.ExternalReview = er;
-                _context.ExternalReviews.Add(er);
+                IncomeExpenditure ie = new IncomeExpenditure();
+                proposal.IncomeExpenditure = ie;
+                _context.IncomeExpenditures.Add(ie);
                 _context.SaveChanges();
-                return RedirectToAction("Index", "ExternalReview", new { id = proposal.Id });
+                return RedirectToAction("Index", "IncomeExpenditure", new { id = proposal.Id });
             }
             else
             {
-                return RedirectToAction("Index", "ExternalReview", new { id = proposal.Id });
+                return RedirectToAction("Index", "IncomeExpenditure", new { id = proposal.Id });
             }
         }
 
@@ -71,12 +71,12 @@ namespace GAPT.Controllers
                 case "-1":
                     {
                         // Previous pressed -> return form
-                        return RedirectToAction("Jump", "TentativePs", new { id = proposal.Id });
+                        return RedirectToAction("Jump", "ExternalReview", new { id = proposal.Id });
                     }
                 case "1":
                     {
                         // Next pressed -> return next page
-                        return RedirectToAction("Jump", "IncomeExpenditure", new { id = proposal.Id });
+                        return RedirectToAction("Jump", "Approval", new { id = proposal.Id });
                     }
                 case "A":
                     {

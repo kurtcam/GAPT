@@ -38,8 +38,8 @@ namespace GAPT.Controllers
             }
 
             //get proposal
-            var ere = _context.ExternalReview_Endorsement.SingleOrDefault(m => m.EndorsementId == endCollab.Id);
-            var proposal = _context.Proposals.SingleOrDefault(m => m.ExternalReviewId == ere.ExternalReviewId);
+            var ae = _context.Approval_Endorsement.SingleOrDefault(m => m.EndorsementId == endCollab.Id);
+            var proposal = _context.Proposals.SingleOrDefault(m => m.ApprovalId == ae.ApprovalId);
             
             if (endCollab.SignedBy == null)
             {
@@ -102,7 +102,7 @@ namespace GAPT.Controllers
             endorsementInDb.Selection = endorsement.Selection;
 
             _context.SaveChanges();
-            return RedirectToAction("Index", "EndorsementStatement", new { id = proposal.Id });
+            return RedirectToAction("Index", "Approval", new { id = proposal.Id });
 
         }
     }

@@ -1,8 +1,8 @@
-﻿@model GAPT.ViewModels.TentativePsIndexViewModel
+﻿@model GAPT.ViewModels.IncomeExpenditureIndexViewModel
 @{
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var years = Model.Years;
+    var statements = Model.Statements;
     //bool exists;
     //var programmeStudy = Model.ProgrammeStudy;
     //if (programmeStudy == null || programmeStudy.Id == 0)
@@ -20,9 +20,8 @@
 }
 
 @*<h2>@heading</h2>*@
-<h2>Section B - Rationale For Programme</h2>
-<h2>Tentative Programme Of Study</h2>
-@using (Html.BeginForm("DummySave", "TentativePs"))
+<h2>Section D - Proposed Income and Expenditure Statement</h2>
+@using (Html.BeginForm("DummySave", "IncomeExpenditure"))
 {
     <div id="navbar">
         <button type="submit" name="jump" value="A" class="btn btn-warning">Section A</button>
@@ -32,36 +31,34 @@
         <button type="submit" name="jump" value="E" class="btn btn-warning">Section E</button>
     </div>
     <br>
-    if (years.Count() == 0)
+    if (statements.Count() == 0)
     {
-        <p>This Proposal does not have any Scholastic Years yet.</p>
-    }
-    else
-    {
-        <table id="years" class="table table-bordered table-hover">
-            <thead>
+    <p>This Proposal does not have any Statements yet.</p>
+   }
+   else
+   {
+    <table id="statements" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Upload</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var statement in statements)
+            {
                 <tr>
-                    <th>Id</th>
-                    <th>Year Number</th>
-                    <th>Total ECTs</th>
-                    <th></th>
+                    <td>@statement.Id</td>
+                    <td><a target="_blank" href="@Url.Content("~/Uploads/" + statement.Upload)">@statement.Upload</a></td>
+                    <td>@Html.ActionLink("Edit", "Edit", "StatementIE", new { id = statement.Id}, null) - @Html.ActionLink("Remove", "Delete", "StatementIE", new { id = statement.Id }, null)</td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var year in years)
-                {
-                    <tr>
-                        <td>@year.Id</td>
-                        <td>@year.YearNo</td>
-                        <td>@year.TotalEcts</td>
-                        <td>@Html.ActionLink("Edit", "Edit", "Year", new { yid = year.Id, pid = Model.Proposal.Id }, null)</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+            }
+        </tbody>
+    </table>
     }
     @Html.HiddenFor(m => m.Proposal.Id)
-    <input type="button" class="btn btn-success" value="New Year" onclick="location.href='@Url.Action("New", "Year", new { id = Model.Proposal.Id})'" /><br><br>
+    <input type="button" class="btn btn-success" value="New Upload" onclick="location.href='@Url.Action("New", "StatementIE", new { id = Model.Proposal.Id})'" /><br><br>
     <button type="submit" name="jump" value="-1" class="btn btn-primary">Previous</button>
     <button type="submit" name="jump" value="1" class="btn btn-primary">Next</button>
 }

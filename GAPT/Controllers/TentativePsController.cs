@@ -92,12 +92,22 @@ namespace GAPT.Controllers
                 case "B":
                     {
                         // B pressed -> go to Section B
-                        return RedirectToAction("Edit", "Rationale", new { id = proposal.Id });
+                        return RedirectToAction("Jump", "ProgrammeRationale", new { id = proposal.Id });
                     }
                 case "C":
                     {
                         // C pressed -> go to Section C
                         return RedirectToAction("Jump", "ExternalReview", new { id = proposal.Id });
+                    }
+                case "D":
+                    {
+                        // D pressed -> go to Section D
+                        return RedirectToAction("Jump", "IncomeExpenditure", new { id = proposal.Id });
+                    }
+                case "E":
+                    {
+                        // E pressed -> go to Section E
+                        return RedirectToAction("Jump", "Approval", new { id = proposal.Id });
                     }
                 default:
                     {

@@ -38,6 +38,35 @@ namespace GAPT.Models
 
     }
 
+    [MetadataType(typeof(Ref_FacultyMetadata))]
+    public partial class Ref_Faculty
+    {
+        public RecommendationFic GetRecommendation(int pid)
+        {
+            GaptDbContext db = new GaptDbContext();
+            var proposal = db.Proposals.SingleOrDefault(t => t.Id == pid);
+
+            var ars = db.Approval_Recommendation.Where(m => m.ApprovalId == proposal.ApprovalId).ToList();
+
+            if (ars == null)
+            {
+                return null;
+            }
+            else
+            {
+                foreach (Approval_Recommendation ar in ars)
+                {
+                    var recommendation = db.RecommendationFics.SingleOrDefault(m => m.Id == ar.RecommendationId && m.FacultyId == Id);
+                    if (recommendation != null)
+                    {
+                        return recommendation;
+                    }
+                }
+                return null;
+            }
+        }
+    }
+
     [MetadataType(typeof(Ref_DepartmentMetadata))]
     public partial class Ref_Department
     {
@@ -46,16 +75,16 @@ namespace GAPT.Models
             GaptDbContext db = new GaptDbContext();
             var proposal = db.Proposals.SingleOrDefault(t => t.Id == pid);
 
-            var eres = db.ExternalReview_Endorsement.Where(m => m.ExternalReviewId == proposal.ExternalReviewId).ToList();
+            var aes = db.Approval_Endorsement.Where(m => m.ApprovalId == proposal.ApprovalId).ToList();
 
-            if (eres == null)
+            if (aes == null)
             {
                 return null;
             }
             else
             {
-                foreach (ExternalReview_Endorsement ere in eres) {
-                    var endCollab = db.EndorsementCollabs.SingleOrDefault(m => m.Id == ere.EndorsementId && m.DepartmentId == Id);
+                foreach (Approval_Endorsement ae in aes) {
+                    var endCollab = db.EndorsementCollabs.SingleOrDefault(m => m.Id == ae.EndorsementId && m.DepartmentId == Id);
                     if (endCollab != null) {
                         return endCollab;
                     }
@@ -69,17 +98,17 @@ namespace GAPT.Models
             GaptDbContext db = new GaptDbContext();
             var proposal = db.Proposals.SingleOrDefault(t => t.Id == pid);
 
-            var erss = db.ExternalReview_Statement.Where(m => m.ExternalReviewId == proposal.ExternalReviewId).ToList();
+            var apps = db.Approval_Statement.Where(m => m.ApprovalId == proposal.ApprovalId).ToList();
 
-            if (erss == null)
+            if (apps == null)
             {
                 return null;
             }
             else
             {
-                foreach (ExternalReview_Statement ers in erss)
+                foreach (Approval_Statement app in apps)
                 {
-                    var stmServ = db.StatementServs.SingleOrDefault(m => m.Id == ers.StatementId && m.DepartmentId == Id);
+                    var stmServ = db.StatementServs.SingleOrDefault(m => m.Id == app.StatementId && m.DepartmentId == Id);
                     if (stmServ != null)
                     {
                         return stmServ;
@@ -142,6 +171,26 @@ namespace GAPT.Models
             }
             var sorted = reviewers.OrderBy(m => m.Name).ToList();
             return sorted;
+        }
+
+
+    }
+
+    [MetadataType(typeof(IncomeExpenditureMetadata))]
+    public partial class IncomeExpenditure
+    {
+        public List<StatementIE> GetStatements()
+        {
+            GaptDbContext db = new GaptDbContext();
+            var statementsIds = db.Database.SqlQuery<int>("Select StatementId From dbo.IncomeExpenditure_StatementIE Where IncomeExpenditureId = " + Id).ToList();
+            List<StatementIE> statements = new List<StatementIE>();
+
+            foreach (int id in statementsIds)
+            {
+                var statement = db.StatementIEs.SingleOrDefault(m => m.Id == id);
+                statements.Add(statement);
+            }
+            return statements;
         }
 
 

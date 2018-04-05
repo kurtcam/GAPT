@@ -10,7 +10,7 @@
     <p>
         (a) This proposal has been considered by the Department of <b><u><i>@Model.Endorsement.Ref_Department.Name</i></u></b>, and is being recommended for approval through the respective Board of the Faculty/Institute/Centre/School.
     </p>
-    @Html.RadioButtonFor(m => m.Endorsement.Selection, true, new { @checked = true})
+    @Html.RadioButtonFor(m => m.Endorsement.Selection, true, new { @checked = true, @onclick = "hideText()" })
     
     <p>OR</p>
     <p>
@@ -18,19 +18,19 @@
     </p>
     <div class="form-group">
         <div class='input-group date' id='HeldDate' style="width:280px">
-            @Html.TextBoxFor(m => m.Endorsement.HeldDate, new { @class = "form-control"})
+            @Html.TextBoxFor(m => m.Endorsement.HeldDate, new { id="heldDateField" , @class = "form-control", @style = "color:white" })
             <span class="input-group-addon" style="width:0">
                 <span class="glyphicon glyphicon-calendar"></span>
             </span>
         </div>
         @Html.ValidationMessageFor(m => m.Endorsement.HeldDate)
     </div>
-    @Html.RadioButtonFor(m => m.Endorsement.Selection, false)<br><br>
+    @Html.RadioButtonFor(m => m.Endorsement.Selection, false, new { @onclick = "showText()" })<br><br>
     @Html.HiddenFor(m => Model.Endorsement.Id)
     @Html.HiddenFor(m => Model.Proposal.Id)
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Sign</button>
-    <input type="button" class="btn btn-danger" value="Cancel" onclick="location.href='@Url.Action("Index", "EndorsementStatement", new { id = Model.Proposal.Id })'" />
+    <input type="button" class="btn btn-danger" value="Cancel" onclick="location.href='@Url.Action("Index", "Approval", new { id = Model.Proposal.Id })'" />
 }
 
 @section Scripts{
@@ -45,4 +45,15 @@
             })
         });
     </script>
+    <script type="text/javascript">
+            function hideText() {
+                document.getElementById("heldDateField").style.color = "white";
+            }
+    </script>
+    <script type="text/javascript">
+            function showText() {
+                document.getElementById("heldDateField").style.color = "black";
+            }
+    </script>
+
 }

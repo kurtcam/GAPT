@@ -12,23 +12,26 @@ namespace GAPT.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class EndorsementCollab
+    public partial class Approval
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public EndorsementCollab()
+        public Approval()
         {
             this.Approval_Endorsement = new HashSet<Approval_Endorsement>();
+            this.Approval_Recommendation = new HashSet<Approval_Recommendation>();
+            this.Approval_Statement = new HashSet<Approval_Statement>();
+            this.Proposals = new HashSet<Proposal>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> DepartmentId { get; set; }
-        public Nullable<bool> Selection { get; set; }
-        public string HeldDate { get; set; }
-        public string SignedBy { get; set; }
-        public Nullable<System.DateTime> SignedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Approval_Endorsement> Approval_Endorsement { get; set; }
-        public virtual Ref_Department Ref_Department { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Approval_Recommendation> Approval_Recommendation { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Approval_Statement> Approval_Statement { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Proposal> Proposals { get; set; }
     }
 }

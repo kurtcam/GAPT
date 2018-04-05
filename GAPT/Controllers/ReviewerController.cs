@@ -35,70 +35,45 @@ namespace GAPT.Controllers
             };
             return View("Form", viewModel);
         }
-
-        [Route("Reviewer/Edit/{pid}/{rid}")]
-        public ActionResult Edit(int pid, int rid)
+        
+        public ActionResult Edit(int id)
         {
-
-            var proposal = _context.Proposals.SingleOrDefault(m => m.Id == pid);
-            if (proposal == null)
-            {
-                return HttpNotFound();
-            }
-            var reviewer = _context.Reviewers.SingleOrDefault(m => m.Id == rid);
+            var reviewer = _context.Reviewers.SingleOrDefault(m => m.Id == id);
             if (reviewer == null)
             {
                 return HttpNotFound();
             }
 
-            //checks if there exists a relationship
-            var reviewerIds = _context.Database.SqlQuery<int>("Select ReviewerId From dbo.ExternalReview_Reviewer Where ExternalReviewId = " + proposal.ExternalReviewId).ToList();
-            if (reviewerIds.Contains(reviewer.Id))
-            {
-                var viewModel = new ReviewerFormViewModel
-                {
-                    Reviewer = reviewer,
-                    Proposal = proposal,
-                };
-                return View("Form", viewModel);
-            }
-            else
-            {
-                return HttpNotFound();
-            }
+            var err = _context.ExternalReview_Reviewer.SingleOrDefault(m => m.ReviewerId == id);
 
+            var proposal = _context.Proposals.SingleOrDefault(m => m.ExternalReviewId == err.ExternalReviewId);
             
+            var viewModel = new ReviewerFormViewModel
+            {
+                Reviewer = reviewer,
+                Proposal = proposal,
+            };
+            return View("Form", viewModel);
         }
-
-        [Route("Reviewer/Delete/{pid}/{rid}")]
-        public ActionResult Delete(int pid, int rid)
+        
+        public ActionResult Delete(int id)
         {
 
-            var proposal = _context.Proposals.SingleOrDefault(m => m.Id == pid);
-            if (proposal == null)
-            {
-                return HttpNotFound();
-            }
-            var reviewer = _context.Reviewers.SingleOrDefault(m => m.Id == rid);
+            var reviewer = _context.Reviewers.SingleOrDefault(m => m.Id == id);
             if (reviewer == null)
             {
                 return HttpNotFound();
             }
 
-            //checks if there exists a relationship
-            var reviewerIds = _context.Database.SqlQuery<int>("Select ReviewerId From dbo.ExternalReview_Reviewer Where ExternalReviewId = " + proposal.ExternalReviewId).ToList();
-            if (reviewerIds.Contains(reviewer.Id)) {
-                var err = _context.ExternalReview_Reviewer.Single(m => m.ReviewerId == reviewer.Id);
-                _context.ExternalReview_Reviewer.Remove(err);
-                _context.Reviewers.Remove(reviewer);
-                _context.SaveChanges();
+            var err = _context.ExternalReview_Reviewer.SingleOrDefault(m => m.ReviewerId == id);
 
-                return RedirectToAction("Index", "ExternalReview", new { id = proposal.Id });
-            }
-            else{
-                return HttpNotFound();
-            }
+            var proposal = _context.Proposals.SingleOrDefault(m => m.ExternalReviewId == err.ExternalReviewId);
+            
+            _context.ExternalReview_Reviewer.Remove(err);
+            _context.Reviewers.Remove(reviewer);
+            _context.SaveChanges();
 
+            return RedirectToAction("Index", "ExternalReview", new { id = proposal.Id });
             
         }
 
