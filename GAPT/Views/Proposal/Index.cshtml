@@ -37,7 +37,7 @@ else
                     <td>@proposal.ExternalReviewId</td>
                     <td>@proposal.IncomeExpenditureId</td>
                     <td>@proposal.ApprovalId</td>
-                    <td>@Html.ActionLink("Edit", "Edit", "General", new { id = proposal.GeneralId }, null)</td>
+                    <td>@Html.ActionLink("View", "General", "Proposal", new { id = proposal.Id }, null) - @Html.ActionLink("Edit", "Edit", "General", new { id = proposal.GeneralId }, null)</td>
                 </tr>
             }
         </tbody>

@@ -35,6 +35,85 @@ namespace GAPT.Models
             return proposal;
         }
 
+        public string GetLevelName() {
+            GaptDbContext db = new GaptDbContext();
+            if (LevelId == null) {
+                return null;
+            }
+            var level = db.Ref_Level.SingleOrDefault(t => t.Id == LevelId);
+            return level.Name;
+        }
+
+        public string GetDeliveryName()
+        {
+            GaptDbContext db = new GaptDbContext();
+            if (DeliveryId == null)
+            {
+                return null;
+            }
+            var mode = db.Ref_Delivery.SingleOrDefault(t => t.Id == DeliveryId);
+            return mode.Name;
+        }
+
+        public string GetFacultyName() {
+            GaptDbContext db = new GaptDbContext();
+            if (FacultyId == null)
+            {
+                return null;
+            }
+            var faculty = db.Ref_Faculty.SingleOrDefault(t => t.Id == FacultyId);
+            return faculty.Name;
+        }
+
+        public List<Ref_Department> GetInitDepts()
+        {
+            GaptDbContext db = new GaptDbContext();
+            var ids = db.Database.SqlQuery<int>("Select DepartmentId From dbo.Department_General Where GeneralId = " + Id + " and Type = 1").ToList();
+            if (ids == null)
+            {
+                return null;
+            }
+            var depts = new List<Ref_Department>();
+            foreach (int id in ids) {
+                var dept = db.Ref_Department.SingleOrDefault(m => m.Id == id);
+                depts.Add(dept);
+            }
+            return depts;
+        }
+
+        public List<Ref_Department> GetCollabDepts()
+        {
+            GaptDbContext db = new GaptDbContext();
+            var ids = db.Database.SqlQuery<int>("Select DepartmentId From dbo.Department_General Where GeneralId = " + Id + " and Type = 2").ToList();
+            if (ids == null)
+            {
+                return null;
+            }
+            var depts = new List<Ref_Department>();
+            foreach (int id in ids)
+            {
+                var dept = db.Ref_Department.SingleOrDefault(m => m.Id == id);
+                depts.Add(dept);
+            }
+            return depts;
+        }
+
+        public List<Ref_Department> GetServDepts()
+        {
+            GaptDbContext db = new GaptDbContext();
+            var ids = db.Database.SqlQuery<int>("Select DepartmentId From dbo.Department_General Where GeneralId = " + Id + " and Type = 3").ToList();
+            if (ids == null)
+            {
+                return null;
+            }
+            var depts = new List<Ref_Department>();
+            foreach (int id in ids)
+            {
+                var dept = db.Ref_Department.SingleOrDefault(m => m.Id == id);
+                depts.Add(dept);
+            }
+            return depts;
+        }
 
     }
 
@@ -152,8 +231,83 @@ namespace GAPT.Models
             var year = db.Years.SingleOrDefault(m => m.Id == YearId);
             return year;
         }
-
-
+        public string GetPeriodName()
+        {
+            if (Period == null)
+            {
+                return null;
+            }
+            switch (Period) {
+                case 1:
+                    {
+                        return "Sem 1";
+                    }
+                case 2:
+                    {
+                        return "Sem 2";
+                    }
+                case 3:
+                    {
+                        return "YR";
+                    }
+                case 4:
+                    {
+                        return "SP";
+                    }
+                default:
+                    {
+                        return null;
+                    }
+            }
+        }
+        public string GetCoeName()
+        {
+            if (Coe == null)
+            {
+                return null;
+            }
+            switch (Coe)
+            {
+                case 1:
+                    {
+                        return "Compulsory";
+                    }
+                case 2:
+                    {
+                        return "Optional";
+                    }
+                case 3:
+                    {
+                        return "Elective";
+                    }
+                default:
+                    {
+                        return null;
+                    }
+            }
+        }
+        public string GetCompensatingName()
+        {
+            if (Compensating == null)
+            {
+                return null;
+            }
+            switch (Compensating)
+            {
+                case 1:
+                    {
+                        return "Yes";
+                    }
+                case 0:
+                    {
+                        return "No";
+                    }
+                default:
+                    {
+                        return null;
+                    }
+            }
+        }
     }
 
     [MetadataType(typeof(ExternalReviewMetadata))]

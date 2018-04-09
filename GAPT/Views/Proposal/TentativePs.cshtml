@@ -1,0 +1,88 @@
+﻿@model GAPT.ViewModels.TentativePsDetailsViewModel
+@using GAPT.Models
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var proposal = Model.Proposal;
+    var dict = Model.Dictionary;
+}
+<h2>Section B - Rationale for Programme</h2>
+<input type="button" class="btn btn-warning" value="Section A" onclick="location.href='@Url.Action("General", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-warning" value="Section B" onclick="location.href='@Url.Action("Rationale", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-warning" value="Section C" onclick="location.href='@Url.Action("ExternalReview", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-warning" value="Section D" onclick="location.href='@Url.Action("IncomeExpenditure", "Proposal", new { id = Model.Proposal.Id })'" />
+<br>
+<h3>Tentative Programme of Study</h3>
+@if (Model.Proposal.ProgrammeRationaleId != null)
+{
+    
+    if (proposal.ProgrammeRationale.TentativePsId != null)
+    {
+        
+        if (dict.Keys.Count() > 0)
+        {
+            foreach (Year year in dict.Keys)
+            {
+                <h4>Year @year.YearNo</h4>
+                <p>Total ECTs for Year @year.YearNo: @year.TotalEcts</p>
+                var units = dict[year];
+                if (units.Count() > 0)
+                {
+                    <table id="units-table" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Title</th>
+                                <th>Period</th>
+                                <th>Credit Value</th>
+                                <th>C/O/E</th>
+                                <th>Lecturer</th>
+                                @if (Model.Proposal.GetGeneral().LevelId == 1)
+                                {
+                                    <th style="color:red">Compensating</th>
+                                    <th style="color:red">Reason</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (Year_Unit yu in units)
+                        {
+                            <tr>
+                                <td>@yu.GetUnit().Code</td>
+                                <td>@yu.GetUnit().Title</td>
+                                <td>@yu.GetPeriodName()</td>
+                                <td>@yu.Ects</td>
+                                <td>@yu.GetCoeName()</td>
+                                <td>@yu.Lecturer</td>
+                                @if (Model.Proposal.GetGeneral().LevelId == 1)
+                                {
+                                    <td>@yu.GetCompensatingName()</td>
+                                    <td>@yu.CompensatingReason</td>
+                                }
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>No units yet.</p>
+                }
+            }
+        }
+        else
+        {
+            <p>This Proposal has no Years yet.</p>
+        }
+    }
+    else
+    {
+        <p>This section has not been filled yet.</p>
+    }
+}
+else
+{
+    <p>This section has not been filled yet.</p>
+}
+<input type="button" class="btn btn-primary" value="Previous" onclick="location.href='@Url.Action("ProgrammeStudy", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-primary" value="Next" onclick="location.href='@Url.Action("ExternalReview", "Proposal", new { id = Model.Proposal.Id })'" />

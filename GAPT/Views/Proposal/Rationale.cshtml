@@ -1,0 +1,34 @@
+﻿@model GAPT.Models.Proposal
+@using GAPT.Models
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Section B - Rationale for Programme</h2>
+<input type="button" class="btn btn-warning" value="Section A" onclick="location.href='@Url.Action("General", "Proposal", new { id = Model.Id })'" />
+<input type="button" class="btn btn-warning" value="Section B" onclick="location.href='@Url.Action("Rationale", "Proposal", new { id = Model.Id })'" />
+<input type="button" class="btn btn-warning" value="Section C" onclick="location.href='@Url.Action("ExternalReview", "Proposal", new { id = Model.Id })'" />
+<input type="button" class="btn btn-warning" value="Section D" onclick="location.href='@Url.Action("IncomeExpenditure", "Proposal", new { id = Model.Id })'" />
+<br>
+<h3>Rationale</h3>
+@if (Model.ProgrammeRationaleId != null)
+{
+
+    if (@Model.ProgrammeRationale.Rationale != null)
+    {
+
+        <p><b>(a) Give the justification for the introduction of theis programme of studies at the University of Malta</b><br>@Model.ProgrammeRationale.Rationale.Justification</p>
+        <p><b>(b) How does this programme fit into the existing plans and scope of the Department, Faculty, and/or the University strategy?</b><br>@Model.ProgrammeRationale.Rationale.Fit</p>
+        <p><b>(c) How does this programme differ from existing programmes in the same or related areas of study offered by this University?</b><br>@Model.ProgrammeRationale.Rationale.Differences</p>
+        
+    }
+    else {
+        <p>This section has not been filled yet.</p>
+    }
+}
+else
+{
+    <p>This section has not been filled yet.</p>
+}
+<input type="button" class="btn btn-primary" value="Previous" onclick="location.href='@Url.Action("General", "Proposal", new { id = Model.Id })'" />
+<input type="button" class="btn btn-primary" value="Next" onclick="location.href='@Url.Action("Demand", "Proposal", new { id = Model.Id })'" />

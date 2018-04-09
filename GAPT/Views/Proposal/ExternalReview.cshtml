@@ -1,0 +1,57 @@
+﻿@model GAPT.ViewModels.ExternalReviewDetailsViewModel
+@using GAPT.Models
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var proposal = Model.Proposal;
+    var reviewers = Model.Reviewers;
+}
+<h2>Section C - External Review</h2>
+<input type="button" class="btn btn-warning" value="Section A" onclick="location.href='@Url.Action("General", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-warning" value="Section B" onclick="location.href='@Url.Action("Rationale", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-warning" value="Section C" onclick="location.href='@Url.Action("ExternalReview", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-warning" value="Section D" onclick="location.href='@Url.Action("IncomeExpenditure", "Proposal", new { id = Model.Proposal.Id })'" />
+<br><br>
+@if (Model.Proposal.ExternalReviewId != null)
+{
+    if (reviewers.Count() > 0)
+    {
+        <table id="reviewers" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Affiliation</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th>Telephone</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var reviewer in reviewers)
+                {
+                    <tr>
+                        <td>@reviewer.Id</td>
+                        <td>@reviewer.Name</td>
+                        <td>@reviewer.Affiliation</td>
+                        <td>@reviewer.Address</td>
+                        <td>@reviewer.Email</td>
+                        <td>@reviewer.Telephone</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No reviewers yet.</p>
+    }
+}
+else
+{
+    <p>This section has not been filled yet.</p>
+}
+<input type="button" class="btn btn-primary" value="Previous" onclick="location.href='@Url.Action("TentativePs", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-primary" value="Next" onclick="location.href='@Url.Action("IncomeExpenditure", "Proposal", new { id = Model.Proposal.Id })'" />
+
+

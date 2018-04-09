@@ -1,0 +1,41 @@
+﻿@model GAPT.Models.Proposal
+@using GAPT.Models
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Section B - Rationale for Programme</h2>
+<input type="button" class="btn btn-warning" value="Section A" onclick="location.href='@Url.Action("General", "Proposal", new { id = Model.Id })'" />
+<input type="button" class="btn btn-warning" value="Section B" onclick="location.href='@Url.Action("Rationale", "Proposal", new { id = Model.Id })'" />
+<input type="button" class="btn btn-warning" value="Section C" onclick="location.href='@Url.Action("ExternalReview", "Proposal", new { id = Model.Id })'" />
+<input type="button" class="btn btn-warning" value="Section D" onclick="location.href='@Url.Action("IncomeExpenditure", "Proposal", new { id = Model.Id })'" />
+<br>
+<h3>Demand</h3>
+@if (Model.ProgrammeRationaleId != null)
+{
+    if (@Model.ProgrammeRationale.Demand != null)
+    {
+        <p>
+            <b>
+                (a) A brief description of the expected student profile, if applicable, and market demand is
+                to be included in this section. You might wish to consider the following points:<br>
+                • Is the programme targeted at any particular type of student?<br>
+                • Is there any evidence of employer support/demand?<br>
+                • Have the major stakeholders been consulted / involved in the planning stage?<br>
+            </b>
+            @Model.ProgrammeRationale.Demand.Description
+        </p>
+        <p><b>(b) Will the demand for this programme be ongoing or for a specific period?</b> (In the latter instance please indicate period)<br>@Model.ProgrammeRationale.Demand.Period</p>
+        
+    }
+    else
+    {
+        <p>This section has not been filled yet.</p>
+    }
+}
+else
+{
+    <p>This section has not been filled yet.</p>
+}
+<input type="button" class="btn btn-primary" value="Previous" onclick="location.href='@Url.Action("Rationale", "Proposal", new { id = Model.Id })'" />
+<input type="button" class="btn btn-primary" value="Next" onclick="location.href='@Url.Action("ProgrammeStudy", "Proposal", new { id = Model.Id })'" />

@@ -1,0 +1,56 @@
+﻿@model GAPT.ViewModels.IncomeExpenditureDetailsViewModel
+@using GAPT.Models
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var proposal = Model.Proposal;
+    var statements = Model.Statements;
+}
+<h2>Section D - Proposed Income and Expenditure Statement</h2>
+<input type="button" class="btn btn-warning" value="Section A" onclick="location.href='@Url.Action("General", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-warning" value="Section B" onclick="location.href='@Url.Action("Rationale", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-warning" value="Section C" onclick="location.href='@Url.Action("ExternalReview", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-warning" value="Section D" onclick="location.href='@Url.Action("IncomeExpenditure", "Proposal", new { id = Model.Proposal.Id })'" />
+<br><br>
+@if (Model.Proposal.IncomeExpenditureId != null)
+{
+    if (statements.Count() > 0)
+    {
+        <table id="reviewers" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Upload</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var statement in statements)
+                {
+                    <tr>
+                        <td>@statement.Id</td>
+                        <td><a target="_blank" href="@Url.Content("~/Uploads/" + statement.Upload)">@statement.Upload</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @*foreach (var statement in statements)
+        {
+            <object data="@Url.Content("~/Uploads/" + statement.Upload)" type="application/pdf" style="width:100%" >
+                <p>Alternative text - include a link <a href="myfile.pdf">to the PDF!</a></p>
+            </object>
+        }*@
+
+    }
+    else
+    {
+        <p>No statements yet.</p>
+    }
+}
+else
+{
+    <p>This section has not been filled yet.</p>
+}
+<input type="button" class="btn btn-primary" value="Previous" onclick="location.href='@Url.Action("ExternalReview", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-primary" value="Next" onclick="location.href='@Url.Action("", "Proposal", new { id = Model.Proposal.Id })'" />
+
+

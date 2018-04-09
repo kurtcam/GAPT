@@ -1,0 +1,134 @@
+﻿@model GAPT.Models.Proposal
+@using GAPT.Models
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Section A - General</h2>
+<input type="button" class="btn btn-warning" value="Section A" onclick="location.href='@Url.Action("General", "Proposal", new { id = Model.Id })'" />
+<input type="button" class="btn btn-warning" value="Section B" onclick="location.href='@Url.Action("Rationale", "Proposal", new { id = Model.Id })'" />
+<input type="button" class="btn btn-warning" value="Section C" onclick="location.href='@Url.Action("ExternalReview", "Proposal", new { id = Model.Id })'" />
+<input type="button" class="btn btn-warning" value="Section D" onclick="location.href='@Url.Action("IncomeExpenditure", "Proposal", new { id = Model.Id })'" />
+<br><br>
+<table id="proposal-data" class="table table-bordered table-hover">
+    <tbody>
+        <tr>
+            <th>Id</th><td>@Model.Id</td>
+        </tr>
+        <tr>
+            <th>Created By</th>
+            <td>@Model.CreatedBy</td>
+        </tr>
+        <tr>
+            <th>Created On</th>
+            <td>@Model.CreatedOn</td>
+        </tr>
+    </tbody>
+</table>
+
+
+@if (Model.GeneralId != null)
+{
+    
+    <table id="general-data" class="table table-bordered table-hover">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>@Model.GeneralId</td>
+            </tr>
+            <tr>
+                <th>Proposed Title of Award</th>
+                <td>@Model.General.Title</td>
+            </tr>
+            <tr>
+                <th>Level</th>
+                <td>@Model.General.GetLevelName()</td>
+            </tr>
+            <tr>
+                <th>Area/s of Study</th>
+                <td>@Model.General.AreasStudy</td>
+            </tr>
+            <tr>
+                <th>Faculty/Institute/Centre</th>
+                <td>@Model.General.GetFacultyName()</td>
+            </tr>
+            @if (Model.General.GetInitDepts() != null)
+            {
+                string s = "";
+                foreach (Ref_Department dept in Model.General.GetInitDepts())
+                {
+                    s += dept.Name + ", ";
+                }
+                s = s.TrimEnd(' '); s = s.TrimEnd(',');
+                <tr>
+                    <th>Initiating Departments</th>
+                    <td>@s</td>
+                </tr>
+            }
+            @if (Model.General.GetCollabDepts() != null)
+            {
+                string s = "";
+                foreach (Ref_Department dept in Model.General.GetCollabDepts())
+                {
+                    s += dept.Name + ", ";
+                }
+                s = s.TrimEnd(' '); s = s.TrimEnd(',');
+                <tr>
+                    <th>Collaborating Departments</th>
+                    <td>@s</td>
+                </tr>
+            }
+            @if (Model.General.GetServDepts() != null)
+            {
+                string s = "";
+                foreach (Ref_Department dept in Model.General.GetServDepts())
+                {
+                    s += dept.Name + ", ";
+                }
+                s = s.TrimEnd(' '); s = s.TrimEnd(',');
+                <tr>
+                    <th>Servicing Departments</th>
+                    <td>@s</td>
+                </tr>
+            }
+            <tr>
+                <th style="color:red">Name of Proposer/s</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th style="color:red">Programme Type</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Mode of Delivery</th>
+                <td>@Model.General.GetDeliveryName()</td>
+            </tr>
+            <tr>
+                <th>Duration in Semesters</th>
+                <td>@Model.General.DurationSemesters</td>
+            </tr>
+            <tr>
+                <th>Proposed Date of First Intake</th>
+                <td>@Model.General.FirstDateIntake</td>
+            </tr>
+            <tr>
+                <th>Expected Student Numbers</th>
+                <td>@Model.General.ExpectedStudents</td>
+            </tr>
+            <tr>
+                <th>Maximum Student Numbers</th>
+                <td>@Model.General.MaxStudents</td>
+            </tr>
+            <tr>
+                <th>Reason for Capping</th>
+                <td>@Model.General.CappingReason</td>
+            </tr>
+        </tbody>
+    </table>
+    
+}
+else
+{
+    <p>This section has not been filled yet.</p>
+}
+<input type="button" class="btn btn-primary" value="Next" onclick="location.href='@Url.Action("Rationale", "Proposal", new { id = Model.Id })'" />

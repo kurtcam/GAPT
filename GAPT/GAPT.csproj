@@ -326,8 +326,10 @@
     <Compile Include="ViewModels\DemandFormViewModel.cs" />
     <Compile Include="ViewModels\EndorsementCollabFormViewModel.cs" />
     <Compile Include="ViewModels\ApprovalIndexViewModel.cs" />
+    <Compile Include="ViewModels\ExternalReviewDetailsViewModel.cs" />
     <Compile Include="ViewModels\ExternalReviewIndexViewModel.cs" />
     <Compile Include="ViewModels\GeneralFormViewModel.cs" />
+    <Compile Include="ViewModels\IncomeExpenditureDetailsViewModel.cs" />
     <Compile Include="ViewModels\IncomeExpenditureIndexViewModel.cs" />
     <Compile Include="ViewModels\ProgrammeStudyFormViewModel.cs" />
     <Compile Include="ViewModels\RationaleFormViewModel.cs" />
@@ -335,6 +337,7 @@
     <Compile Include="ViewModels\ReviewerFormViewModel.cs" />
     <Compile Include="ViewModels\StatementIEFormViewModel.cs" />
     <Compile Include="ViewModels\StatementServFormViewModel.cs" />
+    <Compile Include="ViewModels\TentativePsDetailsViewModel.cs" />
     <Compile Include="ViewModels\TentativePsFormViewModel.cs" />
     <Compile Include="ViewModels\TentativePsIndexViewModel.cs" />
     <Compile Include="ViewModels\YearFormViewModel.cs" />
@@ -455,6 +458,14 @@
     <Content Include="Views\RecommendationFics\Form.cshtml" />
     <Content Include="Views\RecommendationFics\Rejected.cshtml" />
     <Content Include="Views\RecommendationFics\Accepted.cshtml" />
+    <Content Include="Views\Proposal\Details.cshtml" />
+    <Content Include="Views\Proposal\General.cshtml" />
+    <Content Include="Views\Proposal\Rationale.cshtml" />
+    <Content Include="Views\Proposal\Demand.cshtml" />
+    <Content Include="Views\Proposal\ProgrammeStudy.cshtml" />
+    <Content Include="Views\Proposal\TentativePs.cshtml" />
+    <Content Include="Views\Proposal\ExternalReview.cshtml" />
+    <Content Include="Views\Proposal\IncomeExpenditure.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

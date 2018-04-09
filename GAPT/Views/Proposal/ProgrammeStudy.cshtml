@@ -1,0 +1,57 @@
+﻿@model GAPT.Models.Proposal
+@using GAPT.Models
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Section B - Rationale for Programme</h2>
+<input type="button" class="btn btn-warning" value="Section A" onclick="location.href='@Url.Action("General", "Proposal", new { id = Model.Id })'" />
+<input type="button" class="btn btn-warning" value="Section B" onclick="location.href='@Url.Action("Rationale", "Proposal", new { id = Model.Id })'" />
+<input type="button" class="btn btn-warning" value="Section C" onclick="location.href='@Url.Action("ExternalReview", "Proposal", new { id = Model.Id })'" />
+<input type="button" class="btn btn-warning" value="Section D" onclick="location.href='@Url.Action("IncomeExpenditure", "Proposal", new { id = Model.Id })'" />
+<br>
+<h3>The Programme of Study</h3>
+@if (Model.ProgrammeRationaleId != null)
+
+{
+    if (@Model.ProgrammeRationale.ProgrammeOfStudy != null)
+    {
+        <p>
+            <b>
+                Give a detailed summary of the proposed programme of study and the intended learning
+                outcomes. This section should include details of how the programme provides opportunities
+                for students to demonstrate:
+            </b><br><br>
+            <b>
+                (a) Subject Knowledge and understanding
+            </b><br>
+            @Model.ProgrammeRationale.ProgrammeOfStudy.KnowledgeUnderstanding
+            <b>
+                <br><br>
+                (b) Intellectual development
+            </b><br>
+            @Model.ProgrammeRationale.ProgrammeOfStudy.IntellectualDevelopment
+            <b>
+                <br><br>
+                (c) Key/transferrable skills
+            </b><br>
+            @Model.ProgrammeRationale.ProgrammeOfStudy.KeyTransferableSkills
+            <b>
+                <br><br>
+                (d) Other skills relevant to employability and personal development
+            </b><br>
+            @Model.ProgrammeRationale.ProgrammeOfStudy.OtherSkills
+        </p>
+        
+    }
+    else
+    {
+    <p>This section has not been filled yet.</p>
+    }
+}
+else
+{
+    <p>This section has not been filled yet.</p>
+}
+<input type="button" class="btn btn-primary" value="Previous" onclick="location.href='@Url.Action("Demand", "Proposal", new { id = Model.Id })'" />
+<input type="button" class="btn btn-primary" value="Next" onclick="location.href='@Url.Action("TentativePs", "Proposal", new { id = Model.Id })'" />

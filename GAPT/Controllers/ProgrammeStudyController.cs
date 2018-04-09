@@ -74,6 +74,7 @@ namespace GAPT.Controllers
                 var psInDb = _context.ProgrammeOfStudies.SingleOrDefault(m => m.Id == programmeStudy.Id);
                 psInDb.KnowledgeUnderstanding = programmeStudy.KnowledgeUnderstanding;
                 psInDb.IntellectualDevelopment = programmeStudy.IntellectualDevelopment;
+                psInDb.KeyTransferableSkills = programmeStudy.KeyTransferableSkills;
                 psInDb.OtherSkills = programmeStudy.OtherSkills;
             }
 

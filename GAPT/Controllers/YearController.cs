@@ -157,14 +157,14 @@ namespace GAPT.Controllers
                         if (Request["comp_" + name] == "on")
                         {
                             yu.Compensating = 1;
-                            if (Request["reason_" + name] != "")
-                            {
-                                yu.CompensatingReason = Request["reason_" + name];
-                            }
                         }
                         else
                         {
                             yu.Compensating = 0;
+                            if (Request["reason_" + name] != "")
+                            {
+                                yu.CompensatingReason = Request["reason_" + name];
+                            }
                         }
                     }
                     else
