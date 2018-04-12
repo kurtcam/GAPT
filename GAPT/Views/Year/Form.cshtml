@@ -127,10 +127,14 @@
                         <td><input value="@yu.Lecturer" name="lecturer_@yu.UnitId" style="width:100%" class="form-control" placeholder="Enter lecturers' names" type="text"></td>
                         @if (Model.Proposal.GetGeneral().LevelId == 1)
                         {
-                            <td class="clickable"><input checked=@(yu.Compensating == 1?true:false) type="checkbox" name="comp_@yu.UnitId"></td>
-                            <td><input value="@yu.CompensatingReason" name="reason_@yu.UnitId" style="width:100%" class="form-control" placeholder="Enter compensating reason" type="text"></td>
+                            var c = "form-control";
+                            if (yu.Compensating == 0) {
+                                c += " required";
+                            }
+                            <td class="clickable"><input checked=@(yu.Compensating == 1?true:false) type="checkbox" name="comp_@yu.UnitId" id="comp_@yu.UnitId" onclick="compcbClick(@yu.UnitId)"></td>
+                            <td><input value="@yu.CompensatingReason" id="reason_@yu.UnitId" name="reason_@yu.UnitId" style="width:100%" class="@c" placeholder="Enter compensating reason" type="text"></td>
                         }
-                        <td class="clickable selectable"><input class="selectable" checked type="checkbox" name=@yu.UnitId></td>
+                        <td class="clickable selectable"><input id="select_@yu.UnitId" onclick="selectcbClick(@yu.UnitId)" class="selectable" checked type="checkbox" name=@yu.UnitId></td>
                     </tr>
                 }
                 @foreach (Ref_Unit unit in Model.UnselectedUnits)
@@ -159,10 +163,10 @@
                         <td><input name="lecturer_@unit.Id" style="width:100%" class="form-control" placeholder="Enter lecturers' names" type="text"></td>
                         @if (Model.Proposal.GetGeneral().LevelId == 1)
                         {
-                            <td class="clickable"><input checked type="checkbox" name="comp_@unit.Id"></td>
-                            <td><input name="reason_@unit.Id" style="width:100%" class="form-control" placeholder="Enter compensating reason" type="text"></td>
+                            <td class="clickable"><input checked type="checkbox" id="comp_@unit.Id" onclick="compcbClick(@unit.Id)" name="comp_@unit.Id"></td>
+                            <td><input name="reason_@unit.Id" id="reason_@unit.Id" style="width:100%" class="form-control" placeholder="Enter compensating reason" type="text"></td>
                         }
-                        <td class="clickable"><input class="selectable" type="checkbox" name=@unit.Id></td>
+                        <td class="clickable"><input class="selectable" type="checkbox" onclick="selectcbClick(@unit.Id)" id="select_@unit.Id" name=@unit.Id></td>
                     </tr>
                 }
             </tbody>
@@ -229,6 +233,47 @@
                 }
             }
     </script>
+
+<script>
+            function compcbClick(unitId) {
+                var fieldId = "reason_" + unitId;
+                var reasonField = document.getElementById(fieldId);
+                var selectCb = document.getElementById("select_" + unitId);
+                var compCb = document.getElementById("comp_" + unitId);
+                if (compCb.checked == false) {
+                    reasonField.disabled = false;
+                    if (selectCb.checked == true) {
+                        reasonField.className += " required";
+                    }
+                    else {
+                        reasonField.className = reasonField.className.replace(/\b required\b/, '');
+                    }
+                }
+                else {
+                    reasonField.disabled = true;
+                    reasonField.value = "";
+                    reasonField.className = reasonField.className.replace(/\b required\b/, '');
+                }
+            }
+            function selectcbClick(unitId) {
+                var fieldId = "reason_" + unitId;
+                var reasonField = document.getElementById(fieldId);
+
+                var selectCb = document.getElementById("select_" + unitId);
+                var compCb = document.getElementById("comp_" + unitId);
+                if (selectCb.checked == true) {
+                    if (compCb.checked == false) {
+                        reasonField.className += " required";
+                    }
+                    else {
+                        reasonField.className = reasonField.className.replace(/\b required\b/, '');
+                    }
+                }
+                else {
+                    reasonField.className = reasonField.className.replace(/\b required\b/, '');
+                }
+            }
+</script>
 }
 
 @section Styles {

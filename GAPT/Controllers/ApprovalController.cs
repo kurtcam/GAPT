@@ -102,6 +102,9 @@ namespace GAPT.Controllers
             }
 
             var faculty = _context.Ref_Faculty.SingleOrDefault(m => m.Id == proposal.General.FacultyId);
+            if (faculty == null) {
+                return Content("No faculty yet");
+            }
             if (faculty.GetRecommendation(proposal.Id) == null)
             {
                 var rec = new RecommendationFic();

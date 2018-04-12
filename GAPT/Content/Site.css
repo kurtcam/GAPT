@@ -22,10 +22,6 @@ select,
 textarea {
     max-width: 280px;
 }
-.field-validation-error {
-    color: red;
-}
-
 
 .clickable-row {
     cursor: pointer;
@@ -54,4 +50,10 @@ textarea {
     background: white;
     cursor: inherit;
     display: block;
+}
+
+.input-validation-error, .input-validation-error:focus {
+    border: 1px solid red;
+    outline: none;
+    box-shadow: 0 0 6px red;
 }

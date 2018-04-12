@@ -53,44 +53,35 @@ namespace GAPT.Controllers
             };
             return View("Form", viewModel);
         }
-
-        [Route("Reviewer/Edit/{pid}/{yid}")]
-        public ActionResult Edit(int pid, int yid)
+        
+        public ActionResult Edit(int id)
         {
-
-            var proposal = _context.Proposals.SingleOrDefault(m => m.Id == pid);
-            if (proposal == null)
-            {
-                return HttpNotFound();
-            }
-            var year = _context.Years.SingleOrDefault(m => m.Id == yid);
+            var year = _context.Years.SingleOrDefault(m => m.Id == id);
             if (year == null)
             {
                 return HttpNotFound();
             }
-
-            //checks if there exists a relationship
-            var pr = _context.ProgrammeRationales.SingleOrDefault(m => m.Id == proposal.ProgrammeRationaleId);
-            var yearIds = _context.Database.SqlQuery<int>("Select Id From dbo.Year Where TentativePsId = " + pr.TentativePsId).ToList();
-            if (yearIds.Contains(year.Id))
-            {
-                string selectedQuery = "SELECT * FROM Year_Unit WHERE YearId = " + year.Id;
-                var selectedUnits = _context.Database.SqlQuery<Year_Unit>(selectedQuery).ToList();
-                string unselectedQuery = "SELECT * FROM Ref_Unit WHERE Id not in (SELECT UnitId FROM Year_Unit WHERE YearId = "+year.Id+") AND DepartmentId IN(Select distinct DepartmentId From dbo.Department_General WHERE GeneralId = "+ proposal.GeneralId+ ")";
-                var unselectedUnits = _context.Database.SqlQuery<Ref_Unit>(unselectedQuery).ToList();
-                var viewModel = new YearFormViewModel
-                {
-                    Year = year,
-                    Proposal = proposal,
-                    SelectedUnits = selectedUnits,
-                    UnselectedUnits = unselectedUnits
-                };
-                return View("Form", viewModel);
-            }
-            else
+            var tentative = _context.TentativePs.SingleOrDefault(m => m.Id == year.TentativePsId);
+            var pr = _context.ProgrammeRationales.SingleOrDefault(m => m.TentativePsId == tentative.Id);
+            var proposal = _context.Proposals.SingleOrDefault(m => m.ProgrammeRationaleId == pr.Id);
+            if (proposal == null)
             {
                 return HttpNotFound();
             }
+            
+            string selectedQuery = "SELECT * FROM Year_Unit WHERE YearId = " + year.Id;
+            var selectedUnits = _context.Database.SqlQuery<Year_Unit>(selectedQuery).ToList();
+            string unselectedQuery = "SELECT * FROM Ref_Unit WHERE Id not in (SELECT UnitId FROM Year_Unit WHERE YearId = "+year.Id+") AND DepartmentId IN(Select distinct DepartmentId From dbo.Department_General WHERE GeneralId = "+ proposal.GeneralId+ ")";
+            var unselectedUnits = _context.Database.SqlQuery<Ref_Unit>(unselectedQuery).ToList();
+            var viewModel = new YearFormViewModel
+            {
+                Year = year,
+                Proposal = proposal,
+                SelectedUnits = selectedUnits,
+                UnselectedUnits = unselectedUnits
+            };
+            return View("Form", viewModel);
+            
 
 
         }
