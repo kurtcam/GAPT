@@ -10,5 +10,6 @@ namespace GAPT.ViewModels
     {
         public Proposal Proposal { get; set; }
         public IEnumerable<StatementIE> Statements { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }

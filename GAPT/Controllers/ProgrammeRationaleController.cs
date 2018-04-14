@@ -30,7 +30,7 @@ namespace GAPT.Controllers
         public ActionResult Jump(int id)
         {
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == id);
-            if (proposal == null)
+            if (proposal == null || proposal.Submitted)
             {
                 return HttpNotFound();
             }

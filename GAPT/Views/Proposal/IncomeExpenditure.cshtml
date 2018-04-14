@@ -11,6 +11,10 @@
 <input type="button" class="btn btn-warning" value="Section B" onclick="location.href='@Url.Action("Rationale", "Proposal", new { id = Model.Proposal.Id })'" />
 <input type="button" class="btn btn-warning" value="Section C" onclick="location.href='@Url.Action("ExternalReview", "Proposal", new { id = Model.Proposal.Id })'" />
 <input type="button" class="btn btn-warning" value="Section D" onclick="location.href='@Url.Action("IncomeExpenditure", "Proposal", new { id = Model.Proposal.Id })'" />
+@if (proposal.Submitted)
+{
+    <input type="button" class="btn btn-warning" value="Section E" onclick="location.href='@Url.Action("Jump", "Approval", new { id = Model.Proposal.Id })'" />
+}
 <br><br>
 @if (Model.Proposal.IncomeExpenditureId != null)
 {
@@ -51,6 +55,10 @@ else
     <p>This section has not been filled yet.</p>
 }
 <input type="button" class="btn btn-primary" value="Previous" onclick="location.href='@Url.Action("ExternalReview", "Proposal", new { id = Model.Proposal.Id })'" />
-<input type="button" class="btn btn-primary" value="Next" onclick="location.href='@Url.Action("", "Proposal", new { id = Model.Proposal.Id })'" />
+@if (proposal.Submitted)
+{
+    <input type="button" class="btn btn-primary" value="Next" onclick="location.href='@Url.Action("Jump", "Approval", new { id = Model.Proposal.Id })'" />
+}
+
 
 

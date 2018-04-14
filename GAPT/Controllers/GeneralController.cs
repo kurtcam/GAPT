@@ -179,11 +179,6 @@ namespace GAPT.Controllers
                         // D pressed -> go to Section D
                         return RedirectToAction("Jump", "IncomeExpenditure", new { id = prop.Id });
                     }
-                case "E":
-                    {
-                        // E pressed -> go to Section E
-                        return RedirectToAction("Jump", "Approval", new { id = prop.Id });
-                    }
                 default:
                     {
                         return RedirectToAction("Index", "Proposal");
@@ -195,6 +190,9 @@ namespace GAPT.Controllers
         public ActionResult Edit(int id)
         {
             var proposal = _context.Proposals.SingleOrDefault(c => c.Id == id);
+            if (proposal == null || proposal.Submitted) {
+                return HttpNotFound();
+            }
             var general = _context.Generals.SingleOrDefault(c => c.Id == proposal.GeneralId);
 
             if (general == null)

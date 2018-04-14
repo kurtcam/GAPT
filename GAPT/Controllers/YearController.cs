@@ -171,7 +171,27 @@ namespace GAPT.Controllers
                 }
             }
             _context.SaveChanges();
-            return RedirectToAction("Index", "TentativePs", new { id = proposal.Id });
+
+            var jump = Request["jump"];
+            switch (jump)
+            {
+                case "0":
+                    {
+                        // Save pressed
+                        return RedirectToAction("Index", "TentativePs", new { id = proposal.Id });
+                    }
+                case "1":
+                    {
+                        // New unit pressed
+                        return RedirectToAction("New", "Unit", new { yearRedirect = year.Id });
+                    }
+                default:
+                    {
+                        return RedirectToAction("Index", "TentativePs", new { id = proposal.Id });
+                    }
+            }
+
+            
 
         }
     }

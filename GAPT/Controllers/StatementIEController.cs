@@ -84,10 +84,22 @@ namespace GAPT.Controllers
         {
             var proposal = vm.Proposal;
             proposal = _context.Proposals.SingleOrDefault(m => m.Id == proposal.Id);
-            var statement = vm.StatementIE;
-            if (!ModelState.IsValid)
+            if (proposal == null) {
+                return HttpNotFound();
+            }
+            if (postedFile != null)
             {
-                return View("Form", statement);
+                vm.StatementIE.Upload = postedFile.FileName.Replace(' ', '_');
+            }
+            var statement = vm.StatementIE;
+            if (vm.StatementIE.Upload == null)
+            {
+                var viewModel = new StatementIEFormViewModel
+                {
+                    Proposal = proposal,
+                    StatementIE = statement
+                };
+                return View("Form", viewModel);
             }
             if (postedFile != null)
             {

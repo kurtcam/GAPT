@@ -14,5 +14,5 @@ This proposal, which has been considered at the meeting of the Board of the Facu
 <p>@Model.Endorsement.SignedBy</p>
 <label>Signed On</label>
 <p>@Model.Endorsement.SignedDate</p>
-<input type="button" class="btn btn-danger" value="Cancel" onclick="location.href='@Url.Action("Index", "Approval", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-danger" value="Cancel" onclick="location.href='@Url.Action("Approval", "Proposal", new { id = Model.Proposal.Id })'" />
 

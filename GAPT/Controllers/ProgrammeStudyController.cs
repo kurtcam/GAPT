@@ -40,6 +40,16 @@ namespace GAPT.Controllers
             {
                 pr = _context.ProgrammeRationales.SingleOrDefault(m => m.Id == proposal.ProgrammeRationaleId);
             }
+            if (pr == null)
+            {
+                //if section B has not been visited yet
+                return RedirectToAction("Jump", "ProgrammeRationale", new { id = proposal.Id });
+            }
+            if (pr.DemandId == null)
+            {
+                //if section demand has not been visited yet
+                return RedirectToAction("Jump", "Demand", new { id = proposal.Id });
+            }
             if (pr.PsId != null)
             {
                 return HttpNotFound();
@@ -118,11 +128,6 @@ namespace GAPT.Controllers
                         // D pressed -> go to Section D
                         return RedirectToAction("Jump", "IncomeExpenditure", new { id = proposal.Id });
                     }
-                case "E":
-                    {
-                        // E pressed -> go to Section E
-                        return RedirectToAction("Jump", "Approval", new { id = proposal.Id });
-                    }
                 default:
                     {
                         return RedirectToAction("Index", "Proposal");
@@ -134,7 +139,7 @@ namespace GAPT.Controllers
         public ActionResult Edit(int id)
         {
             var proposal = _context.Proposals.SingleOrDefault(c => c.Id == id);
-            if (proposal == null)
+            if (proposal == null || proposal.Submitted)
             {
                 return HttpNotFound();
             }
@@ -144,6 +149,7 @@ namespace GAPT.Controllers
             }
 
             var pr = _context.ProgrammeRationales.SingleOrDefault(c => c.Id == proposal.ProgrammeRationaleId);
+
             var programmeStudy = _context.ProgrammeOfStudies.SingleOrDefault(c => c.Id == pr.PsId);
 
             if (programmeStudy == null)
@@ -162,9 +168,19 @@ namespace GAPT.Controllers
         {
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == id);
             var pr = _context.ProgrammeRationales.SingleOrDefault(c => c.Id == proposal.ProgrammeRationaleId);
-            if (proposal == null)
+            if (proposal == null || proposal.Submitted)
             {
                 return HttpNotFound();
+            }
+            if (pr == null)
+            {
+                //if section B has not been visited yet
+                return RedirectToAction("Jump", "ProgrammeRationale", new { id = proposal.Id });
+            }
+            if (pr.DemandId == null)
+            {
+                //if section demand has not been visited yet
+                return RedirectToAction("Jump", "Demand", new { id = proposal.Id });
             }
             if (pr.PsId == null)
             {

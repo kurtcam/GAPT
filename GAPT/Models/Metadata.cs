@@ -13,13 +13,50 @@ namespace GAPT.Models
     }
 
     public class GeneralMetadata
+    {  
+    }
+
+    public class ProgrammeRationaleMetadata
     {
-        
+    }
+
+    public class RationaleMetadata
+    {
+    }
+
+    public class DemandMetadata
+    {
+    }
+
+    public class ProgrammeOfStudyMetadata
+    {
+    }
+
+    public class TentativePMetadata
+    {
+    }
+
+    public class YearMetadata
+    {
+    }
+
+    public class ReviewerMetadata
+    {
     }
 
     public class Ref_DepartmentMetadata
     {
+    }
 
+    public class Ref_UnitMetadata
+    {
+        public int Id { get; set; }
+        [Required]
+        public string Code { get; set; }
+        [Required]
+        public string Title { get; set; }
+        [Required]
+        public int DepartmentId { get; set; }
     }
 
     public class Ref_FacultyMetadata
@@ -45,6 +82,12 @@ namespace GAPT.Models
 
     public class IncomeExpenditureMetadata
     {
+    }
+
+    public class StatementIEMetadata
+    {
+        [Required]
+        public string Upload { get; set; }
     }
 
     public class StatementServMetadata

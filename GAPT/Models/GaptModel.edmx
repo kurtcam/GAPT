@@ -139,6 +139,7 @@
           <Property Name="ExternalReviewId" Type="int" />
           <Property Name="IncomeExpenditureId" Type="int" />
           <Property Name="ApprovalId" Type="int" />
+          <Property Name="Submitted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Proposer_General">
           <Key>
@@ -1165,6 +1166,7 @@
           <NavigationProperty Name="General" Relationship="GaptModel.Proposal_fk0" FromRole="Proposal" ToRole="General" />
           <NavigationProperty Name="IncomeExpenditure" Relationship="GaptModel.Proposal_fk3" FromRole="Proposal" ToRole="IncomeExpenditure" />
           <NavigationProperty Name="ProgrammeRationale" Relationship="GaptModel.Proposal_fk1" FromRole="Proposal" ToRole="ProgrammeRationale" />
+          <Property Name="Submitted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Proposer_General">
           <Key>
@@ -1858,6 +1860,7 @@
           <EntitySetMapping Name="Proposals">
             <EntityTypeMapping TypeName="GaptModel.Proposal">
               <MappingFragment StoreEntitySet="Proposal">
+                <ScalarProperty Name="Submitted" ColumnName="Submitted" />
                 <ScalarProperty Name="ApprovalId" ColumnName="ApprovalId" />
                 <ScalarProperty Name="IncomeExpenditureId" ColumnName="IncomeExpenditureId" />
                 <ScalarProperty Name="ExternalReviewId" ColumnName="ExternalReviewId" />
