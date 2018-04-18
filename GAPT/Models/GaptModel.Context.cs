@@ -29,6 +29,7 @@ namespace GAPT.Models
         public virtual DbSet<Approval_Endorsement> Approval_Endorsement { get; set; }
         public virtual DbSet<Approval_Recommendation> Approval_Recommendation { get; set; }
         public virtual DbSet<Approval_Statement> Approval_Statement { get; set; }
+        public virtual DbSet<CouncilDecision> CouncilDecisions { get; set; }
         public virtual DbSet<Demand> Demands { get; set; }
         public virtual DbSet<Department_General> Department_General { get; set; }
         public virtual DbSet<EndorsementCollab> EndorsementCollabs { get; set; }
@@ -37,10 +38,15 @@ namespace GAPT.Models
         public virtual DbSet<General> Generals { get; set; }
         public virtual DbSet<IncomeExpenditure> IncomeExpenditures { get; set; }
         public virtual DbSet<IncomeExpenditure_StatementIE> IncomeExpenditure_StatementIE { get; set; }
+        public virtual DbSet<InPrincipal> InPrincipals { get; set; }
+        public virtual DbSet<InPrincipal_Council> InPrincipal_Council { get; set; }
+        public virtual DbSet<InPrincipal_Pvc> InPrincipal_Pvc { get; set; }
+        public virtual DbSet<InPrincipal_Senate> InPrincipal_Senate { get; set; }
         public virtual DbSet<ProgrammeOfStudy> ProgrammeOfStudies { get; set; }
         public virtual DbSet<ProgrammeRationale> ProgrammeRationales { get; set; }
         public virtual DbSet<Proposal> Proposals { get; set; }
         public virtual DbSet<Proposer_General> Proposer_General { get; set; }
+        public virtual DbSet<PvcApproval> PvcApprovals { get; set; }
         public virtual DbSet<Rationale> Rationales { get; set; }
         public virtual DbSet<RecommendationFic> RecommendationFics { get; set; }
         public virtual DbSet<Ref_Delivery> Ref_Delivery { get; set; }
@@ -49,6 +55,7 @@ namespace GAPT.Models
         public virtual DbSet<Ref_Level> Ref_Level { get; set; }
         public virtual DbSet<Ref_Unit> Ref_Unit { get; set; }
         public virtual DbSet<Reviewer> Reviewers { get; set; }
+        public virtual DbSet<SenateDecision> SenateDecisions { get; set; }
         public virtual DbSet<StatementIE> StatementIEs { get; set; }
         public virtual DbSet<StatementServ> StatementServs { get; set; }
         public virtual DbSet<TentativeP> TentativePs { get; set; }

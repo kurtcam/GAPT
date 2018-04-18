@@ -30,6 +30,15 @@
     <Property Name="ApprovalId" Type="int" Nullable="false" />
     <Property Name="StatementId" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="CouncilDecision">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Selection" Type="bit" Nullable="false" />
+    <Property Name="SignedBy" Type="varchar" MaxLength="225" />
+    <Property Name="SignedDate" Type="datetime" />
+  </EntityType>
   <EntityType Name="Demand">
     <Key>
       <PropertyRef Name="Id" />
@@ -102,6 +111,36 @@
     <Property Name="IncomeExpenditureId" Type="int" Nullable="false" />
     <Property Name="StatementId" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="InPrincipal">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InPrincipal_Council">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InPrincipalId" Type="int" Nullable="false" />
+    <Property Name="CouncilDecisionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InPrincipal_Pvc">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InPrincipalId" Type="int" Nullable="false" />
+    <Property Name="PvcApprovalId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InPrincipal_Senate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InPrincipalId" Type="int" Nullable="false" />
+    <Property Name="SenateDecisionId" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="ProgrammeOfStudy">
     <Key>
       <PropertyRef Name="Id" />
@@ -134,7 +173,9 @@
     <Property Name="ExternalReviewId" Type="int" />
     <Property Name="IncomeExpenditureId" Type="int" />
     <Property Name="ApprovalId" Type="int" />
+    <Property Name="InPrincipalId" Type="int" />
     <Property Name="Submitted" Type="bit" Nullable="false" />
+    <Property Name="InPrincipalApproved" Type="bit" />
   </EntityType>
   <EntityType Name="Proposer_General">
     <Key>
@@ -143,6 +184,17 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="GeneralId" Type="int" Nullable="false" />
     <Property Name="UserId" Type="varchar" MaxLength="225" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PvcApproval">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Selection" Type="bit" />
+    <Property Name="SignedBy" Type="varchar" MaxLength="225" />
+    <Property Name="SignedDate" Type="datetime" />
+    <Property Name="Upload" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="CouncilRef" Type="bit" />
   </EntityType>
   <EntityType Name="Rationale">
     <Key>
@@ -213,6 +265,15 @@
     <Property Name="Address" Type="text" />
     <Property Name="Email" Type="varchar" MaxLength="225" />
     <Property Name="Telephone" Type="varchar" MaxLength="225" />
+  </EntityType>
+  <EntityType Name="SenateDecision">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Selection" Type="bit" Nullable="false" />
+    <Property Name="SignedBy" Type="varchar" MaxLength="225" />
+    <Property Name="SignedDate" Type="datetime" />
   </EntityType>
   <EntityType Name="StatementIE">
     <Key>
@@ -453,6 +514,78 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="InPrincipal_Council_fk0">
+    <End Role="InPrincipal" Type="Self.InPrincipal" Multiplicity="1" />
+    <End Role="InPrincipal_Council" Type="Self.InPrincipal_Council" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InPrincipal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Council">
+        <PropertyRef Name="InPrincipalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Council_fk1">
+    <End Role="CouncilDecision" Type="Self.CouncilDecision" Multiplicity="1" />
+    <End Role="InPrincipal_Council" Type="Self.InPrincipal_Council" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CouncilDecision">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Council">
+        <PropertyRef Name="CouncilDecisionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Pvc_fk0">
+    <End Role="InPrincipal" Type="Self.InPrincipal" Multiplicity="1" />
+    <End Role="InPrincipal_Pvc" Type="Self.InPrincipal_Pvc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InPrincipal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Pvc">
+        <PropertyRef Name="InPrincipalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Pvc_fk1">
+    <End Role="PvcApproval" Type="Self.PvcApproval" Multiplicity="1" />
+    <End Role="InPrincipal_Pvc" Type="Self.InPrincipal_Pvc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PvcApproval">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Pvc">
+        <PropertyRef Name="PvcApprovalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Senate_fk0">
+    <End Role="InPrincipal" Type="Self.InPrincipal" Multiplicity="1" />
+    <End Role="InPrincipal_Senate" Type="Self.InPrincipal_Senate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InPrincipal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Senate">
+        <PropertyRef Name="InPrincipalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Senate_fk1">
+    <End Role="SenateDecision" Type="Self.SenateDecision" Multiplicity="1" />
+    <End Role="InPrincipal_Senate" Type="Self.InPrincipal_Senate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SenateDecision">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Senate">
+        <PropertyRef Name="SenateDecisionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="ProgrammeRationale_fk0">
     <End Role="Rationale" Type="Self.Rationale" Multiplicity="0..1" />
     <End Role="ProgrammeRationale" Type="Self.ProgrammeRationale" Multiplicity="*" />
@@ -561,6 +694,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="Proposal_fk5">
+    <End Role="InPrincipal" Type="Self.InPrincipal" Multiplicity="0..1" />
+    <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InPrincipal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Proposal">
+        <PropertyRef Name="InPrincipalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="Proposer_General_fk0">
     <End Role="General" Type="Self.General" Multiplicity="1" />
     <End Role="Proposer_General" Type="Self.Proposer_General" Multiplicity="*" />
@@ -662,6 +807,7 @@
     <EntitySet Name="Approval_Endorsement" EntityType="Self.Approval_Endorsement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Approval_Recommendation" EntityType="Self.Approval_Recommendation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Approval_Statement" EntityType="Self.Approval_Statement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CouncilDecision" EntityType="Self.CouncilDecision" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Demand" EntityType="Self.Demand" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Department_General" EntityType="Self.Department_General" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EndorsementCollab" EntityType="Self.EndorsementCollab" Schema="dbo" store:Type="Tables" />
@@ -670,10 +816,15 @@
     <EntitySet Name="General" EntityType="Self.General" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="IncomeExpenditure" EntityType="Self.IncomeExpenditure" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="IncomeExpenditure_StatementIE" EntityType="Self.IncomeExpenditure_StatementIE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InPrincipal" EntityType="Self.InPrincipal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InPrincipal_Council" EntityType="Self.InPrincipal_Council" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InPrincipal_Pvc" EntityType="Self.InPrincipal_Pvc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InPrincipal_Senate" EntityType="Self.InPrincipal_Senate" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProgrammeOfStudy" EntityType="Self.ProgrammeOfStudy" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProgrammeRationale" EntityType="Self.ProgrammeRationale" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Proposal" EntityType="Self.Proposal" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Proposer_General" EntityType="Self.Proposer_General" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PvcApproval" EntityType="Self.PvcApproval" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Rationale" EntityType="Self.Rationale" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RecommendationFics" EntityType="Self.RecommendationFics" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Ref_Delivery" EntityType="Self.Ref_Delivery" Schema="dbo" store:Type="Tables" />
@@ -682,6 +833,7 @@
     <EntitySet Name="Ref_Level" EntityType="Self.Ref_Level" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Ref_Unit" EntityType="Self.Ref_Unit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Reviewer" EntityType="Self.Reviewer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SenateDecision" EntityType="Self.SenateDecision" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StatementIE" EntityType="Self.StatementIE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StatementServ" EntityType="Self.StatementServ" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TentativePs" EntityType="Self.TentativePs" Schema="dbo" store:Type="Tables" />
@@ -751,6 +903,30 @@
       <End Role="StatementIE" EntitySet="StatementIE" />
       <End Role="IncomeExpenditure_StatementIE" EntitySet="IncomeExpenditure_StatementIE" />
     </AssociationSet>
+    <AssociationSet Name="InPrincipal_Council_fk0" Association="Self.InPrincipal_Council_fk0">
+      <End Role="InPrincipal" EntitySet="InPrincipal" />
+      <End Role="InPrincipal_Council" EntitySet="InPrincipal_Council" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Council_fk1" Association="Self.InPrincipal_Council_fk1">
+      <End Role="CouncilDecision" EntitySet="CouncilDecision" />
+      <End Role="InPrincipal_Council" EntitySet="InPrincipal_Council" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Pvc_fk0" Association="Self.InPrincipal_Pvc_fk0">
+      <End Role="InPrincipal" EntitySet="InPrincipal" />
+      <End Role="InPrincipal_Pvc" EntitySet="InPrincipal_Pvc" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Pvc_fk1" Association="Self.InPrincipal_Pvc_fk1">
+      <End Role="PvcApproval" EntitySet="PvcApproval" />
+      <End Role="InPrincipal_Pvc" EntitySet="InPrincipal_Pvc" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Senate_fk0" Association="Self.InPrincipal_Senate_fk0">
+      <End Role="InPrincipal" EntitySet="InPrincipal" />
+      <End Role="InPrincipal_Senate" EntitySet="InPrincipal_Senate" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Senate_fk1" Association="Self.InPrincipal_Senate_fk1">
+      <End Role="SenateDecision" EntitySet="SenateDecision" />
+      <End Role="InPrincipal_Senate" EntitySet="InPrincipal_Senate" />
+    </AssociationSet>
     <AssociationSet Name="ProgrammeRationale_fk0" Association="Self.ProgrammeRationale_fk0">
       <End Role="Rationale" EntitySet="Rationale" />
       <End Role="ProgrammeRationale" EntitySet="ProgrammeRationale" />
@@ -785,6 +961,10 @@
     </AssociationSet>
     <AssociationSet Name="Proposal_fk4" Association="Self.Proposal_fk4">
       <End Role="Approval" EntitySet="Approval" />
+      <End Role="Proposal" EntitySet="Proposal" />
+    </AssociationSet>
+    <AssociationSet Name="Proposal_fk5" Association="Self.Proposal_fk5">
+      <End Role="InPrincipal" EntitySet="InPrincipal" />
       <End Role="Proposal" EntitySet="Proposal" />
     </AssociationSet>
     <AssociationSet Name="Proposer_General_fk0" Association="Self.Proposer_General_fk0">

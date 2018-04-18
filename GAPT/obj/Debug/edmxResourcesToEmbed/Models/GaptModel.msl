@@ -35,6 +35,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CouncilDecisions">
+      <EntityTypeMapping TypeName="GaptModel.CouncilDecision">
+        <MappingFragment StoreEntitySet="CouncilDecision">
+          <ScalarProperty Name="SignedDate" ColumnName="SignedDate" />
+          <ScalarProperty Name="SignedBy" ColumnName="SignedBy" />
+          <ScalarProperty Name="Selection" ColumnName="Selection" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Demands">
       <EntityTypeMapping TypeName="GaptModel.Demand">
         <MappingFragment StoreEntitySet="Demand">
@@ -115,6 +125,40 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="InPrincipals">
+      <EntityTypeMapping TypeName="GaptModel.InPrincipal">
+        <MappingFragment StoreEntitySet="InPrincipal">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InPrincipal_Council">
+      <EntityTypeMapping TypeName="GaptModel.InPrincipal_Council">
+        <MappingFragment StoreEntitySet="InPrincipal_Council">
+          <ScalarProperty Name="CouncilDecisionId" ColumnName="CouncilDecisionId" />
+          <ScalarProperty Name="InPrincipalId" ColumnName="InPrincipalId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InPrincipal_Pvc">
+      <EntityTypeMapping TypeName="GaptModel.InPrincipal_Pvc">
+        <MappingFragment StoreEntitySet="InPrincipal_Pvc">
+          <ScalarProperty Name="PvcApprovalId" ColumnName="PvcApprovalId" />
+          <ScalarProperty Name="InPrincipalId" ColumnName="InPrincipalId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InPrincipal_Senate">
+      <EntityTypeMapping TypeName="GaptModel.InPrincipal_Senate">
+        <MappingFragment StoreEntitySet="InPrincipal_Senate">
+          <ScalarProperty Name="SenateDecisionId" ColumnName="SenateDecisionId" />
+          <ScalarProperty Name="InPrincipalId" ColumnName="InPrincipalId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ProgrammeOfStudies">
       <EntityTypeMapping TypeName="GaptModel.ProgrammeOfStudy">
         <MappingFragment StoreEntitySet="ProgrammeOfStudy">
@@ -140,7 +184,9 @@
     <EntitySetMapping Name="Proposals">
       <EntityTypeMapping TypeName="GaptModel.Proposal">
         <MappingFragment StoreEntitySet="Proposal">
+          <ScalarProperty Name="InPrincipalApproved" ColumnName="InPrincipalApproved" />
           <ScalarProperty Name="Submitted" ColumnName="Submitted" />
+          <ScalarProperty Name="InPrincipalId" ColumnName="InPrincipalId" />
           <ScalarProperty Name="ApprovalId" ColumnName="ApprovalId" />
           <ScalarProperty Name="IncomeExpenditureId" ColumnName="IncomeExpenditureId" />
           <ScalarProperty Name="ExternalReviewId" ColumnName="ExternalReviewId" />
@@ -157,6 +203,18 @@
         <MappingFragment StoreEntitySet="Proposer_General">
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="GeneralId" ColumnName="GeneralId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PvcApprovals">
+      <EntityTypeMapping TypeName="GaptModel.PvcApproval">
+        <MappingFragment StoreEntitySet="PvcApproval">
+          <ScalarProperty Name="CouncilRef" ColumnName="CouncilRef" />
+          <ScalarProperty Name="Upload" ColumnName="Upload" />
+          <ScalarProperty Name="SignedDate" ColumnName="SignedDate" />
+          <ScalarProperty Name="SignedBy" ColumnName="SignedBy" />
+          <ScalarProperty Name="Selection" ColumnName="Selection" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -235,6 +293,16 @@
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="Affiliation" ColumnName="Affiliation" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SenateDecisions">
+      <EntityTypeMapping TypeName="GaptModel.SenateDecision">
+        <MappingFragment StoreEntitySet="SenateDecision">
+          <ScalarProperty Name="SignedDate" ColumnName="SignedDate" />
+          <ScalarProperty Name="SignedBy" ColumnName="SignedBy" />
+          <ScalarProperty Name="Selection" ColumnName="Selection" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

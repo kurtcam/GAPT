@@ -26,7 +26,7 @@ namespace GAPT.Controllers
         public ActionResult New(int id)
         {
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == id);
-            if (proposal == null)
+            if (proposal == null || proposal.Submitted)
             {
                 return HttpNotFound();
             }
@@ -47,7 +47,10 @@ namespace GAPT.Controllers
             var err = _context.ExternalReview_Reviewer.SingleOrDefault(m => m.ReviewerId == id);
 
             var proposal = _context.Proposals.SingleOrDefault(m => m.ExternalReviewId == err.ExternalReviewId);
-            
+            if (proposal == null || proposal.Submitted)
+            {
+                return HttpNotFound();
+            }
             var viewModel = new ReviewerFormViewModel
             {
                 Reviewer = reviewer,
@@ -68,7 +71,10 @@ namespace GAPT.Controllers
             var err = _context.ExternalReview_Reviewer.SingleOrDefault(m => m.ReviewerId == id);
 
             var proposal = _context.Proposals.SingleOrDefault(m => m.ExternalReviewId == err.ExternalReviewId);
-            
+            if (proposal == null || proposal.Submitted)
+            {
+                return HttpNotFound();
+            }
             _context.ExternalReview_Reviewer.Remove(err);
             _context.Reviewers.Remove(reviewer);
             _context.SaveChanges();
@@ -83,6 +89,10 @@ namespace GAPT.Controllers
         {
             var proposal = vm.Proposal;
             proposal = _context.Proposals.SingleOrDefault(m => m.Id == proposal.Id);
+            if (proposal == null || proposal.Submitted)
+            {
+                return HttpNotFound();
+            }
             var reviewer = vm.Reviewer;
             if (!ModelState.IsValid)
             {

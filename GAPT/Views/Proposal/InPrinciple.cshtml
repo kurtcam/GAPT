@@ -1,0 +1,84 @@
+﻿@model GAPT.ViewModels.InPrincipleIndexViewModel
+@using GAPT.Models
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var proposal = Model.Proposal;
+    var pvc = Model.PvcApproval;
+    var senate = (Model.SenateDecision == null) ? null : Model.SenateDecision;
+    var council = (Model.CouncilDecision == null) ? null : Model.CouncilDecision;
+
+}
+<h2>Section F - In-Principle Approval</h2>
+<input type="button" class="btn btn-warning" value="Section A" onclick="location.href='@Url.Action("General", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-warning" value="Section B" onclick="location.href='@Url.Action("Rationale", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-warning" value="Section C" onclick="location.href='@Url.Action("ExternalReview", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-warning" value="Section D" onclick="location.href='@Url.Action("IncomeExpenditure", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-warning" value="Section E" onclick="location.href='@Url.Action("Jump", "Approval", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-warning" value="Section F" onclick="location.href='@Url.Action("Jump", "InPrinciple", new { id = Model.Proposal.Id })'" />
+<br><br>
+
+    @if (pvc != null)
+    {
+        <h4>Programme Validation Committee</h4>
+        if (pvc.Selection == true)
+        {
+            var cr = "";
+            if (pvc.CouncilRef == true) {
+                cr = "and Council";
+            }
+            <p style="color:green">I confirm that all required information has been provided, all the required approvals have been given,
+            and that the proposal has been approved by the Programme Validation Committee and can be forwarded to Senate @cr for consideration.
+            <br><br> @pvc.SignedBy on @pvc.SignedDate</p>
+        }
+        else if (pvc.Selection == false)
+        {
+            <p style="color:red">This proposal has been reviewed by the Programme Validation Committee and is being referred back to the initiating Department for the reasons outlined in the attached document.
+            <br>
+            <a target="_blank" href="@Url.Content("~/Uploads/" + @pvc.Upload)">@pvc.Upload</a>
+            <br><br> @pvc.SignedBy on @pvc.SignedDate
+            </p>
+        }
+        else
+        {
+            @Html.ActionLink("Sign", "Details", "PvcApproval", new { id = pvc.Id }, null)<br>
+        }
+        <br>
+    }
+    @if (senate != null)
+    {
+        <h4>Senate Decision</h4>
+        if (senate.Selection == true)
+        {
+            <p style="color:green">In-principle approval by @senate.SignedBy on @senate.SignedDate</p>
+        }
+        else if (senate.SignedBy == null)
+        {
+            @Html.ActionLink("Sign", "Details", "SenateDecision", new { id = senate.Id }, null)<br>
+        }
+        else
+        {
+            <p style="color:red">Not Approved by @senate.SignedBy on @senate.SignedDate</p>
+        }
+        <br>
+    }
+    @if (council != null)
+    {
+        <h4>Council Approval</h4>
+        if (council.Selection == true)
+        {
+            <p style="color:green">In-principle approval by @council.SignedBy on @council.SignedDate</p>
+        }
+        else if (council.SignedBy == null)
+        {
+            @Html.ActionLink("Sign", "Details", "CouncilDecision", new { id = council.Id }, null)<br>
+        }
+        else
+        {
+            <p style="color:red">Not Approved by @council.SignedBy on @council.SignedDate</p>
+        }
+        <br>
+    }
+    @Html.HiddenFor(m => m.Proposal.Id)
+    <input type="button" class="btn btn-primary" value="Previous" onclick="location.href='@Url.Action("Approval", "Proposal", new { id = Model.Proposal.Id})'" />
+

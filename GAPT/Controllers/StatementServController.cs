@@ -108,7 +108,7 @@ namespace GAPT.Controllers
             statementInDb.Selection = statement.Selection;
 
             _context.SaveChanges();
-            return RedirectToAction("Index", "Approval", new { id = proposal.Id });
+            return RedirectToAction("Approval", "Proposal", new { id = proposal.Id });
 
         }
     }

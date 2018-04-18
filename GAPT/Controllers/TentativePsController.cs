@@ -102,6 +102,14 @@ namespace GAPT.Controllers
         public ActionResult DummySave(TentativePsIndexViewModel vm)
         {
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == vm.Proposal.Id);
+            if (proposal == null)
+            {
+                return HttpNotFound();
+            }
+            if (proposal.Submitted)
+            {
+                return Content("Proposal already submitted");
+            }
             var jump = Request["jump"];
             switch (jump)
             {

@@ -17,6 +17,65 @@ namespace GAPT.Models
             return general;
         }
 
+        public PvcApproval GetPvcApproval()
+        {
+            GaptDbContext db = new GaptDbContext();
+            var ipp = db.InPrincipal_Pvc.SingleOrDefault(m => m.InPrincipalId == InPrincipalId);
+            return ipp.PvcApproval;
+        }
+
+        public SenateDecision GetSenateDecision()
+        {
+            GaptDbContext db = new GaptDbContext();
+            var ips = db.InPrincipal_Senate.SingleOrDefault(m => m.InPrincipalId == InPrincipalId);
+            return ips.SenateDecision;
+        }
+
+        public CouncilDecision GetCouncilDecision()
+        {
+            GaptDbContext db = new GaptDbContext();
+            var ipc = db.InPrincipal_Council.SingleOrDefault(m => m.InPrincipalId == InPrincipalId);
+            return ipc.CouncilDecision;
+        }
+
+        public bool HasFacultyApproval() {
+            if (ApprovalId == null) {
+                return false;
+            }
+
+            GaptDbContext db = new GaptDbContext();
+            var general = db.Generals.SingleOrDefault(t => t.Id == GeneralId);
+
+            var faculty = general.Ref_Faculty;
+            if (faculty == null) {
+                return false;
+            }
+            var recommendation = faculty.GetRecommendation(Id);
+            if (recommendation.Selection == false || recommendation.Selection == null) {
+                return false;
+            }
+
+            var collabDepts = general.GetCollabDepts();
+            foreach (Ref_Department dept in collabDepts) {
+                var endorsement = dept.GetCollabEndorsement(Id);
+                if (endorsement.Selection == false || endorsement.Selection == null) {
+                    return false;
+                }
+            }
+
+            var servDepts = general.GetServDepts();
+            foreach (Ref_Department dept in servDepts)
+            {
+                var statement = dept.GetServStatement(Id);
+                if (statement.Selection == false || statement.Selection == null)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public ProgrammeRationale GetProgrammeRationale()
         {
             GaptDbContext db = new GaptDbContext();
@@ -711,6 +770,11 @@ namespace GAPT.Models
 
     [MetadataType(typeof(StatementServMetadata))]
     public partial class StatementServ
+    {
+    }
+
+    [MetadataType(typeof(PvcApprovalMetadata))]
+    public partial class PvcApproval
     {
     }
 }

@@ -7,54 +7,51 @@
     var servDepts = Model.ServDepts;
     var faculty = Model.Faculty;
     var proposal = Model.Proposal;
-    //bool exists;
-    //var programmeStudy = Model.ProgrammeStudy;
-    //if (programmeStudy == null || programmeStudy.Id == 0)
-    //{
-    //    ViewBag.Title = "New Proposal";
-    //    exists = false;
-    //}
-    //else
-    //{
-    //    ViewBag.Title = "Edit Proposal";
-    //    exists = true;
-
-    //}
-    //string heading = (exists == false) ? "New Proposal" : "Edit Proposal";
 }
-
-@*<h2>@heading</h2>*@
 <h2>Section E - Faculty Approval</h2>
 <input type="button" class="btn btn-warning" value="Section A" onclick="location.href='@Url.Action("General", "Proposal", new { id = Model.Proposal.Id })'" />
 <input type="button" class="btn btn-warning" value="Section B" onclick="location.href='@Url.Action("Rationale", "Proposal", new { id = Model.Proposal.Id })'" />
 <input type="button" class="btn btn-warning" value="Section C" onclick="location.href='@Url.Action("ExternalReview", "Proposal", new { id = Model.Proposal.Id })'" />
 <input type="button" class="btn btn-warning" value="Section D" onclick="location.href='@Url.Action("IncomeExpenditure", "Proposal", new { id = Model.Proposal.Id })'" />
 <input type="button" class="btn btn-warning" value="Section E" onclick="location.href='@Url.Action("Jump", "Approval", new { id = Model.Proposal.Id })'" />
+@if (proposal.HasFacultyApproval())
+{
+    <input type="button" class="btn btn-warning" value="Section F" onclick="location.href='@Url.Action("Jump", "InPrinciple", new { id = Model.Proposal.Id })'" />
+}
 <br><br>
 
     
     @if (faculty != null)
     {
-        <h4>Faculty</h4>
-        <table id="faculty" class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>Faculty</th>
-                    <th>Recommendation</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>@faculty.Name</td>
-                    <td>@Html.ActionLink("View", "Details", "RecommendationFics", new { id = faculty.GetRecommendation(proposal.Id).Id }, null)</td>
-                </tr>
-                
-            </tbody>
-        </table>
+
+        var rec = faculty.GetRecommendation(proposal.Id);
+
+        if (rec != null)
+        {
+            <h4>Faculty</h4>
+            var color = "";
+            if (rec.Selection == true) { color = "green"; } else if (rec.Selection == false) { color = "red"; }
+            <table id="faculty" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Faculty</th>
+                        <th>Recommendation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="color:@color">@faculty.Name</td>
+                        <td>@Html.ActionLink("View", "Details", "RecommendationFics", new { id = rec.Id }, null)</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        }
+
     }
     else
     {
-        <p>This Proposal has no Faculty</p>
+        <h4>This Proposal has no Faculty</h4>
     }
     @if (collabDepts.Count() > 0)
     {
@@ -69,9 +66,12 @@
             <tbody>
                 @foreach (Ref_Department dept in collabDepts)
                 {
+                    var end = dept.GetCollabEndorsement(proposal.Id);
+                    var color = "";
+                    if (end.Selection == true) { color = "green"; } else if (end.Selection == false) { color = "red"; }
                     <tr>
-                        <td>@dept.Name</td>
-                        <td>@Html.ActionLink("View", "Details", "EndorsementCollab", new { id = dept.GetCollabEndorsement(proposal.Id).Id }, null)</td>
+                        <td style="color:@color">@dept.Name</td>
+                        <td>@Html.ActionLink("View", "Details", "EndorsementCollab", new { id = end.Id }, null)</td>
                     </tr>
                 }
             </tbody>
@@ -80,7 +80,7 @@
     }
     else
     {
-        <p>This Proposal has no Collaborating Departments</p>
+        <h4>This Proposal has no Collaborating Departments</h4>
     }
     @if (servDepts.Count() > 0)
     {
@@ -95,9 +95,12 @@
             <tbody>
                 @foreach (Ref_Department dept in servDepts)
                 {
+                    var stm = dept.GetServStatement(proposal.Id);
+                    var color = "";
+                    if (stm.Selection == true) { color = "green"; } else if (stm.Selection == false) { color = "red"; }
                     <tr>
-                        <td>@dept.Name</td>
-                        <td>@Html.ActionLink("View", "Details", "StatementServ", new { id = dept.GetServStatement(proposal.Id).Id }, null)</td>
+                        <td style="color:@color">@dept.Name</td>
+                        <td>@Html.ActionLink("View", "Details", "StatementServ", new { id = stm.Id }, null)</td>
                     </tr>
                 }
             </tbody>
@@ -106,9 +109,13 @@
     }
     else
     {
-        <p>This Proposal has no Servicing Departments</p>
+        <h4>This Proposal has no Servicing Departments</h4>
     }
     @Html.HiddenFor(m => m.Proposal.Id)
-    <input type="button" class="btn btn-primary" value="Previous" onclick="location.href='@Url.Action("IncomeExpenditure", "Proposal", new { id = Model.Proposal.Id})'" /><br><br>
-
+    <input type="button" class="btn btn-primary" value="Previous" onclick="location.href='@Url.Action("IncomeExpenditure", "Proposal", new { id = Model.Proposal.Id})'" />
+    @if (proposal.HasFacultyApproval())
+    {
+        <input type="button" class="btn btn-primary" value="Next" onclick="location.href='@Url.Action("Jump", "InPrinciple", new { id = Model.Proposal.Id })'" />
+    }
+    
 

@@ -96,6 +96,11 @@ namespace GAPT.Models
         public string Reservations { get; set; }
     }
 
+    public class PvcApprovalMetadata
+    {
+        [Required]
+        public string Upload { get; set; }
+    }
 
-    
+
 }

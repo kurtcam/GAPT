@@ -5,6 +5,7 @@
     <EntitySet Name="Approval_Endorsement" EntityType="GaptModel.Approval_Endorsement" />
     <EntitySet Name="Approval_Recommendation" EntityType="GaptModel.Approval_Recommendation" />
     <EntitySet Name="Approval_Statement" EntityType="GaptModel.Approval_Statement" />
+    <EntitySet Name="CouncilDecisions" EntityType="GaptModel.CouncilDecision" />
     <EntitySet Name="Demands" EntityType="GaptModel.Demand" />
     <EntitySet Name="Department_General" EntityType="GaptModel.Department_General" />
     <EntitySet Name="EndorsementCollabs" EntityType="GaptModel.EndorsementCollab" />
@@ -13,10 +14,15 @@
     <EntitySet Name="Generals" EntityType="GaptModel.General" />
     <EntitySet Name="IncomeExpenditures" EntityType="GaptModel.IncomeExpenditure" />
     <EntitySet Name="IncomeExpenditure_StatementIE" EntityType="GaptModel.IncomeExpenditure_StatementIE" />
+    <EntitySet Name="InPrincipals" EntityType="GaptModel.InPrincipal" />
+    <EntitySet Name="InPrincipal_Council" EntityType="GaptModel.InPrincipal_Council" />
+    <EntitySet Name="InPrincipal_Pvc" EntityType="GaptModel.InPrincipal_Pvc" />
+    <EntitySet Name="InPrincipal_Senate" EntityType="GaptModel.InPrincipal_Senate" />
     <EntitySet Name="ProgrammeOfStudies" EntityType="GaptModel.ProgrammeOfStudy" />
     <EntitySet Name="ProgrammeRationales" EntityType="GaptModel.ProgrammeRationale" />
     <EntitySet Name="Proposals" EntityType="GaptModel.Proposal" />
     <EntitySet Name="Proposer_General" EntityType="GaptModel.Proposer_General" />
+    <EntitySet Name="PvcApprovals" EntityType="GaptModel.PvcApproval" />
     <EntitySet Name="Rationales" EntityType="GaptModel.Rationale" />
     <EntitySet Name="RecommendationFics" EntityType="GaptModel.RecommendationFic" />
     <EntitySet Name="Ref_Delivery" EntityType="GaptModel.Ref_Delivery" />
@@ -25,6 +31,7 @@
     <EntitySet Name="Ref_Level" EntityType="GaptModel.Ref_Level" />
     <EntitySet Name="Ref_Unit" EntityType="GaptModel.Ref_Unit" />
     <EntitySet Name="Reviewers" EntityType="GaptModel.Reviewer" />
+    <EntitySet Name="SenateDecisions" EntityType="GaptModel.SenateDecision" />
     <EntitySet Name="StatementIEs" EntityType="GaptModel.StatementIE" />
     <EntitySet Name="StatementServs" EntityType="GaptModel.StatementServ" />
     <EntitySet Name="TentativePs" EntityType="GaptModel.TentativeP" />
@@ -57,6 +64,10 @@
     <AssociationSet Name="Approval_Statement_fk1" Association="GaptModel.Approval_Statement_fk1">
       <End Role="StatementServ" EntitySet="StatementServs" />
       <End Role="Approval_Statement" EntitySet="Approval_Statement" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Council_fk1" Association="GaptModel.InPrincipal_Council_fk1">
+      <End Role="CouncilDecision" EntitySet="CouncilDecisions" />
+      <End Role="InPrincipal_Council" EntitySet="InPrincipal_Council" />
     </AssociationSet>
     <AssociationSet Name="ProgrammeRationale_fk1" Association="GaptModel.ProgrammeRationale_fk1">
       <End Role="Demand" EntitySet="Demands" />
@@ -117,6 +128,30 @@
     <AssociationSet Name="IncomeExpenditure_StatementIE_fk1" Association="GaptModel.IncomeExpenditure_StatementIE_fk1">
       <End Role="StatementIE" EntitySet="StatementIEs" />
       <End Role="IncomeExpenditure_StatementIE" EntitySet="IncomeExpenditure_StatementIE" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Council_fk0" Association="GaptModel.InPrincipal_Council_fk0">
+      <End Role="InPrincipal" EntitySet="InPrincipals" />
+      <End Role="InPrincipal_Council" EntitySet="InPrincipal_Council" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Pvc_fk0" Association="GaptModel.InPrincipal_Pvc_fk0">
+      <End Role="InPrincipal" EntitySet="InPrincipals" />
+      <End Role="InPrincipal_Pvc" EntitySet="InPrincipal_Pvc" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Senate_fk0" Association="GaptModel.InPrincipal_Senate_fk0">
+      <End Role="InPrincipal" EntitySet="InPrincipals" />
+      <End Role="InPrincipal_Senate" EntitySet="InPrincipal_Senate" />
+    </AssociationSet>
+    <AssociationSet Name="Proposal_fk5" Association="GaptModel.Proposal_fk5">
+      <End Role="InPrincipal" EntitySet="InPrincipals" />
+      <End Role="Proposal" EntitySet="Proposals" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Pvc_fk1" Association="GaptModel.InPrincipal_Pvc_fk1">
+      <End Role="PvcApproval" EntitySet="PvcApprovals" />
+      <End Role="InPrincipal_Pvc" EntitySet="InPrincipal_Pvc" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Senate_fk1" Association="GaptModel.InPrincipal_Senate_fk1">
+      <End Role="SenateDecision" EntitySet="SenateDecisions" />
+      <End Role="InPrincipal_Senate" EntitySet="InPrincipal_Senate" />
     </AssociationSet>
     <AssociationSet Name="ProgrammeRationale_fk2" Association="GaptModel.ProgrammeRationale_fk2">
       <End Role="ProgrammeOfStudy" EntitySet="ProgrammeOfStudies" />
@@ -202,6 +237,16 @@
     <Property Name="StatementId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Approval" Relationship="GaptModel.Approval_Statement_fk0" FromRole="Approval_Statement" ToRole="Approval" />
     <NavigationProperty Name="StatementServ" Relationship="GaptModel.Approval_Statement_fk1" FromRole="Approval_Statement" ToRole="StatementServ" />
+  </EntityType>
+  <EntityType Name="CouncilDecision">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Selection" Type="Boolean" Nullable="false" />
+    <Property Name="SignedBy" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+    <Property Name="SignedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="InPrincipal_Council" Relationship="GaptModel.InPrincipal_Council_fk1" FromRole="CouncilDecision" ToRole="InPrincipal_Council" />
   </EntityType>
   <EntityType Name="Demand">
     <Key>
@@ -294,6 +339,46 @@
     <NavigationProperty Name="IncomeExpenditure" Relationship="GaptModel.IncomeExpenditure_StatementIE_fk0" FromRole="IncomeExpenditure_StatementIE" ToRole="IncomeExpenditure" />
     <NavigationProperty Name="StatementIE" Relationship="GaptModel.IncomeExpenditure_StatementIE_fk1" FromRole="IncomeExpenditure_StatementIE" ToRole="StatementIE" />
   </EntityType>
+  <EntityType Name="InPrincipal">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="InPrincipal_Council" Relationship="GaptModel.InPrincipal_Council_fk0" FromRole="InPrincipal" ToRole="InPrincipal_Council" />
+    <NavigationProperty Name="InPrincipal_Pvc" Relationship="GaptModel.InPrincipal_Pvc_fk0" FromRole="InPrincipal" ToRole="InPrincipal_Pvc" />
+    <NavigationProperty Name="InPrincipal_Senate" Relationship="GaptModel.InPrincipal_Senate_fk0" FromRole="InPrincipal" ToRole="InPrincipal_Senate" />
+    <NavigationProperty Name="Proposals" Relationship="GaptModel.Proposal_fk5" FromRole="InPrincipal" ToRole="Proposal" />
+  </EntityType>
+  <EntityType Name="InPrincipal_Council">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InPrincipalId" Type="Int32" Nullable="false" />
+    <Property Name="CouncilDecisionId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CouncilDecision" Relationship="GaptModel.InPrincipal_Council_fk1" FromRole="InPrincipal_Council" ToRole="CouncilDecision" />
+    <NavigationProperty Name="InPrincipal" Relationship="GaptModel.InPrincipal_Council_fk0" FromRole="InPrincipal_Council" ToRole="InPrincipal" />
+  </EntityType>
+  <EntityType Name="InPrincipal_Pvc">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InPrincipalId" Type="Int32" Nullable="false" />
+    <Property Name="PvcApprovalId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="InPrincipal" Relationship="GaptModel.InPrincipal_Pvc_fk0" FromRole="InPrincipal_Pvc" ToRole="InPrincipal" />
+    <NavigationProperty Name="PvcApproval" Relationship="GaptModel.InPrincipal_Pvc_fk1" FromRole="InPrincipal_Pvc" ToRole="PvcApproval" />
+  </EntityType>
+  <EntityType Name="InPrincipal_Senate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InPrincipalId" Type="Int32" Nullable="false" />
+    <Property Name="SenateDecisionId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="InPrincipal" Relationship="GaptModel.InPrincipal_Senate_fk0" FromRole="InPrincipal_Senate" ToRole="InPrincipal" />
+    <NavigationProperty Name="SenateDecision" Relationship="GaptModel.InPrincipal_Senate_fk1" FromRole="InPrincipal_Senate" ToRole="SenateDecision" />
+  </EntityType>
   <EntityType Name="ProgrammeOfStudy">
     <Key>
       <PropertyRef Name="Id" />
@@ -332,12 +417,15 @@
     <Property Name="ExternalReviewId" Type="Int32" />
     <Property Name="IncomeExpenditureId" Type="Int32" />
     <Property Name="ApprovalId" Type="Int32" />
+    <Property Name="InPrincipalId" Type="Int32" />
+    <Property Name="Submitted" Type="Boolean" Nullable="false" />
+    <Property Name="InPrincipalApproved" Type="Boolean" />
     <NavigationProperty Name="Approval" Relationship="GaptModel.Proposal_fk4" FromRole="Proposal" ToRole="Approval" />
     <NavigationProperty Name="ExternalReview" Relationship="GaptModel.Proposal_fk2" FromRole="Proposal" ToRole="ExternalReview" />
     <NavigationProperty Name="General" Relationship="GaptModel.Proposal_fk0" FromRole="Proposal" ToRole="General" />
     <NavigationProperty Name="IncomeExpenditure" Relationship="GaptModel.Proposal_fk3" FromRole="Proposal" ToRole="IncomeExpenditure" />
+    <NavigationProperty Name="InPrincipal" Relationship="GaptModel.Proposal_fk5" FromRole="Proposal" ToRole="InPrincipal" />
     <NavigationProperty Name="ProgrammeRationale" Relationship="GaptModel.Proposal_fk1" FromRole="Proposal" ToRole="ProgrammeRationale" />
-    <Property Name="Submitted" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="Proposer_General">
     <Key>
@@ -347,6 +435,18 @@
     <Property Name="GeneralId" Type="Int32" Nullable="false" />
     <Property Name="UserId" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="General" Relationship="GaptModel.Proposer_General_fk0" FromRole="Proposer_General" ToRole="General" />
+  </EntityType>
+  <EntityType Name="PvcApproval">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Selection" Type="Boolean" />
+    <Property Name="SignedBy" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+    <Property Name="SignedDate" Type="DateTime" Precision="3" />
+    <Property Name="Upload" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CouncilRef" Type="Boolean" />
+    <NavigationProperty Name="InPrincipal_Pvc" Relationship="GaptModel.InPrincipal_Pvc_fk1" FromRole="PvcApproval" ToRole="InPrincipal_Pvc" />
   </EntityType>
   <EntityType Name="Rationale">
     <Key>
@@ -433,6 +533,16 @@
     <Property Name="Email" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
     <Property Name="Telephone" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="ExternalReview_Reviewer" Relationship="GaptModel.ExternalReview_Reviewer_fk1" FromRole="Reviewer" ToRole="ExternalReview_Reviewer" />
+  </EntityType>
+  <EntityType Name="SenateDecision">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Selection" Type="Boolean" Nullable="false" />
+    <Property Name="SignedBy" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+    <Property Name="SignedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="InPrincipal_Senate" Relationship="GaptModel.InPrincipal_Senate_fk1" FromRole="SenateDecision" ToRole="InPrincipal_Senate" />
   </EntityType>
   <EntityType Name="StatementIE">
     <Key>
@@ -571,6 +681,18 @@
       </Principal>
       <Dependent Role="Approval_Statement">
         <PropertyRef Name="StatementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Council_fk1">
+    <End Type="GaptModel.CouncilDecision" Role="CouncilDecision" Multiplicity="1" />
+    <End Type="GaptModel.InPrincipal_Council" Role="InPrincipal_Council" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CouncilDecision">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Council">
+        <PropertyRef Name="CouncilDecisionId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -751,6 +873,78 @@
       </Principal>
       <Dependent Role="IncomeExpenditure_StatementIE">
         <PropertyRef Name="StatementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Council_fk0">
+    <End Type="GaptModel.InPrincipal" Role="InPrincipal" Multiplicity="1" />
+    <End Type="GaptModel.InPrincipal_Council" Role="InPrincipal_Council" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InPrincipal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Council">
+        <PropertyRef Name="InPrincipalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Pvc_fk0">
+    <End Type="GaptModel.InPrincipal" Role="InPrincipal" Multiplicity="1" />
+    <End Type="GaptModel.InPrincipal_Pvc" Role="InPrincipal_Pvc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InPrincipal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Pvc">
+        <PropertyRef Name="InPrincipalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Senate_fk0">
+    <End Type="GaptModel.InPrincipal" Role="InPrincipal" Multiplicity="1" />
+    <End Type="GaptModel.InPrincipal_Senate" Role="InPrincipal_Senate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InPrincipal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Senate">
+        <PropertyRef Name="InPrincipalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Proposal_fk5">
+    <End Type="GaptModel.InPrincipal" Role="InPrincipal" Multiplicity="0..1" />
+    <End Type="GaptModel.Proposal" Role="Proposal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InPrincipal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Proposal">
+        <PropertyRef Name="InPrincipalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Pvc_fk1">
+    <End Type="GaptModel.PvcApproval" Role="PvcApproval" Multiplicity="1" />
+    <End Type="GaptModel.InPrincipal_Pvc" Role="InPrincipal_Pvc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PvcApproval">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Pvc">
+        <PropertyRef Name="PvcApprovalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Senate_fk1">
+    <End Type="GaptModel.SenateDecision" Role="SenateDecision" Multiplicity="1" />
+    <End Type="GaptModel.InPrincipal_Senate" Role="InPrincipal_Senate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SenateDecision">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Senate">
+        <PropertyRef Name="SenateDecisionId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

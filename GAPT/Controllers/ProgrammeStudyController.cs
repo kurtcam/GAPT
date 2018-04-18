@@ -67,6 +67,14 @@ namespace GAPT.Controllers
         {
             var programmeStudy = vm.ProgrammeStudy;
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == vm.Proposal.Id);
+            if (proposal == null)
+            {
+                return HttpNotFound();
+            }
+            if (proposal.Submitted)
+            {
+                return Content("Proposal already submitted");
+            }
             if (!ModelState.IsValid)
             {
                 return View("Form", programmeStudy);

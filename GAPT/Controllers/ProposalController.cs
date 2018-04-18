@@ -261,7 +261,7 @@ namespace GAPT.Controllers
         public ActionResult Approval(int id)
         {
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == id);
-            if (proposal == null)
+            if (proposal == null || !proposal.Submitted)
             {
                 return HttpNotFound();
             }
@@ -316,27 +316,27 @@ namespace GAPT.Controllers
             }
 
             var faculty = _context.Ref_Faculty.SingleOrDefault(m => m.Id == proposal.General.FacultyId);
-            if (faculty == null)
+            if (faculty != null)
             {
-                return Content("No faculty yet");
-            }
-            if (faculty.GetRecommendation(proposal.Id) == null)
-            {
-                var rec = new RecommendationFic();
-                rec.Ref_Faculty = faculty;
-                rec.FacultyId = faculty.Id;
-                rec.HeldDateA = "01/01/0001";
-                rec.HeldDateB = "01/01/0001";
-                _context.RecommendationFics.Add(rec);
+                if (faculty.GetRecommendation(proposal.Id) == null)
+                {
+                    var rec = new RecommendationFic();
+                    rec.Ref_Faculty = faculty;
+                    rec.FacultyId = faculty.Id;
+                    rec.HeldDateA = "01/01/0001";
+                    rec.HeldDateB = "01/01/0001";
+                    _context.RecommendationFics.Add(rec);
 
-                Approval_Recommendation obj = new Approval_Recommendation();
-                obj.Approval = proposal.Approval;
-                obj.ApprovalId = (int)proposal.ApprovalId;
-                obj.RecommendationFic = rec;
-                obj.RecommendationId = rec.Id;
-                _context.Approval_Recommendation.Add(obj);
-                _context.SaveChanges();
+                    Approval_Recommendation obj = new Approval_Recommendation();
+                    obj.Approval = proposal.Approval;
+                    obj.ApprovalId = (int)proposal.ApprovalId;
+                    obj.RecommendationFic = rec;
+                    obj.RecommendationId = rec.Id;
+                    _context.Approval_Recommendation.Add(obj);
+                    _context.SaveChanges();
+                }
             }
+            
 
             var collabDepts = new List<Ref_Department>();
             var servDepts = new List<Ref_Department>();
@@ -361,6 +361,33 @@ namespace GAPT.Controllers
                 ServDepts = servDepts,
                 Proposal = proposal,
                 Faculty = faculty
+            };
+            return View(viewModel);
+        }
+
+        public ActionResult InPrinciple(int id)
+        {
+            var proposal = _context.Proposals.SingleOrDefault(m => m.Id == id);
+            if (proposal == null || !proposal.Submitted || !proposal.HasFacultyApproval())
+            {
+                return HttpNotFound();
+            }
+
+            var ipp = _context.InPrincipal_Pvc.SingleOrDefault(m => m.InPrincipalId == proposal.InPrincipalId);
+            var pvcApproval = ipp.PvcApproval;
+
+            var ips = _context.InPrincipal_Senate.SingleOrDefault(m => m.InPrincipalId == proposal.InPrincipalId);
+            var senateDecision = (ips == null) ? null : ips.SenateDecision;
+
+            var ipc = _context.InPrincipal_Council.SingleOrDefault(m => m.InPrincipalId == proposal.InPrincipalId);
+            var councilDecision = (ipc == null) ? null : ipc.CouncilDecision;
+
+            var viewModel = new InPrincipleIndexViewModel
+            {
+                PvcApproval = pvcApproval,
+                SenateDecision = senateDecision,
+                CouncilDecision = councilDecision,
+                Proposal = proposal
             };
             return View(viewModel);
         }

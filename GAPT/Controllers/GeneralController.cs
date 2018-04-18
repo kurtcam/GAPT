@@ -97,6 +97,13 @@ namespace GAPT.Controllers
             }
             else
             {
+                var proposal = _context.Proposals.SingleOrDefault(m => m.GeneralId == general.Id);
+                if (proposal == null) {
+                    return HttpNotFound();
+                }
+                if (proposal.Submitted) {
+                    return Content("Proposal already submitted");
+                }
                 var generalInDb = _context.Generals.SingleOrDefault(m => m.Id == general.Id);
                 generalInDb.Title = general.Title;
                 generalInDb.LevelId = general.LevelId;

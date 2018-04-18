@@ -35,10 +35,10 @@
         @Html.ValidationMessageFor(m => m.General.Title)
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.General.LevelId, new { @class = "required" })<br>
+        @Html.LabelFor(m => m.General.LevelId)<br>
         @*@Html.DropDownListFor(m => m.General.LevelId, new SelectList(Model.Levels, "Id", "Name"), "Select Level", new { @class = "form-control" })*@
-        @Html.RadioButtonFor(m => m.General.LevelId, 1, new { onclick="disableOptions()"}) UG &nbsp;&nbsp;
-        @Html.RadioButtonFor(m => m.General.LevelId, 2, new { onclick = "disableOptions()"}) PG
+        @Html.RadioButtonFor(m => m.General.LevelId, 1, new { id="ugRB", onclick= "enableOptions('0','1','2'), disableOptions(true, '3','4','5','6','7','8','9','10','11')" }) UG &nbsp;&nbsp;
+        @Html.RadioButtonFor(m => m.General.LevelId, 2, new { id = "pgRB", onclick = "enableOptions('3','4','5','6','7','8','9','10','11'), disableOptions(true, '0','1','2')" }) PG
         @Html.ValidationMessageFor(m => m.General.LevelId)
     </div>
     <div class="form-group">
@@ -47,7 +47,7 @@
         @Html.ValidationMessageFor(m => m.General.AreasStudy)
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.General.FacultyId, new { @class = "required" })
+        @Html.LabelFor(m => m.General.FacultyId)
         @Html.DropDownListFor(m => m.General.FacultyId, new SelectList(Model.Faculties, "Id", "Name"), "Select Faculty", new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.General.FacultyId)
     </div>
@@ -126,30 +126,30 @@
         <br>
         <select id="typeSelect" data-live-search="true" class="selectpicker form-control" multiple @*name=""*@ data-actions-box="true" data-selected-text-format="count > 0">
             <optgroup label="UG Taught">
-                <option>FT Day</option>
-                <option>PT Day</option>
-                <option>PT After Hours</option>
+                <option id="tp0">FT Day</option>
+                <option id="tp1">PT Day</option>
+                <option id="tp2">PT After Hours</option>
             </optgroup>
             <optgroup label="PG Taught & Res (Mainly Taught)">
-                <option>FT Day</option>
-                <option>PT Day</option>
-                <option>PT After Hours</option>
+                <option id="tp3">FT Day</option>
+                <option id="tp4">PT Day</option>
+                <option id="tp5">PT After Hours</option>
             </optgroup>
             <optgroup label="PG Taught & Res (Mainly Research)">
-                <option>FT Day</option>
-                <option>PT Day</option>
-                <option>PT After Hours</option>
+                <option id="tp6">FT Day</option>
+                <option id="tp7">PT Day</option>
+                <option id="tp8">PT After Hours</option>
             </optgroup>
             <optgroup label="PG Research Only (min. 80 ECTS Res)">
-                <option>FT Day</option>
-                <option>PT Day</option>
-                <option>PT After Hours</option>
+                <option id="tp9">FT Day</option>
+                <option id="tp10">PT Day</option>
+                <option id="tp11">PT After Hours</option>
             </optgroup>
 
         </select>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.General.DeliveryId, new { @class = "required" })
+        @Html.LabelFor(m => m.General.DeliveryId)
         @Html.DropDownListFor(m => m.General.DeliveryId, new SelectList(Model.Deliveries, "Id", "Name"), "Select Mode of Delivery", new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.General.DeliveryId)
     </div>
@@ -198,6 +198,7 @@
 @section Styles{
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+
 }
 
 @section Scripts{
@@ -219,12 +220,41 @@
     </script>
 
     <script type="text/javascript">
+        $(document).ready(function () {
+            var ugRb = document.getElementById("ugRB");
+            var pgRb = document.getElementById("pgRB");
+            if (ugRb.checked) {
+                disableOptions(false, '3', '4', '5', '6', '7', '8', '9', '10', '11');
+                enableOptions('0', '1', '2');
+            }
+            if (pgRb.checked) {
+                disableOptions(false, '0', '1', '2');
+                enableOptions('3', '4', '5', '6', '7', '8', '9', '10', '11');
+            }
+        });
         function disableOptions() {
-            var op = document.getElementByid("typeSelect").getElementsByTagName("option");
-            for (var i = 0; i < op.length; i++) {
-                op[i].disabled = true;
+            for (var i = 1; i < arguments.length; i++) {
+                document.getElementById('tp' + arguments[i]).disabled = true;
+                document.getElementById('tp' + arguments[i]).style.display = 'none';
             }
 
+            if (arguments[0] == true) {
+                //to not deselect all on document.ready
+                //deselect all
+                $('#typeSelect').selectpicker('val', '');
+            }
+            
+            $('#typeSelect').selectpicker('render');
+            $('#typeSelect').selectpicker('refresh');
+            
+        }
+        function enableOptions() {
+            for (var i = 0; i < arguments.length; i++) {
+                document.getElementById('tp' + arguments[i]).disabled = false;
+                document.getElementById('tp' + arguments[i]).style.display = 'block';
+            }
+            $('#typeSelect').selectpicker('render');
+            $('#typeSelect').selectpicker('refresh');
         }
     </script>
 }
