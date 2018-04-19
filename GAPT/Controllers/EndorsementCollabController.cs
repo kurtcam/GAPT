@@ -40,7 +40,10 @@ namespace GAPT.Controllers
             //get proposal
             var ae = _context.Approval_Endorsement.SingleOrDefault(m => m.EndorsementId == endCollab.Id);
             var proposal = _context.Proposals.SingleOrDefault(m => m.ApprovalId == ae.ApprovalId);
-            
+            if (proposal == null || !proposal.Submitted)
+            {
+                return HttpNotFound();
+            }
             if (endCollab.SignedBy == null)
             {
                 //return Form
@@ -85,6 +88,10 @@ namespace GAPT.Controllers
         {
             var proposal = vm.Proposal;
             proposal = _context.Proposals.SingleOrDefault(m => m.Id == proposal.Id);
+            if (proposal == null || !proposal.Submitted)
+            {
+                return HttpNotFound();
+            }
             var endorsement = vm.Endorsement;
             if (endorsement.Selection == true) {
                 //if a is chosen, set helddate to a default date
@@ -102,7 +109,7 @@ namespace GAPT.Controllers
             endorsementInDb.Selection = endorsement.Selection;
 
             _context.SaveChanges();
-            return RedirectToAction("Index", "Approval", new { id = proposal.Id });
+            return RedirectToAction("Approval", "Proposal", new { id = proposal.Id });
 
         }
     }

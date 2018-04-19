@@ -26,7 +26,7 @@ namespace GAPT.Controllers
         public ActionResult New(int id)
         {
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == id);
-            if (proposal == null)
+            if (proposal == null || proposal.Submitted)
             {
                 return HttpNotFound();
             }
@@ -48,7 +48,10 @@ namespace GAPT.Controllers
 
             var ies = _context.IncomeExpenditure_StatementIE.SingleOrDefault(m => m.StatementId == id);
             var proposal = _context.Proposals.SingleOrDefault(m => m.IncomeExpenditureId == ies.IncomeExpenditureId);
-              
+            if (proposal == null || proposal.Submitted)
+            {
+                return HttpNotFound();
+            }
             var viewModel = new StatementIEFormViewModel
             {
                 StatementIE = statement,
@@ -68,7 +71,10 @@ namespace GAPT.Controllers
 
             var ies = _context.IncomeExpenditure_StatementIE.SingleOrDefault(m => m.StatementId == id);
             var proposal = _context.Proposals.SingleOrDefault(m => m.IncomeExpenditureId == ies.IncomeExpenditureId);
-
+            if (proposal == null || proposal.Submitted)
+            {
+                return HttpNotFound();
+            }
 
             _context.IncomeExpenditure_StatementIE.Remove(ies);
             _context.StatementIEs.Remove(statement);
@@ -84,10 +90,22 @@ namespace GAPT.Controllers
         {
             var proposal = vm.Proposal;
             proposal = _context.Proposals.SingleOrDefault(m => m.Id == proposal.Id);
-            var statement = vm.StatementIE;
-            if (!ModelState.IsValid)
+            if (proposal == null || proposal.Submitted) {
+                return HttpNotFound();
+            }
+            if (postedFile != null)
             {
-                return View("Form", statement);
+                vm.StatementIE.Upload = postedFile.FileName.Replace(' ', '_');
+            }
+            var statement = vm.StatementIE;
+            if (vm.StatementIE.Upload == null)
+            {
+                var viewModel = new StatementIEFormViewModel
+                {
+                    Proposal = proposal,
+                    StatementIE = statement
+                };
+                return View("Form", viewModel);
             }
             if (postedFile != null)
             {

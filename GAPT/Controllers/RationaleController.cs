@@ -51,6 +51,14 @@ namespace GAPT.Controllers
         {
             var rationale = vm.Rationale;
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == vm.Proposal.Id);
+            if (proposal == null)
+            {
+                return HttpNotFound();
+            }
+            if (proposal.Submitted)
+            {
+                return Content("Proposal already submitted");
+            }
             if (!ModelState.IsValid)
             {
                 return View("Form", rationale);
@@ -112,11 +120,6 @@ namespace GAPT.Controllers
                         // D pressed -> go to Section D
                         return RedirectToAction("Jump", "IncomeExpenditure", new { id = proposal.Id });
                     }
-                case "E":
-                    {
-                        // E pressed -> go to Section E
-                        return RedirectToAction("Jump", "Approval", new { id = proposal.Id });
-                    }
                 default:
                     {
                         return RedirectToAction("Index", "Proposal");
@@ -128,7 +131,7 @@ namespace GAPT.Controllers
         public ActionResult Edit(int id)
         {
             var proposal = _context.Proposals.SingleOrDefault(c => c.Id == id);
-            if (proposal == null)
+            if (proposal == null || proposal.Submitted)
             {
                 return HttpNotFound();
             }
@@ -154,7 +157,7 @@ namespace GAPT.Controllers
         {
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == id);
             var pr = _context.ProgrammeRationales.SingleOrDefault(c => c.Id == proposal.ProgrammeRationaleId);
-            if (proposal == null)
+            if (proposal == null || proposal.Submitted)
             {
                 return HttpNotFound();
             }

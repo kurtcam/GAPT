@@ -1,0 +1,70 @@
+﻿@model GAPT.ViewModels.PvcApprovalFormViewModel
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+<h2>Programme Validation Committee</h2>
+@using (Html.BeginForm("Save", "PvcApproval", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <p>
+        (a) I confirm that all required information has been provided, all the required approvals have been given,
+        and that the proposal has been approved by the Programme Validation Committee and can be forwarded to Senate (and Council)* <input type="checkbox" name="PvcApproval.CouncilRef" value="true"> for consideration.
+    </p>
+    @Html.RadioButtonFor(m => m.PvcApproval.Selection, true, new { @checked = true})
+    
+    <p>OR</p>
+    <p>
+        (b) This proposal has been reviewed by the Programme Validation Committee and is being referred back to the initiating Department for the reasons outlined in the attached document.
+    </p>
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-btn">
+                <span class="btn btn-default btn-file">
+                    Browse… <input name="postedFile" type="file" id="fileUp">
+                </span>
+            </span>
+
+            <input type="text" class="form-control" readonly>
+        </div>
+        @Html.ValidationMessageFor(m => m.PvcApproval.Upload)
+    </div>
+    @Html.RadioButtonFor(m => m.PvcApproval.Selection, false)<br><br>
+    @Html.HiddenFor(m => Model.PvcApproval.Id)
+    @Html.HiddenFor(m => Model.Proposal.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Sign</button>
+    <input type="button" class="btn btn-danger" value="Cancel" onclick="location.href='@Url.Action("InPrinciple", "Proposal", new { id = Model.Proposal.Id })'" />
+}
+
+@section Scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+        $(document).ready(function () {
+            $(document).on('change', '.btn-file :file', function () {
+                var input = $(this),
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                input.trigger('fileselect', [label]);
+            });
+
+            $('.btn-file :file').on('fileselect', function (event, label) {
+
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = label;
+
+                if (input.length) {
+                    input.val(log);
+                } else {
+                    if (log) alert(log);
+                }
+
+            });
+
+            $("#fileUp").change(function () {
+                readURL(this);
+            });
+        });
+</script>
+}

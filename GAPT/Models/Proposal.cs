@@ -22,11 +22,15 @@ namespace GAPT.Models
         public Nullable<int> ExternalReviewId { get; set; }
         public Nullable<int> IncomeExpenditureId { get; set; }
         public Nullable<int> ApprovalId { get; set; }
+        public Nullable<int> InPrincipalId { get; set; }
+        public bool Submitted { get; set; }
+        public Nullable<bool> InPrincipalApproved { get; set; }
     
         public virtual Approval Approval { get; set; }
         public virtual ExternalReview ExternalReview { get; set; }
         public virtual General General { get; set; }
         public virtual IncomeExpenditure IncomeExpenditure { get; set; }
+        public virtual InPrincipal InPrincipal { get; set; }
         public virtual ProgrammeRationale ProgrammeRationale { get; set; }
     }
 }

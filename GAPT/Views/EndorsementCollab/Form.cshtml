@@ -30,7 +30,7 @@
     @Html.HiddenFor(m => Model.Proposal.Id)
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Sign</button>
-    <input type="button" class="btn btn-danger" value="Cancel" onclick="location.href='@Url.Action("Index", "Approval", new { id = Model.Proposal.Id })'" />
+    <input type="button" class="btn btn-danger" value="Cancel" onclick="location.href='@Url.Action("Approval", "Proposal", new { id = Model.Proposal.Id })'" />
 }
 
 @section Scripts{

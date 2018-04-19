@@ -180,7 +180,8 @@
         @Html.HiddenFor(m => m.Year.Id)
         @*<input type="button" class="btn btn-danger" value="Delete review" onclick="location.href='@Url.Action("Remove", "Review", new { id = Model.Id })'" />*@
     }
-    <button id="SaveB" type="button" class="btn btn-primary" onclick="checkSearch()">Save</button>
+    <button id="SaveB" name="jump" value ="0" type="button" class="btn btn-primary" onclick="checkSearch()">Save</button>
+    <button id="NewB" name="jump" value ="1" type="button" class="btn btn-primary" onclick="checkSearch()">New Unit</button>
     <input type="button" class="btn btn-danger" value="Cancel" onclick="location.href='@Url.Action("Index", "TentativePs", new { id = Model.Proposal.Id })'" />
 }
 @section Scripts{
@@ -225,11 +226,15 @@
                 var n = value.length;
                 if (n > 0) {
                     var sb = document.getElementById("SaveB");
+                    var nb = document.getElementById("NewB");
                     sb.type = "button";
+                    nb.type = "button";
                     alert("Please clear search field.");
                 } else {
                     var sb = document.getElementById("SaveB");
+                    var nb = document.getElementById("NewB");
                     sb.type = "submit";
+                    nb.type = "submit";
                 }
             }
     </script>

@@ -25,17 +25,14 @@
 
 @*<h2>@heading</h2>*@
 <h2>Section E - Faculty Approval</h2>
-@using (Html.BeginForm("DummySave", "Approval"))
-{
-    <div id="navbar">
-        <button type="submit" name="jump" value="A" class="btn btn-warning">Section A</button>
-        <button type="submit" name="jump" value="B" class="btn btn-warning">Section B</button>
-        <button type="submit" name="jump" value="C" class="btn btn-warning">Section C</button>
-        <button type="submit" name="jump" value="D" class="btn btn-warning">Section D</button>
-        <button type="submit" name="jump" value="E" class="btn btn-warning">Section E</button>
-    </div>
-    <br>
-    if (faculty != null)
+<input type="button" class="btn btn-warning" value="Section A" onclick="location.href='@Url.Action("General", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-warning" value="Section B" onclick="location.href='@Url.Action("Rationale", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-warning" value="Section C" onclick="location.href='@Url.Action("ExternalReview", "Proposal", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-warning" value="Section D" onclick="location.href='@Url.Action("IncomeExpenditure", "Proposal", new { id = Model.Proposal.Id })'" />
+<br><br>
+
+    
+    @if (faculty != null)
     {
         <h4>Faculty</h4>
         <table id="faculty" class="table table-bordered table-hover">
@@ -58,7 +55,7 @@
     {
         <p>This Proposal has no Faculty</p>
     }
-    if (collabDepts.Count() > 0)
+    @if (collabDepts.Count() > 0)
     {
         <h4>Collaborating Departments</h4>
         <table id="collabDepts" class="table table-bordered table-hover">
@@ -84,7 +81,7 @@
     {
         <p>This Proposal has no Collaborating Departments</p>
     }
-    if (servDepts.Count() > 0)
+    @if (servDepts.Count() > 0)
     {
         <h4>Servicing Departments</h4>
         <table id="servDepts" class="table table-bordered table-hover">
@@ -111,6 +108,6 @@
         <p>This Proposal has no Servicing Departments</p>
     }
     @Html.HiddenFor(m => m.Proposal.Id)
-    <button type="submit" name="jump" value="-1" class="btn btn-primary">Previous</button>
-}
+    <input type="button" class="btn btn-primary" value="Previous" onclick="location.href='@Url.Action("IncomeExpenditure", "Proposal", new { id = Model.Proposal.Id})'" /><br><br>
+
 

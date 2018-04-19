@@ -11,6 +11,14 @@
 <input type="button" class="btn btn-warning" value="Section B" onclick="location.href='@Url.Action("Rationale", "Proposal", new { id = Model.Proposal.Id })'" />
 <input type="button" class="btn btn-warning" value="Section C" onclick="location.href='@Url.Action("ExternalReview", "Proposal", new { id = Model.Proposal.Id })'" />
 <input type="button" class="btn btn-warning" value="Section D" onclick="location.href='@Url.Action("IncomeExpenditure", "Proposal", new { id = Model.Proposal.Id })'" />
+@if (Model.Proposal.Submitted)
+{
+    <input type="button" class="btn btn-warning" value="Section E" onclick="location.href='@Url.Action("Jump", "Approval", new { id = Model.Proposal.Id })'" />
+}
+@if (proposal.HasFacultyApproval())
+{
+    <input type="button" class="btn btn-warning" value="Section F" onclick="location.href='@Url.Action("Jump", "InPrinciple", new { id = Model.Proposal.Id })'" />
+}
 <br>
 <h3>Tentative Programme of Study</h3>
 @if (Model.Proposal.ProgrammeRationaleId != null)

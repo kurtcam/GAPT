@@ -1,0 +1,1083 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GaptModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="GaptDbContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Approvals" EntityType="GaptModel.Approval" />
+    <EntitySet Name="Approval_Endorsement" EntityType="GaptModel.Approval_Endorsement" />
+    <EntitySet Name="Approval_Recommendation" EntityType="GaptModel.Approval_Recommendation" />
+    <EntitySet Name="Approval_Statement" EntityType="GaptModel.Approval_Statement" />
+    <EntitySet Name="CouncilDecisions" EntityType="GaptModel.CouncilDecision" />
+    <EntitySet Name="Demands" EntityType="GaptModel.Demand" />
+    <EntitySet Name="Department_General" EntityType="GaptModel.Department_General" />
+    <EntitySet Name="EndorsementCollabs" EntityType="GaptModel.EndorsementCollab" />
+    <EntitySet Name="ExternalReviews" EntityType="GaptModel.ExternalReview" />
+    <EntitySet Name="ExternalReview_Reviewer" EntityType="GaptModel.ExternalReview_Reviewer" />
+    <EntitySet Name="Generals" EntityType="GaptModel.General" />
+    <EntitySet Name="IncomeExpenditures" EntityType="GaptModel.IncomeExpenditure" />
+    <EntitySet Name="IncomeExpenditure_StatementIE" EntityType="GaptModel.IncomeExpenditure_StatementIE" />
+    <EntitySet Name="InPrincipals" EntityType="GaptModel.InPrincipal" />
+    <EntitySet Name="InPrincipal_Council" EntityType="GaptModel.InPrincipal_Council" />
+    <EntitySet Name="InPrincipal_Pvc" EntityType="GaptModel.InPrincipal_Pvc" />
+    <EntitySet Name="InPrincipal_Senate" EntityType="GaptModel.InPrincipal_Senate" />
+    <EntitySet Name="ProgrammeOfStudies" EntityType="GaptModel.ProgrammeOfStudy" />
+    <EntitySet Name="ProgrammeRationales" EntityType="GaptModel.ProgrammeRationale" />
+    <EntitySet Name="Proposals" EntityType="GaptModel.Proposal" />
+    <EntitySet Name="Proposer_General" EntityType="GaptModel.Proposer_General" />
+    <EntitySet Name="PvcApprovals" EntityType="GaptModel.PvcApproval" />
+    <EntitySet Name="Rationales" EntityType="GaptModel.Rationale" />
+    <EntitySet Name="RecommendationFics" EntityType="GaptModel.RecommendationFic" />
+    <EntitySet Name="Ref_Delivery" EntityType="GaptModel.Ref_Delivery" />
+    <EntitySet Name="Ref_Department" EntityType="GaptModel.Ref_Department" />
+    <EntitySet Name="Ref_Faculty" EntityType="GaptModel.Ref_Faculty" />
+    <EntitySet Name="Ref_Level" EntityType="GaptModel.Ref_Level" />
+    <EntitySet Name="Ref_Unit" EntityType="GaptModel.Ref_Unit" />
+    <EntitySet Name="Reviewers" EntityType="GaptModel.Reviewer" />
+    <EntitySet Name="SenateDecisions" EntityType="GaptModel.SenateDecision" />
+    <EntitySet Name="StatementIEs" EntityType="GaptModel.StatementIE" />
+    <EntitySet Name="StatementServs" EntityType="GaptModel.StatementServ" />
+    <EntitySet Name="TentativePs" EntityType="GaptModel.TentativeP" />
+    <EntitySet Name="Years" EntityType="GaptModel.Year" />
+    <EntitySet Name="Year_Unit" EntityType="GaptModel.Year_Unit" />
+    <AssociationSet Name="Approval_Endorsement_fk0" Association="GaptModel.Approval_Endorsement_fk0">
+      <End Role="Approval" EntitySet="Approvals" />
+      <End Role="Approval_Endorsement" EntitySet="Approval_Endorsement" />
+    </AssociationSet>
+    <AssociationSet Name="Approval_Recommendation_fk0" Association="GaptModel.Approval_Recommendation_fk0">
+      <End Role="Approval" EntitySet="Approvals" />
+      <End Role="Approval_Recommendation" EntitySet="Approval_Recommendation" />
+    </AssociationSet>
+    <AssociationSet Name="Approval_Statement_fk0" Association="GaptModel.Approval_Statement_fk0">
+      <End Role="Approval" EntitySet="Approvals" />
+      <End Role="Approval_Statement" EntitySet="Approval_Statement" />
+    </AssociationSet>
+    <AssociationSet Name="Proposal_fk4" Association="GaptModel.Proposal_fk4">
+      <End Role="Approval" EntitySet="Approvals" />
+      <End Role="Proposal" EntitySet="Proposals" />
+    </AssociationSet>
+    <AssociationSet Name="Approval_Endorsement_fk1" Association="GaptModel.Approval_Endorsement_fk1">
+      <End Role="EndorsementCollab" EntitySet="EndorsementCollabs" />
+      <End Role="Approval_Endorsement" EntitySet="Approval_Endorsement" />
+    </AssociationSet>
+    <AssociationSet Name="Approval_Recommendation_fk1" Association="GaptModel.Approval_Recommendation_fk1">
+      <End Role="RecommendationFic" EntitySet="RecommendationFics" />
+      <End Role="Approval_Recommendation" EntitySet="Approval_Recommendation" />
+    </AssociationSet>
+    <AssociationSet Name="Approval_Statement_fk1" Association="GaptModel.Approval_Statement_fk1">
+      <End Role="StatementServ" EntitySet="StatementServs" />
+      <End Role="Approval_Statement" EntitySet="Approval_Statement" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Council_fk1" Association="GaptModel.InPrincipal_Council_fk1">
+      <End Role="CouncilDecision" EntitySet="CouncilDecisions" />
+      <End Role="InPrincipal_Council" EntitySet="InPrincipal_Council" />
+    </AssociationSet>
+    <AssociationSet Name="ProgrammeRationale_fk1" Association="GaptModel.ProgrammeRationale_fk1">
+      <End Role="Demand" EntitySet="Demands" />
+      <End Role="ProgrammeRationale" EntitySet="ProgrammeRationales" />
+    </AssociationSet>
+    <AssociationSet Name="Department_General_fk0" Association="GaptModel.Department_General_fk0">
+      <End Role="General" EntitySet="Generals" />
+      <End Role="Department_General" EntitySet="Department_General" />
+    </AssociationSet>
+    <AssociationSet Name="Department_General_fk1" Association="GaptModel.Department_General_fk1">
+      <End Role="Ref_Department" EntitySet="Ref_Department" />
+      <End Role="Department_General" EntitySet="Department_General" />
+    </AssociationSet>
+    <AssociationSet Name="EndorsementCollab_fk0" Association="GaptModel.EndorsementCollab_fk0">
+      <End Role="Ref_Department" EntitySet="Ref_Department" />
+      <End Role="EndorsementCollab" EntitySet="EndorsementCollabs" />
+    </AssociationSet>
+    <AssociationSet Name="ExternalReview_Reviewer_fk0" Association="GaptModel.ExternalReview_Reviewer_fk0">
+      <End Role="ExternalReview" EntitySet="ExternalReviews" />
+      <End Role="ExternalReview_Reviewer" EntitySet="ExternalReview_Reviewer" />
+    </AssociationSet>
+    <AssociationSet Name="Proposal_fk2" Association="GaptModel.Proposal_fk2">
+      <End Role="ExternalReview" EntitySet="ExternalReviews" />
+      <End Role="Proposal" EntitySet="Proposals" />
+    </AssociationSet>
+    <AssociationSet Name="ExternalReview_Reviewer_fk1" Association="GaptModel.ExternalReview_Reviewer_fk1">
+      <End Role="Reviewer" EntitySet="Reviewers" />
+      <End Role="ExternalReview_Reviewer" EntitySet="ExternalReview_Reviewer" />
+    </AssociationSet>
+    <AssociationSet Name="General_fk0" Association="GaptModel.General_fk0">
+      <End Role="Ref_Level" EntitySet="Ref_Level" />
+      <End Role="General" EntitySet="Generals" />
+    </AssociationSet>
+    <AssociationSet Name="General_fk1" Association="GaptModel.General_fk1">
+      <End Role="Ref_Faculty" EntitySet="Ref_Faculty" />
+      <End Role="General" EntitySet="Generals" />
+    </AssociationSet>
+    <AssociationSet Name="General_fk2" Association="GaptModel.General_fk2">
+      <End Role="Ref_Delivery" EntitySet="Ref_Delivery" />
+      <End Role="General" EntitySet="Generals" />
+    </AssociationSet>
+    <AssociationSet Name="Proposal_fk0" Association="GaptModel.Proposal_fk0">
+      <End Role="General" EntitySet="Generals" />
+      <End Role="Proposal" EntitySet="Proposals" />
+    </AssociationSet>
+    <AssociationSet Name="Proposer_General_fk0" Association="GaptModel.Proposer_General_fk0">
+      <End Role="General" EntitySet="Generals" />
+      <End Role="Proposer_General" EntitySet="Proposer_General" />
+    </AssociationSet>
+    <AssociationSet Name="IncomeExpenditure_StatementIE_fk0" Association="GaptModel.IncomeExpenditure_StatementIE_fk0">
+      <End Role="IncomeExpenditure" EntitySet="IncomeExpenditures" />
+      <End Role="IncomeExpenditure_StatementIE" EntitySet="IncomeExpenditure_StatementIE" />
+    </AssociationSet>
+    <AssociationSet Name="Proposal_fk3" Association="GaptModel.Proposal_fk3">
+      <End Role="IncomeExpenditure" EntitySet="IncomeExpenditures" />
+      <End Role="Proposal" EntitySet="Proposals" />
+    </AssociationSet>
+    <AssociationSet Name="IncomeExpenditure_StatementIE_fk1" Association="GaptModel.IncomeExpenditure_StatementIE_fk1">
+      <End Role="StatementIE" EntitySet="StatementIEs" />
+      <End Role="IncomeExpenditure_StatementIE" EntitySet="IncomeExpenditure_StatementIE" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Council_fk0" Association="GaptModel.InPrincipal_Council_fk0">
+      <End Role="InPrincipal" EntitySet="InPrincipals" />
+      <End Role="InPrincipal_Council" EntitySet="InPrincipal_Council" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Pvc_fk0" Association="GaptModel.InPrincipal_Pvc_fk0">
+      <End Role="InPrincipal" EntitySet="InPrincipals" />
+      <End Role="InPrincipal_Pvc" EntitySet="InPrincipal_Pvc" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Senate_fk0" Association="GaptModel.InPrincipal_Senate_fk0">
+      <End Role="InPrincipal" EntitySet="InPrincipals" />
+      <End Role="InPrincipal_Senate" EntitySet="InPrincipal_Senate" />
+    </AssociationSet>
+    <AssociationSet Name="Proposal_fk5" Association="GaptModel.Proposal_fk5">
+      <End Role="InPrincipal" EntitySet="InPrincipals" />
+      <End Role="Proposal" EntitySet="Proposals" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Pvc_fk1" Association="GaptModel.InPrincipal_Pvc_fk1">
+      <End Role="PvcApproval" EntitySet="PvcApprovals" />
+      <End Role="InPrincipal_Pvc" EntitySet="InPrincipal_Pvc" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Senate_fk1" Association="GaptModel.InPrincipal_Senate_fk1">
+      <End Role="SenateDecision" EntitySet="SenateDecisions" />
+      <End Role="InPrincipal_Senate" EntitySet="InPrincipal_Senate" />
+    </AssociationSet>
+    <AssociationSet Name="ProgrammeRationale_fk2" Association="GaptModel.ProgrammeRationale_fk2">
+      <End Role="ProgrammeOfStudy" EntitySet="ProgrammeOfStudies" />
+      <End Role="ProgrammeRationale" EntitySet="ProgrammeRationales" />
+    </AssociationSet>
+    <AssociationSet Name="ProgrammeRationale_fk0" Association="GaptModel.ProgrammeRationale_fk0">
+      <End Role="Rationale" EntitySet="Rationales" />
+      <End Role="ProgrammeRationale" EntitySet="ProgrammeRationales" />
+    </AssociationSet>
+    <AssociationSet Name="ProgrammeRationale_fk3" Association="GaptModel.ProgrammeRationale_fk3">
+      <End Role="TentativeP" EntitySet="TentativePs" />
+      <End Role="ProgrammeRationale" EntitySet="ProgrammeRationales" />
+    </AssociationSet>
+    <AssociationSet Name="Proposal_fk1" Association="GaptModel.Proposal_fk1">
+      <End Role="ProgrammeRationale" EntitySet="ProgrammeRationales" />
+      <End Role="Proposal" EntitySet="Proposals" />
+    </AssociationSet>
+    <AssociationSet Name="RecommendationFics_fk0" Association="GaptModel.RecommendationFics_fk0">
+      <End Role="Ref_Faculty" EntitySet="Ref_Faculty" />
+      <End Role="RecommendationFic" EntitySet="RecommendationFics" />
+    </AssociationSet>
+    <AssociationSet Name="Ref_Department_fk0" Association="GaptModel.Ref_Department_fk0">
+      <End Role="Ref_Faculty" EntitySet="Ref_Faculty" />
+      <End Role="Ref_Department" EntitySet="Ref_Department" />
+    </AssociationSet>
+    <AssociationSet Name="Ref_Unit_fk0" Association="GaptModel.Ref_Unit_fk0">
+      <End Role="Ref_Department" EntitySet="Ref_Department" />
+      <End Role="Ref_Unit" EntitySet="Ref_Unit" />
+    </AssociationSet>
+    <AssociationSet Name="StatementServ_fk0" Association="GaptModel.StatementServ_fk0">
+      <End Role="Ref_Department" EntitySet="Ref_Department" />
+      <End Role="StatementServ" EntitySet="StatementServs" />
+    </AssociationSet>
+    <AssociationSet Name="Year_Unit_fk1" Association="GaptModel.Year_Unit_fk1">
+      <End Role="Ref_Unit" EntitySet="Ref_Unit" />
+      <End Role="Year_Unit" EntitySet="Year_Unit" />
+    </AssociationSet>
+    <AssociationSet Name="Year_fk0" Association="GaptModel.Year_fk0">
+      <End Role="TentativeP" EntitySet="TentativePs" />
+      <End Role="Year" EntitySet="Years" />
+    </AssociationSet>
+    <AssociationSet Name="Year_Unit_fk0" Association="GaptModel.Year_Unit_fk0">
+      <End Role="Year" EntitySet="Years" />
+      <End Role="Year_Unit" EntitySet="Year_Unit" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Approval">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Approval_Endorsement" Relationship="GaptModel.Approval_Endorsement_fk0" FromRole="Approval" ToRole="Approval_Endorsement" />
+    <NavigationProperty Name="Approval_Recommendation" Relationship="GaptModel.Approval_Recommendation_fk0" FromRole="Approval" ToRole="Approval_Recommendation" />
+    <NavigationProperty Name="Approval_Statement" Relationship="GaptModel.Approval_Statement_fk0" FromRole="Approval" ToRole="Approval_Statement" />
+    <NavigationProperty Name="Proposals" Relationship="GaptModel.Proposal_fk4" FromRole="Approval" ToRole="Proposal" />
+  </EntityType>
+  <EntityType Name="Approval_Endorsement">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ApprovalId" Type="Int32" Nullable="false" />
+    <Property Name="EndorsementId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Approval" Relationship="GaptModel.Approval_Endorsement_fk0" FromRole="Approval_Endorsement" ToRole="Approval" />
+    <NavigationProperty Name="EndorsementCollab" Relationship="GaptModel.Approval_Endorsement_fk1" FromRole="Approval_Endorsement" ToRole="EndorsementCollab" />
+  </EntityType>
+  <EntityType Name="Approval_Recommendation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ApprovalId" Type="Int32" Nullable="false" />
+    <Property Name="RecommendationId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Approval" Relationship="GaptModel.Approval_Recommendation_fk0" FromRole="Approval_Recommendation" ToRole="Approval" />
+    <NavigationProperty Name="RecommendationFic" Relationship="GaptModel.Approval_Recommendation_fk1" FromRole="Approval_Recommendation" ToRole="RecommendationFic" />
+  </EntityType>
+  <EntityType Name="Approval_Statement">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ApprovalId" Type="Int32" Nullable="false" />
+    <Property Name="StatementId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Approval" Relationship="GaptModel.Approval_Statement_fk0" FromRole="Approval_Statement" ToRole="Approval" />
+    <NavigationProperty Name="StatementServ" Relationship="GaptModel.Approval_Statement_fk1" FromRole="Approval_Statement" ToRole="StatementServ" />
+  </EntityType>
+  <EntityType Name="CouncilDecision">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Selection" Type="Boolean" Nullable="false" />
+    <Property Name="SignedBy" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+    <Property Name="SignedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="InPrincipal_Council" Relationship="GaptModel.InPrincipal_Council_fk1" FromRole="CouncilDecision" ToRole="InPrincipal_Council" />
+  </EntityType>
+  <EntityType Name="Demand">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Period" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ProgrammeRationales" Relationship="GaptModel.ProgrammeRationale_fk1" FromRole="Demand" ToRole="ProgrammeRationale" />
+  </EntityType>
+  <EntityType Name="Department_General">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GeneralId" Type="Int32" Nullable="false" />
+    <Property Name="DepartmentId" Type="Int32" Nullable="false" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="General" Relationship="GaptModel.Department_General_fk0" FromRole="Department_General" ToRole="General" />
+    <NavigationProperty Name="Ref_Department" Relationship="GaptModel.Department_General_fk1" FromRole="Department_General" ToRole="Ref_Department" />
+  </EntityType>
+  <EntityType Name="EndorsementCollab">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DepartmentId" Type="Int32" />
+    <Property Name="Selection" Type="Boolean" />
+    <Property Name="HeldDate" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SignedBy" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+    <Property Name="SignedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Approval_Endorsement" Relationship="GaptModel.Approval_Endorsement_fk1" FromRole="EndorsementCollab" ToRole="Approval_Endorsement" />
+    <NavigationProperty Name="Ref_Department" Relationship="GaptModel.EndorsementCollab_fk0" FromRole="EndorsementCollab" ToRole="Ref_Department" />
+  </EntityType>
+  <EntityType Name="ExternalReview">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="ExternalReview_Reviewer" Relationship="GaptModel.ExternalReview_Reviewer_fk0" FromRole="ExternalReview" ToRole="ExternalReview_Reviewer" />
+    <NavigationProperty Name="Proposals" Relationship="GaptModel.Proposal_fk2" FromRole="ExternalReview" ToRole="Proposal" />
+  </EntityType>
+  <EntityType Name="ExternalReview_Reviewer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ExternalReviewId" Type="Int32" Nullable="false" />
+    <Property Name="ReviewerId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ExternalReview" Relationship="GaptModel.ExternalReview_Reviewer_fk0" FromRole="ExternalReview_Reviewer" ToRole="ExternalReview" />
+    <NavigationProperty Name="Reviewer" Relationship="GaptModel.ExternalReview_Reviewer_fk1" FromRole="ExternalReview_Reviewer" ToRole="Reviewer" />
+  </EntityType>
+  <EntityType Name="General">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="AreasStudy" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="LevelId" Type="Int32" />
+    <Property Name="FacultyId" Type="Int32" />
+    <Property Name="DeliveryId" Type="Int32" />
+    <Property Name="FirstDateIntake" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+    <Property Name="ExpectedStudents" Type="Int32" />
+    <Property Name="MaxStudents" Type="Int32" />
+    <Property Name="CappingReason" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+    <Property Name="DurationSemesters" Type="Int32" />
+    <NavigationProperty Name="Department_General" Relationship="GaptModel.Department_General_fk0" FromRole="General" ToRole="Department_General" />
+    <NavigationProperty Name="Ref_Level" Relationship="GaptModel.General_fk0" FromRole="General" ToRole="Ref_Level" />
+    <NavigationProperty Name="Ref_Faculty" Relationship="GaptModel.General_fk1" FromRole="General" ToRole="Ref_Faculty" />
+    <NavigationProperty Name="Ref_Delivery" Relationship="GaptModel.General_fk2" FromRole="General" ToRole="Ref_Delivery" />
+    <NavigationProperty Name="Proposals" Relationship="GaptModel.Proposal_fk0" FromRole="General" ToRole="Proposal" />
+    <NavigationProperty Name="Proposer_General" Relationship="GaptModel.Proposer_General_fk0" FromRole="General" ToRole="Proposer_General" />
+  </EntityType>
+  <EntityType Name="IncomeExpenditure">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="IncomeExpenditure_StatementIE" Relationship="GaptModel.IncomeExpenditure_StatementIE_fk0" FromRole="IncomeExpenditure" ToRole="IncomeExpenditure_StatementIE" />
+    <NavigationProperty Name="Proposals" Relationship="GaptModel.Proposal_fk3" FromRole="IncomeExpenditure" ToRole="Proposal" />
+  </EntityType>
+  <EntityType Name="IncomeExpenditure_StatementIE">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IncomeExpenditureId" Type="Int32" Nullable="false" />
+    <Property Name="StatementId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="IncomeExpenditure" Relationship="GaptModel.IncomeExpenditure_StatementIE_fk0" FromRole="IncomeExpenditure_StatementIE" ToRole="IncomeExpenditure" />
+    <NavigationProperty Name="StatementIE" Relationship="GaptModel.IncomeExpenditure_StatementIE_fk1" FromRole="IncomeExpenditure_StatementIE" ToRole="StatementIE" />
+  </EntityType>
+  <EntityType Name="InPrincipal">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="InPrincipal_Council" Relationship="GaptModel.InPrincipal_Council_fk0" FromRole="InPrincipal" ToRole="InPrincipal_Council" />
+    <NavigationProperty Name="InPrincipal_Pvc" Relationship="GaptModel.InPrincipal_Pvc_fk0" FromRole="InPrincipal" ToRole="InPrincipal_Pvc" />
+    <NavigationProperty Name="InPrincipal_Senate" Relationship="GaptModel.InPrincipal_Senate_fk0" FromRole="InPrincipal" ToRole="InPrincipal_Senate" />
+    <NavigationProperty Name="Proposals" Relationship="GaptModel.Proposal_fk5" FromRole="InPrincipal" ToRole="Proposal" />
+  </EntityType>
+  <EntityType Name="InPrincipal_Council">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InPrincipalId" Type="Int32" Nullable="false" />
+    <Property Name="CouncilDecisionId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CouncilDecision" Relationship="GaptModel.InPrincipal_Council_fk1" FromRole="InPrincipal_Council" ToRole="CouncilDecision" />
+    <NavigationProperty Name="InPrincipal" Relationship="GaptModel.InPrincipal_Council_fk0" FromRole="InPrincipal_Council" ToRole="InPrincipal" />
+  </EntityType>
+  <EntityType Name="InPrincipal_Pvc">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InPrincipalId" Type="Int32" Nullable="false" />
+    <Property Name="PvcApprovalId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="InPrincipal" Relationship="GaptModel.InPrincipal_Pvc_fk0" FromRole="InPrincipal_Pvc" ToRole="InPrincipal" />
+    <NavigationProperty Name="PvcApproval" Relationship="GaptModel.InPrincipal_Pvc_fk1" FromRole="InPrincipal_Pvc" ToRole="PvcApproval" />
+  </EntityType>
+  <EntityType Name="InPrincipal_Senate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InPrincipalId" Type="Int32" Nullable="false" />
+    <Property Name="SenateDecisionId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="InPrincipal" Relationship="GaptModel.InPrincipal_Senate_fk0" FromRole="InPrincipal_Senate" ToRole="InPrincipal" />
+    <NavigationProperty Name="SenateDecision" Relationship="GaptModel.InPrincipal_Senate_fk1" FromRole="InPrincipal_Senate" ToRole="SenateDecision" />
+  </EntityType>
+  <EntityType Name="ProgrammeOfStudy">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KnowledgeUnderstanding" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IntellectualDevelopment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="KeyTransferableSkills" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="OtherSkills" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ProgrammeRationales" Relationship="GaptModel.ProgrammeRationale_fk2" FromRole="ProgrammeOfStudy" ToRole="ProgrammeRationale" />
+  </EntityType>
+  <EntityType Name="ProgrammeRationale">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RationaleId" Type="Int32" />
+    <Property Name="DemandId" Type="Int32" />
+    <Property Name="PsId" Type="Int32" />
+    <Property Name="TentativePsId" Type="Int32" />
+    <NavigationProperty Name="Demand" Relationship="GaptModel.ProgrammeRationale_fk1" FromRole="ProgrammeRationale" ToRole="Demand" />
+    <NavigationProperty Name="ProgrammeOfStudy" Relationship="GaptModel.ProgrammeRationale_fk2" FromRole="ProgrammeRationale" ToRole="ProgrammeOfStudy" />
+    <NavigationProperty Name="Rationale" Relationship="GaptModel.ProgrammeRationale_fk0" FromRole="ProgrammeRationale" ToRole="Rationale" />
+    <NavigationProperty Name="TentativeP" Relationship="GaptModel.ProgrammeRationale_fk3" FromRole="ProgrammeRationale" ToRole="TentativeP" />
+    <NavigationProperty Name="Proposals" Relationship="GaptModel.Proposal_fk1" FromRole="ProgrammeRationale" ToRole="Proposal" />
+  </EntityType>
+  <EntityType Name="Proposal">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreatedBy" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="GeneralId" Type="Int32" />
+    <Property Name="ProgrammeRationaleId" Type="Int32" />
+    <Property Name="ExternalReviewId" Type="Int32" />
+    <Property Name="IncomeExpenditureId" Type="Int32" />
+    <Property Name="ApprovalId" Type="Int32" />
+    <Property Name="InPrincipalId" Type="Int32" />
+    <Property Name="Submitted" Type="Boolean" Nullable="false" />
+    <Property Name="InPrincipalApproved" Type="Boolean" />
+    <NavigationProperty Name="Approval" Relationship="GaptModel.Proposal_fk4" FromRole="Proposal" ToRole="Approval" />
+    <NavigationProperty Name="ExternalReview" Relationship="GaptModel.Proposal_fk2" FromRole="Proposal" ToRole="ExternalReview" />
+    <NavigationProperty Name="General" Relationship="GaptModel.Proposal_fk0" FromRole="Proposal" ToRole="General" />
+    <NavigationProperty Name="IncomeExpenditure" Relationship="GaptModel.Proposal_fk3" FromRole="Proposal" ToRole="IncomeExpenditure" />
+    <NavigationProperty Name="InPrincipal" Relationship="GaptModel.Proposal_fk5" FromRole="Proposal" ToRole="InPrincipal" />
+    <NavigationProperty Name="ProgrammeRationale" Relationship="GaptModel.Proposal_fk1" FromRole="Proposal" ToRole="ProgrammeRationale" />
+  </EntityType>
+  <EntityType Name="Proposer_General">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GeneralId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="General" Relationship="GaptModel.Proposer_General_fk0" FromRole="Proposer_General" ToRole="General" />
+  </EntityType>
+  <EntityType Name="PvcApproval">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Selection" Type="Boolean" />
+    <Property Name="SignedBy" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+    <Property Name="SignedDate" Type="DateTime" Precision="3" />
+    <Property Name="Upload" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CouncilRef" Type="Boolean" />
+    <NavigationProperty Name="InPrincipal_Pvc" Relationship="GaptModel.InPrincipal_Pvc_fk1" FromRole="PvcApproval" ToRole="InPrincipal_Pvc" />
+  </EntityType>
+  <EntityType Name="Rationale">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Justification" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Fit" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Differences" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ProgrammeRationales" Relationship="GaptModel.ProgrammeRationale_fk0" FromRole="Rationale" ToRole="ProgrammeRationale" />
+  </EntityType>
+  <EntityType Name="RecommendationFic">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FacultyId" Type="Int32" />
+    <Property Name="Selection" Type="Boolean" />
+    <Property Name="HeldDateA" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="HeldDateB" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SignedBy" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+    <Property Name="SignedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Approval_Recommendation" Relationship="GaptModel.Approval_Recommendation_fk1" FromRole="RecommendationFic" ToRole="Approval_Recommendation" />
+    <NavigationProperty Name="Ref_Faculty" Relationship="GaptModel.RecommendationFics_fk0" FromRole="RecommendationFic" ToRole="Ref_Faculty" />
+  </EntityType>
+  <EntityType Name="Ref_Delivery">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Generals" Relationship="GaptModel.General_fk2" FromRole="Ref_Delivery" ToRole="General" />
+  </EntityType>
+  <EntityType Name="Ref_Department">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
+    <Property Name="FacultyId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Department_General" Relationship="GaptModel.Department_General_fk1" FromRole="Ref_Department" ToRole="Department_General" />
+    <NavigationProperty Name="EndorsementCollabs" Relationship="GaptModel.EndorsementCollab_fk0" FromRole="Ref_Department" ToRole="EndorsementCollab" />
+    <NavigationProperty Name="Ref_Faculty" Relationship="GaptModel.Ref_Department_fk0" FromRole="Ref_Department" ToRole="Ref_Faculty" />
+    <NavigationProperty Name="Ref_Unit" Relationship="GaptModel.Ref_Unit_fk0" FromRole="Ref_Department" ToRole="Ref_Unit" />
+    <NavigationProperty Name="StatementServs" Relationship="GaptModel.StatementServ_fk0" FromRole="Ref_Department" ToRole="StatementServ" />
+  </EntityType>
+  <EntityType Name="Ref_Faculty">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Generals" Relationship="GaptModel.General_fk1" FromRole="Ref_Faculty" ToRole="General" />
+    <NavigationProperty Name="RecommendationFics" Relationship="GaptModel.RecommendationFics_fk0" FromRole="Ref_Faculty" ToRole="RecommendationFic" />
+    <NavigationProperty Name="Ref_Department" Relationship="GaptModel.Ref_Department_fk0" FromRole="Ref_Faculty" ToRole="Ref_Department" />
+  </EntityType>
+  <EntityType Name="Ref_Level">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Generals" Relationship="GaptModel.General_fk0" FromRole="Ref_Level" ToRole="General" />
+  </EntityType>
+  <EntityType Name="Ref_Unit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
+    <Property Name="DepartmentId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Ref_Department" Relationship="GaptModel.Ref_Unit_fk0" FromRole="Ref_Unit" ToRole="Ref_Department" />
+    <NavigationProperty Name="Year_Unit" Relationship="GaptModel.Year_Unit_fk1" FromRole="Ref_Unit" ToRole="Year_Unit" />
+  </EntityType>
+  <EntityType Name="Reviewer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+    <Property Name="Affiliation" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+    <Property Name="Telephone" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ExternalReview_Reviewer" Relationship="GaptModel.ExternalReview_Reviewer_fk1" FromRole="Reviewer" ToRole="ExternalReview_Reviewer" />
+  </EntityType>
+  <EntityType Name="SenateDecision">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Selection" Type="Boolean" Nullable="false" />
+    <Property Name="SignedBy" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+    <Property Name="SignedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="InPrincipal_Senate" Relationship="GaptModel.InPrincipal_Senate_fk1" FromRole="SenateDecision" ToRole="InPrincipal_Senate" />
+  </EntityType>
+  <EntityType Name="StatementIE">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Upload" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="IncomeExpenditure_StatementIE" Relationship="GaptModel.IncomeExpenditure_StatementIE_fk1" FromRole="StatementIE" ToRole="IncomeExpenditure_StatementIE" />
+  </EntityType>
+  <EntityType Name="StatementServ">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DepartmentId" Type="Int32" />
+    <Property Name="Selection" Type="Boolean" />
+    <Property Name="Reservations" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SignedBy" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+    <Property Name="SignedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Approval_Statement" Relationship="GaptModel.Approval_Statement_fk1" FromRole="StatementServ" ToRole="Approval_Statement" />
+    <NavigationProperty Name="Ref_Department" Relationship="GaptModel.StatementServ_fk0" FromRole="StatementServ" ToRole="Ref_Department" />
+  </EntityType>
+  <EntityType Name="TentativeP">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="ProgrammeRationales" Relationship="GaptModel.ProgrammeRationale_fk3" FromRole="TentativeP" ToRole="ProgrammeRationale" />
+    <NavigationProperty Name="Years" Relationship="GaptModel.Year_fk0" FromRole="TentativeP" ToRole="Year" />
+  </EntityType>
+  <EntityType Name="Year">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TotalEcts" Type="Int32" />
+    <Property Name="TentativePsId" Type="Int32" />
+    <Property Name="YearNo" Type="Int32" />
+    <NavigationProperty Name="TentativeP" Relationship="GaptModel.Year_fk0" FromRole="Year" ToRole="TentativeP" />
+    <NavigationProperty Name="Year_Unit" Relationship="GaptModel.Year_Unit_fk0" FromRole="Year" ToRole="Year_Unit" />
+  </EntityType>
+  <EntityType Name="Year_Unit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="YearId" Type="Int32" Nullable="false" />
+    <Property Name="UnitId" Type="Int32" Nullable="false" />
+    <Property Name="Period" Type="Int32" />
+    <Property Name="Coe" Type="Int32" />
+    <Property Name="Ects" Type="Int32" />
+    <Property Name="Lecturer" Type="String" MaxLength="225" FixedLength="false" Unicode="false" />
+    <Property Name="Compensating" Type="Int32" />
+    <Property Name="CompensatingReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Ref_Unit" Relationship="GaptModel.Year_Unit_fk1" FromRole="Year_Unit" ToRole="Ref_Unit" />
+    <NavigationProperty Name="Year" Relationship="GaptModel.Year_Unit_fk0" FromRole="Year_Unit" ToRole="Year" />
+  </EntityType>
+  <Association Name="Approval_Endorsement_fk0">
+    <End Type="GaptModel.Approval" Role="Approval" Multiplicity="1" />
+    <End Type="GaptModel.Approval_Endorsement" Role="Approval_Endorsement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Approval">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Approval_Endorsement">
+        <PropertyRef Name="ApprovalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Approval_Recommendation_fk0">
+    <End Type="GaptModel.Approval" Role="Approval" Multiplicity="1" />
+    <End Type="GaptModel.Approval_Recommendation" Role="Approval_Recommendation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Approval">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Approval_Recommendation">
+        <PropertyRef Name="ApprovalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Approval_Statement_fk0">
+    <End Type="GaptModel.Approval" Role="Approval" Multiplicity="1" />
+    <End Type="GaptModel.Approval_Statement" Role="Approval_Statement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Approval">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Approval_Statement">
+        <PropertyRef Name="ApprovalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Proposal_fk4">
+    <End Type="GaptModel.Approval" Role="Approval" Multiplicity="0..1" />
+    <End Type="GaptModel.Proposal" Role="Proposal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Approval">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Proposal">
+        <PropertyRef Name="ApprovalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Approval_Endorsement_fk1">
+    <End Type="GaptModel.EndorsementCollab" Role="EndorsementCollab" Multiplicity="1" />
+    <End Type="GaptModel.Approval_Endorsement" Role="Approval_Endorsement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EndorsementCollab">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Approval_Endorsement">
+        <PropertyRef Name="EndorsementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Approval_Recommendation_fk1">
+    <End Type="GaptModel.RecommendationFic" Role="RecommendationFic" Multiplicity="1" />
+    <End Type="GaptModel.Approval_Recommendation" Role="Approval_Recommendation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RecommendationFic">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Approval_Recommendation">
+        <PropertyRef Name="RecommendationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Approval_Statement_fk1">
+    <End Type="GaptModel.StatementServ" Role="StatementServ" Multiplicity="1" />
+    <End Type="GaptModel.Approval_Statement" Role="Approval_Statement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatementServ">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Approval_Statement">
+        <PropertyRef Name="StatementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Council_fk1">
+    <End Type="GaptModel.CouncilDecision" Role="CouncilDecision" Multiplicity="1" />
+    <End Type="GaptModel.InPrincipal_Council" Role="InPrincipal_Council" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CouncilDecision">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Council">
+        <PropertyRef Name="CouncilDecisionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProgrammeRationale_fk1">
+    <End Type="GaptModel.Demand" Role="Demand" Multiplicity="0..1" />
+    <End Type="GaptModel.ProgrammeRationale" Role="ProgrammeRationale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Demand">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProgrammeRationale">
+        <PropertyRef Name="DemandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Department_General_fk0">
+    <End Type="GaptModel.General" Role="General" Multiplicity="1" />
+    <End Type="GaptModel.Department_General" Role="Department_General" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="General">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Department_General">
+        <PropertyRef Name="GeneralId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Department_General_fk1">
+    <End Type="GaptModel.Ref_Department" Role="Ref_Department" Multiplicity="1" />
+    <End Type="GaptModel.Department_General" Role="Department_General" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Department_General">
+        <PropertyRef Name="DepartmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EndorsementCollab_fk0">
+    <End Type="GaptModel.Ref_Department" Role="Ref_Department" Multiplicity="0..1" />
+    <End Type="GaptModel.EndorsementCollab" Role="EndorsementCollab" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EndorsementCollab">
+        <PropertyRef Name="DepartmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ExternalReview_Reviewer_fk0">
+    <End Type="GaptModel.ExternalReview" Role="ExternalReview" Multiplicity="1" />
+    <End Type="GaptModel.ExternalReview_Reviewer" Role="ExternalReview_Reviewer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExternalReview">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ExternalReview_Reviewer">
+        <PropertyRef Name="ExternalReviewId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Proposal_fk2">
+    <End Type="GaptModel.ExternalReview" Role="ExternalReview" Multiplicity="0..1" />
+    <End Type="GaptModel.Proposal" Role="Proposal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExternalReview">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Proposal">
+        <PropertyRef Name="ExternalReviewId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ExternalReview_Reviewer_fk1">
+    <End Type="GaptModel.Reviewer" Role="Reviewer" Multiplicity="1" />
+    <End Type="GaptModel.ExternalReview_Reviewer" Role="ExternalReview_Reviewer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reviewer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ExternalReview_Reviewer">
+        <PropertyRef Name="ReviewerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="General_fk0">
+    <End Type="GaptModel.Ref_Level" Role="Ref_Level" Multiplicity="0..1" />
+    <End Type="GaptModel.General" Role="General" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Level">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="General">
+        <PropertyRef Name="LevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="General_fk1">
+    <End Type="GaptModel.Ref_Faculty" Role="Ref_Faculty" Multiplicity="0..1" />
+    <End Type="GaptModel.General" Role="General" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Faculty">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="General">
+        <PropertyRef Name="FacultyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="General_fk2">
+    <End Type="GaptModel.Ref_Delivery" Role="Ref_Delivery" Multiplicity="0..1" />
+    <End Type="GaptModel.General" Role="General" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Delivery">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="General">
+        <PropertyRef Name="DeliveryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Proposal_fk0">
+    <End Type="GaptModel.General" Role="General" Multiplicity="0..1" />
+    <End Type="GaptModel.Proposal" Role="Proposal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="General">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Proposal">
+        <PropertyRef Name="GeneralId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Proposer_General_fk0">
+    <End Type="GaptModel.General" Role="General" Multiplicity="1" />
+    <End Type="GaptModel.Proposer_General" Role="Proposer_General" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="General">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Proposer_General">
+        <PropertyRef Name="GeneralId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IncomeExpenditure_StatementIE_fk0">
+    <End Type="GaptModel.IncomeExpenditure" Role="IncomeExpenditure" Multiplicity="1" />
+    <End Type="GaptModel.IncomeExpenditure_StatementIE" Role="IncomeExpenditure_StatementIE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IncomeExpenditure">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IncomeExpenditure_StatementIE">
+        <PropertyRef Name="IncomeExpenditureId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Proposal_fk3">
+    <End Type="GaptModel.IncomeExpenditure" Role="IncomeExpenditure" Multiplicity="0..1" />
+    <End Type="GaptModel.Proposal" Role="Proposal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IncomeExpenditure">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Proposal">
+        <PropertyRef Name="IncomeExpenditureId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IncomeExpenditure_StatementIE_fk1">
+    <End Type="GaptModel.StatementIE" Role="StatementIE" Multiplicity="1" />
+    <End Type="GaptModel.IncomeExpenditure_StatementIE" Role="IncomeExpenditure_StatementIE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatementIE">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IncomeExpenditure_StatementIE">
+        <PropertyRef Name="StatementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Council_fk0">
+    <End Type="GaptModel.InPrincipal" Role="InPrincipal" Multiplicity="1" />
+    <End Type="GaptModel.InPrincipal_Council" Role="InPrincipal_Council" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InPrincipal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Council">
+        <PropertyRef Name="InPrincipalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Pvc_fk0">
+    <End Type="GaptModel.InPrincipal" Role="InPrincipal" Multiplicity="1" />
+    <End Type="GaptModel.InPrincipal_Pvc" Role="InPrincipal_Pvc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InPrincipal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Pvc">
+        <PropertyRef Name="InPrincipalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Senate_fk0">
+    <End Type="GaptModel.InPrincipal" Role="InPrincipal" Multiplicity="1" />
+    <End Type="GaptModel.InPrincipal_Senate" Role="InPrincipal_Senate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InPrincipal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Senate">
+        <PropertyRef Name="InPrincipalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Proposal_fk5">
+    <End Type="GaptModel.InPrincipal" Role="InPrincipal" Multiplicity="0..1" />
+    <End Type="GaptModel.Proposal" Role="Proposal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InPrincipal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Proposal">
+        <PropertyRef Name="InPrincipalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Pvc_fk1">
+    <End Type="GaptModel.PvcApproval" Role="PvcApproval" Multiplicity="1" />
+    <End Type="GaptModel.InPrincipal_Pvc" Role="InPrincipal_Pvc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PvcApproval">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Pvc">
+        <PropertyRef Name="PvcApprovalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Senate_fk1">
+    <End Type="GaptModel.SenateDecision" Role="SenateDecision" Multiplicity="1" />
+    <End Type="GaptModel.InPrincipal_Senate" Role="InPrincipal_Senate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SenateDecision">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Senate">
+        <PropertyRef Name="SenateDecisionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProgrammeRationale_fk2">
+    <End Type="GaptModel.ProgrammeOfStudy" Role="ProgrammeOfStudy" Multiplicity="0..1" />
+    <End Type="GaptModel.ProgrammeRationale" Role="ProgrammeRationale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProgrammeOfStudy">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProgrammeRationale">
+        <PropertyRef Name="PsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProgrammeRationale_fk0">
+    <End Type="GaptModel.Rationale" Role="Rationale" Multiplicity="0..1" />
+    <End Type="GaptModel.ProgrammeRationale" Role="ProgrammeRationale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rationale">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProgrammeRationale">
+        <PropertyRef Name="RationaleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProgrammeRationale_fk3">
+    <End Type="GaptModel.TentativeP" Role="TentativeP" Multiplicity="0..1" />
+    <End Type="GaptModel.ProgrammeRationale" Role="ProgrammeRationale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TentativeP">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProgrammeRationale">
+        <PropertyRef Name="TentativePsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Proposal_fk1">
+    <End Type="GaptModel.ProgrammeRationale" Role="ProgrammeRationale" Multiplicity="0..1" />
+    <End Type="GaptModel.Proposal" Role="Proposal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProgrammeRationale">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Proposal">
+        <PropertyRef Name="ProgrammeRationaleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RecommendationFics_fk0">
+    <End Type="GaptModel.Ref_Faculty" Role="Ref_Faculty" Multiplicity="0..1" />
+    <End Type="GaptModel.RecommendationFic" Role="RecommendationFic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Faculty">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RecommendationFic">
+        <PropertyRef Name="FacultyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Ref_Department_fk0">
+    <End Type="GaptModel.Ref_Faculty" Role="Ref_Faculty" Multiplicity="1" />
+    <End Type="GaptModel.Ref_Department" Role="Ref_Department" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Faculty">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ref_Department">
+        <PropertyRef Name="FacultyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Ref_Unit_fk0">
+    <End Type="GaptModel.Ref_Department" Role="Ref_Department" Multiplicity="1" />
+    <End Type="GaptModel.Ref_Unit" Role="Ref_Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ref_Unit">
+        <PropertyRef Name="DepartmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StatementServ_fk0">
+    <End Type="GaptModel.Ref_Department" Role="Ref_Department" Multiplicity="0..1" />
+    <End Type="GaptModel.StatementServ" Role="StatementServ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StatementServ">
+        <PropertyRef Name="DepartmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Year_Unit_fk1">
+    <End Type="GaptModel.Ref_Unit" Role="Ref_Unit" Multiplicity="1" />
+    <End Type="GaptModel.Year_Unit" Role="Year_Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Unit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Year_Unit">
+        <PropertyRef Name="UnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Year_fk0">
+    <End Type="GaptModel.TentativeP" Role="TentativeP" Multiplicity="0..1" />
+    <End Type="GaptModel.Year" Role="Year" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TentativeP">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Year">
+        <PropertyRef Name="TentativePsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Year_Unit_fk0">
+    <End Type="GaptModel.Year" Role="Year" Multiplicity="1" />
+    <End Type="GaptModel.Year_Unit" Role="Year_Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Year">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Year_Unit">
+        <PropertyRef Name="YearId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

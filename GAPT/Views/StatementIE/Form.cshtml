@@ -34,7 +34,7 @@
 
             <input value=@filename type="text" class="form-control" readonly>
         </div>
-
+        @Html.ValidationMessageFor(m => m.StatementIE.Upload)
     </div>
     @Html.HiddenFor(m => m.Proposal.Id)
     @Html.HiddenFor(m => m.StatementIE.Id)

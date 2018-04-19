@@ -25,7 +25,7 @@ namespace GAPT.Controllers
         public ActionResult Index(int id)
         {
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == id);
-            if (proposal == null)
+            if (proposal == null || proposal.Submitted)
             {
                 return HttpNotFound();
             }
@@ -43,7 +43,7 @@ namespace GAPT.Controllers
         public ActionResult Jump(int id)
         {
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == id);
-            if (proposal == null)
+            if (proposal == null || proposal.Submitted)
             {
                 return HttpNotFound();
             }
@@ -65,6 +65,14 @@ namespace GAPT.Controllers
         public ActionResult DummySave(ExternalReviewIndexViewModel vm)
         {
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == vm.Proposal.Id);
+            if (proposal == null)
+            {
+                return HttpNotFound();
+            }
+            if (proposal.Submitted)
+            {
+                return Content("Proposal already submitted");
+            }
             var jump = Request["jump"];
             switch (jump)
             {
@@ -72,11 +80,6 @@ namespace GAPT.Controllers
                     {
                         // Previous pressed -> return form
                         return RedirectToAction("Jump", "ExternalReview", new { id = proposal.Id });
-                    }
-                case "1":
-                    {
-                        // Next pressed -> return next page
-                        return RedirectToAction("Jump", "Approval", new { id = proposal.Id });
                     }
                 case "A":
                     {
@@ -97,11 +100,6 @@ namespace GAPT.Controllers
                     {
                         // D pressed -> go to Section D
                         return RedirectToAction("Jump", "IncomeExpenditure", new { id = proposal.Id });
-                    }
-                case "E":
-                    {
-                        // E pressed -> go to Section E
-                        return RedirectToAction("Jump", "Approval", new { id = proposal.Id });
                     }
                 default:
                     {

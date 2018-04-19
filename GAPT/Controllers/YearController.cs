@@ -26,7 +26,7 @@ namespace GAPT.Controllers
         public ActionResult New(int id)
         {
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == id);
-            if (proposal == null)
+            if (proposal == null || proposal.Submitted)
             {
                 return HttpNotFound();
             }
@@ -64,7 +64,7 @@ namespace GAPT.Controllers
             var tentative = _context.TentativePs.SingleOrDefault(m => m.Id == year.TentativePsId);
             var pr = _context.ProgrammeRationales.SingleOrDefault(m => m.TentativePsId == tentative.Id);
             var proposal = _context.Proposals.SingleOrDefault(m => m.ProgrammeRationaleId == pr.Id);
-            if (proposal == null)
+            if (proposal == null || proposal.Submitted)
             {
                 return HttpNotFound();
             }
@@ -98,6 +98,10 @@ namespace GAPT.Controllers
         {
             var proposal = vm.Proposal;
             proposal = _context.Proposals.SingleOrDefault(m => m.Id == proposal.Id);
+            if (proposal == null || proposal.Submitted)
+            {
+                return HttpNotFound();
+            }
             var year = vm.Year;
             if (!ModelState.IsValid)
             {
@@ -171,7 +175,27 @@ namespace GAPT.Controllers
                 }
             }
             _context.SaveChanges();
-            return RedirectToAction("Index", "TentativePs", new { id = proposal.Id });
+
+            var jump = Request["jump"];
+            switch (jump)
+            {
+                case "0":
+                    {
+                        // Save pressed
+                        return RedirectToAction("Index", "TentativePs", new { id = proposal.Id });
+                    }
+                case "1":
+                    {
+                        // New unit pressed
+                        return RedirectToAction("New", "Unit", new { yearRedirect = year.Id });
+                    }
+                default:
+                    {
+                        return RedirectToAction("Index", "TentativePs", new { id = proposal.Id });
+                    }
+            }
+
+            
 
         }
     }

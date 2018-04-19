@@ -9,6 +9,14 @@
 <input type="button" class="btn btn-warning" value="Section B" onclick="location.href='@Url.Action("Rationale", "Proposal", new { id = Model.Id })'" />
 <input type="button" class="btn btn-warning" value="Section C" onclick="location.href='@Url.Action("ExternalReview", "Proposal", new { id = Model.Id })'" />
 <input type="button" class="btn btn-warning" value="Section D" onclick="location.href='@Url.Action("IncomeExpenditure", "Proposal", new { id = Model.Id })'" />
+@if (Model.Submitted)
+{
+    <input type="button" class="btn btn-warning" value="Section E" onclick="location.href='@Url.Action("Jump", "Approval", new { id = Model.Id })'" />
+}
+@if (Model.HasFacultyApproval())
+{
+    <input type="button" class="btn btn-warning" value="Section F" onclick="location.href='@Url.Action("Jump", "InPrinciple", new { id = Model.Id })'" />
+}
 <br><br>
 <table id="proposal-data" class="table table-bordered table-hover">
     <tbody>

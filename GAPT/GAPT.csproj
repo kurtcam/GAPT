@@ -192,6 +192,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CouncilDecisionController.cs" />
     <Compile Include="Controllers\DemandController.cs" />
     <Compile Include="Controllers\EndorsementCollabController.cs" />
     <Compile Include="Controllers\ApprovalController.cs" />
@@ -199,17 +200,21 @@
     <Compile Include="Controllers\GeneralController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncomeExpenditureController.cs" />
+    <Compile Include="Controllers\InPrincipleController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProgrammeRationaleController.cs" />
     <Compile Include="Controllers\ProgrammeStudyController.cs" />
     <Compile Include="Controllers\ProposalController.cs" />
+    <Compile Include="Controllers\PvcApprovalController.cs" />
     <Compile Include="Controllers\RationaleController.cs" />
     <Compile Include="Controllers\RecommendationFicsController.cs" />
     <Compile Include="Controllers\ReviewerController.cs" />
+    <Compile Include="Controllers\SenateDecisionController.cs" />
     <Compile Include="Controllers\StatementIEController.cs" />
     <Compile Include="Controllers\StatementServController.cs" />
     <Compile Include="Controllers\TentativePs2Controller.cs" />
     <Compile Include="Controllers\TentativePsController.cs" />
+    <Compile Include="Controllers\UnitController.cs" />
     <Compile Include="Controllers\YearController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -225,6 +230,9 @@
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Approval_Statement.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CouncilDecision.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Demand.cs">
@@ -267,6 +275,18 @@
     <Compile Include="Models\IncomeExpenditure_StatementIE.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\InPrincipal.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InPrincipal_Council.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InPrincipal_Pvc.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InPrincipal_Senate.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\PartialClasses.cs" />
@@ -280,6 +300,9 @@
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Proposer_General.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PvcApproval.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Rationale.cs">
@@ -306,6 +329,9 @@
     <Compile Include="Models\Reviewer.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SenateDecision.cs">
+      <DependentUpon>GaptModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\StatementIE.cs">
       <DependentUpon>GaptModel.tt</DependentUpon>
     </Compile>
@@ -323,6 +349,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CouncilDecisionFormViewModel.cs" />
     <Compile Include="ViewModels\DemandFormViewModel.cs" />
     <Compile Include="ViewModels\EndorsementCollabFormViewModel.cs" />
     <Compile Include="ViewModels\ApprovalIndexViewModel.cs" />
@@ -331,15 +358,19 @@
     <Compile Include="ViewModels\GeneralFormViewModel.cs" />
     <Compile Include="ViewModels\IncomeExpenditureDetailsViewModel.cs" />
     <Compile Include="ViewModels\IncomeExpenditureIndexViewModel.cs" />
+    <Compile Include="ViewModels\InPrincipleIndexViewModel.cs" />
     <Compile Include="ViewModels\ProgrammeStudyFormViewModel.cs" />
+    <Compile Include="ViewModels\PvcApprovalFormViewModel.cs" />
     <Compile Include="ViewModels\RationaleFormViewModel.cs" />
     <Compile Include="ViewModels\RecommendationFicsFormViewModel.cs" />
     <Compile Include="ViewModels\ReviewerFormViewModel.cs" />
+    <Compile Include="ViewModels\SenateDecisionFormViewModel.cs" />
     <Compile Include="ViewModels\StatementIEFormViewModel.cs" />
     <Compile Include="ViewModels\StatementServFormViewModel.cs" />
     <Compile Include="ViewModels\TentativePsDetailsViewModel.cs" />
     <Compile Include="ViewModels\TentativePsFormViewModel.cs" />
     <Compile Include="ViewModels\TentativePsIndexViewModel.cs" />
+    <Compile Include="ViewModels\UnitFormViewModel.cs" />
     <Compile Include="ViewModels\YearFormViewModel.cs" />
     <Compile Include="ViewModels\YearTotalsFormViewModel.cs" />
   </ItemGroup>
@@ -458,7 +489,6 @@
     <Content Include="Views\RecommendationFics\Form.cshtml" />
     <Content Include="Views\RecommendationFics\Rejected.cshtml" />
     <Content Include="Views\RecommendationFics\Accepted.cshtml" />
-    <Content Include="Views\Proposal\Details.cshtml" />
     <Content Include="Views\Proposal\General.cshtml" />
     <Content Include="Views\Proposal\Rationale.cshtml" />
     <Content Include="Views\Proposal\Demand.cshtml" />
@@ -466,10 +496,17 @@
     <Content Include="Views\Proposal\TentativePs.cshtml" />
     <Content Include="Views\Proposal\ExternalReview.cshtml" />
     <Content Include="Views\Proposal\IncomeExpenditure.cshtml" />
+    <Content Include="Views\Proposal\Approval.cshtml" />
+    <Content Include="Views\Unit\Form.cshtml" />
+    <Content Include="Views\Proposal\InPrinciple.cshtml" />
+    <Content Include="Views\PvcApproval\Form.cshtml" />
+    <Content Include="Views\SenateDecision\Form.cshtml" />
+    <Content Include="Views\CouncilDecision\Form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\" />
+    <Folder Include="Views\InPrincipal\" />
     <Folder Include="Views\ProgrammeRationale\" />
   </ItemGroup>
   <ItemGroup>

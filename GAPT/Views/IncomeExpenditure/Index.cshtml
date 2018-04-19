@@ -28,7 +28,6 @@
         <button type="submit" name="jump" value="B" class="btn btn-warning">Section B</button>
         <button type="submit" name="jump" value="C" class="btn btn-warning">Section C</button>
         <button type="submit" name="jump" value="D" class="btn btn-warning">Section D</button>
-        <button type="submit" name="jump" value="E" class="btn btn-warning">Section E</button>
     </div>
     <br>
     if (statements.Count() == 0)
@@ -60,6 +59,7 @@
     @Html.HiddenFor(m => m.Proposal.Id)
     <input type="button" class="btn btn-success" value="New Upload" onclick="location.href='@Url.Action("New", "StatementIE", new { id = Model.Proposal.Id})'" /><br><br>
     <button type="submit" name="jump" value="-1" class="btn btn-primary">Previous</button>
-    <button type="submit" name="jump" value="1" class="btn btn-primary">Next</button>
+    <input type="button" class="btn btn-success" value="Submit Proposal" onclick="location.href='@Url.Action("Submit", "Proposal", new { id = Model.Proposal.Id})'" /><br><br>
+    <p style="color:red">@Model.ErrorMessage</p>
 }
 

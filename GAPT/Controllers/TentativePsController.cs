@@ -26,11 +26,26 @@ namespace GAPT.Controllers
         public ActionResult Index(int id)
         {
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == id);
-            if (proposal == null)
+            if (proposal == null || proposal.Submitted)
             {
                 return HttpNotFound();
             }
             var pr = _context.ProgrammeRationales.SingleOrDefault(m => m.Id == proposal.ProgrammeRationaleId);
+            if (pr == null)
+            {
+                //if section B has not been visited yet
+                return RedirectToAction("Jump", "ProgrammeRationale", new { id = proposal.Id });
+            }
+            if (pr.DemandId == null)
+            {
+                //if section demand has not been visited yet
+                return RedirectToAction("Jump", "Demand", new { id = proposal.Id });
+            }
+            if (pr.PsId == null)
+            {
+                //if section ps has not been visited yet
+                return RedirectToAction("Jump", "ProgrammeStudy", new { id = proposal.Id });
+            }
             var tp = _context.TentativePs.SingleOrDefault(m => m.Id == pr.TentativePsId);
             var years = _context.Years.Where(m => m.TentativePsId == tp.Id).OrderBy(m => m.YearNo).ToList();
 
@@ -47,10 +62,27 @@ namespace GAPT.Controllers
         {
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == id);
             var pr = _context.ProgrammeRationales.SingleOrDefault(c => c.Id == proposal.ProgrammeRationaleId);
-            if (proposal == null)
+            if (proposal == null || proposal.Submitted)
             {
                 return HttpNotFound();
             }
+            if (pr == null) {
+                //if section B has not been visited yet
+                return RedirectToAction("Jump", "ProgrammeRationale", new { id = proposal.Id });
+            }
+            if (pr.DemandId == null)
+            {
+                //if section demand has not been visited yet
+                return RedirectToAction("Jump", "Demand", new { id = proposal.Id });
+            }
+            if (pr.PsId == null)
+            {
+                //if section ps has not been visited yet
+                return RedirectToAction("Jump", "ProgrammeStudy", new { id = proposal.Id });
+            }
+            
+            
+
             if (pr.TentativePsId == null)
             {
                 TentativeP tp = new TentativeP();
@@ -70,6 +102,14 @@ namespace GAPT.Controllers
         public ActionResult DummySave(TentativePsIndexViewModel vm)
         {
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == vm.Proposal.Id);
+            if (proposal == null)
+            {
+                return HttpNotFound();
+            }
+            if (proposal.Submitted)
+            {
+                return Content("Proposal already submitted");
+            }
             var jump = Request["jump"];
             switch (jump)
             {
@@ -103,11 +143,6 @@ namespace GAPT.Controllers
                     {
                         // D pressed -> go to Section D
                         return RedirectToAction("Jump", "IncomeExpenditure", new { id = proposal.Id });
-                    }
-                case "E":
-                    {
-                        // E pressed -> go to Section E
-                        return RedirectToAction("Jump", "Approval", new { id = proposal.Id });
                     }
                 default:
                     {

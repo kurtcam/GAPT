@@ -1,0 +1,1003 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GaptModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Approval">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Approval_Endorsement">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ApprovalId" Type="int" Nullable="false" />
+    <Property Name="EndorsementId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Approval_Recommendation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ApprovalId" Type="int" Nullable="false" />
+    <Property Name="RecommendationId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Approval_Statement">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ApprovalId" Type="int" Nullable="false" />
+    <Property Name="StatementId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CouncilDecision">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Selection" Type="bit" Nullable="false" />
+    <Property Name="SignedBy" Type="varchar" MaxLength="225" />
+    <Property Name="SignedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Demand">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="text" />
+    <Property Name="Period" Type="text" />
+  </EntityType>
+  <EntityType Name="Department_General">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GeneralId" Type="int" Nullable="false" />
+    <Property Name="DepartmentId" Type="int" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EndorsementCollab">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepartmentId" Type="int" />
+    <Property Name="Selection" Type="bit" />
+    <Property Name="HeldDate" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SignedBy" Type="varchar" MaxLength="225" />
+    <Property Name="SignedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ExternalReview">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ExternalReview_Reviewer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExternalReviewId" Type="int" Nullable="false" />
+    <Property Name="ReviewerId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="General">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="500" />
+    <Property Name="AreasStudy" Type="varchar" MaxLength="500" />
+    <Property Name="LevelId" Type="int" />
+    <Property Name="FacultyId" Type="int" />
+    <Property Name="DeliveryId" Type="int" />
+    <Property Name="FirstDateIntake" Type="varchar" MaxLength="225" />
+    <Property Name="ExpectedStudents" Type="int" />
+    <Property Name="MaxStudents" Type="int" />
+    <Property Name="CappingReason" Type="varchar" MaxLength="4000" />
+    <Property Name="DurationSemesters" Type="int" />
+  </EntityType>
+  <EntityType Name="IncomeExpenditure">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IncomeExpenditure_StatementIE">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IncomeExpenditureId" Type="int" Nullable="false" />
+    <Property Name="StatementId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InPrincipal">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InPrincipal_Council">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InPrincipalId" Type="int" Nullable="false" />
+    <Property Name="CouncilDecisionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InPrincipal_Pvc">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InPrincipalId" Type="int" Nullable="false" />
+    <Property Name="PvcApprovalId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InPrincipal_Senate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InPrincipalId" Type="int" Nullable="false" />
+    <Property Name="SenateDecisionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProgrammeOfStudy">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KnowledgeUnderstanding" Type="text" />
+    <Property Name="IntellectualDevelopment" Type="text" />
+    <Property Name="KeyTransferableSkills" Type="text" />
+    <Property Name="OtherSkills" Type="text" />
+  </EntityType>
+  <EntityType Name="ProgrammeRationale">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RationaleId" Type="int" />
+    <Property Name="DemandId" Type="int" />
+    <Property Name="PsId" Type="int" />
+    <Property Name="TentativePsId" Type="int" />
+  </EntityType>
+  <EntityType Name="Proposal">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="225" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="GeneralId" Type="int" />
+    <Property Name="ProgrammeRationaleId" Type="int" />
+    <Property Name="ExternalReviewId" Type="int" />
+    <Property Name="IncomeExpenditureId" Type="int" />
+    <Property Name="ApprovalId" Type="int" />
+    <Property Name="InPrincipalId" Type="int" />
+    <Property Name="Submitted" Type="bit" Nullable="false" />
+    <Property Name="InPrincipalApproved" Type="bit" />
+  </EntityType>
+  <EntityType Name="Proposer_General">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GeneralId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="varchar" MaxLength="225" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PvcApproval">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Selection" Type="bit" />
+    <Property Name="SignedBy" Type="varchar" MaxLength="225" />
+    <Property Name="SignedDate" Type="datetime" />
+    <Property Name="Upload" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="CouncilRef" Type="bit" />
+  </EntityType>
+  <EntityType Name="Rationale">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Justification" Type="text" />
+    <Property Name="Fit" Type="text" />
+    <Property Name="Differences" Type="text" />
+  </EntityType>
+  <EntityType Name="RecommendationFics">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FacultyId" Type="int" />
+    <Property Name="Selection" Type="bit" />
+    <Property Name="HeldDateA" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="HeldDateB" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SignedBy" Type="varchar" MaxLength="225" />
+    <Property Name="SignedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Ref_Delivery">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="225" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ref_Department">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="225" Nullable="false" />
+    <Property Name="FacultyId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ref_Faculty">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="225" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ref_Level">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="225" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ref_Unit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="225" Nullable="false" />
+    <Property Name="DepartmentId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reviewer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="225" />
+    <Property Name="Affiliation" Type="varchar" MaxLength="225" />
+    <Property Name="Address" Type="text" />
+    <Property Name="Email" Type="varchar" MaxLength="225" />
+    <Property Name="Telephone" Type="varchar" MaxLength="225" />
+  </EntityType>
+  <EntityType Name="SenateDecision">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Selection" Type="bit" Nullable="false" />
+    <Property Name="SignedBy" Type="varchar" MaxLength="225" />
+    <Property Name="SignedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="StatementIE">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Upload" Type="varchar" MaxLength="500" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StatementServ">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepartmentId" Type="int" />
+    <Property Name="Selection" Type="bit" />
+    <Property Name="Reservations" Type="text" Nullable="false" />
+    <Property Name="SignedBy" Type="varchar" MaxLength="225" />
+    <Property Name="SignedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TentativePs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Year">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TotalEcts" Type="int" />
+    <Property Name="TentativePsId" Type="int" />
+    <Property Name="YearNo" Type="int" />
+  </EntityType>
+  <EntityType Name="Year_Unit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="YearId" Type="int" Nullable="false" />
+    <Property Name="UnitId" Type="int" Nullable="false" />
+    <Property Name="Period" Type="int" />
+    <Property Name="Coe" Type="int" />
+    <Property Name="Ects" Type="int" />
+    <Property Name="Lecturer" Type="varchar" MaxLength="225" />
+    <Property Name="Compensating" Type="int" />
+    <Property Name="CompensatingReason" Type="text" />
+  </EntityType>
+  <Association Name="Approval_Endorsement_fk0">
+    <End Role="Approval" Type="Self.Approval" Multiplicity="1" />
+    <End Role="Approval_Endorsement" Type="Self.Approval_Endorsement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Approval">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Approval_Endorsement">
+        <PropertyRef Name="ApprovalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Approval_Endorsement_fk1">
+    <End Role="EndorsementCollab" Type="Self.EndorsementCollab" Multiplicity="1" />
+    <End Role="Approval_Endorsement" Type="Self.Approval_Endorsement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EndorsementCollab">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Approval_Endorsement">
+        <PropertyRef Name="EndorsementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Approval_Recommendation_fk0">
+    <End Role="Approval" Type="Self.Approval" Multiplicity="1" />
+    <End Role="Approval_Recommendation" Type="Self.Approval_Recommendation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Approval">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Approval_Recommendation">
+        <PropertyRef Name="ApprovalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Approval_Recommendation_fk1">
+    <End Role="RecommendationFics" Type="Self.RecommendationFics" Multiplicity="1" />
+    <End Role="Approval_Recommendation" Type="Self.Approval_Recommendation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RecommendationFics">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Approval_Recommendation">
+        <PropertyRef Name="RecommendationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Approval_Statement_fk0">
+    <End Role="Approval" Type="Self.Approval" Multiplicity="1" />
+    <End Role="Approval_Statement" Type="Self.Approval_Statement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Approval">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Approval_Statement">
+        <PropertyRef Name="ApprovalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Approval_Statement_fk1">
+    <End Role="StatementServ" Type="Self.StatementServ" Multiplicity="1" />
+    <End Role="Approval_Statement" Type="Self.Approval_Statement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatementServ">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Approval_Statement">
+        <PropertyRef Name="StatementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Department_General_fk0">
+    <End Role="General" Type="Self.General" Multiplicity="1" />
+    <End Role="Department_General" Type="Self.Department_General" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="General">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Department_General">
+        <PropertyRef Name="GeneralId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Department_General_fk1">
+    <End Role="Ref_Department" Type="Self.Ref_Department" Multiplicity="1" />
+    <End Role="Department_General" Type="Self.Department_General" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Department_General">
+        <PropertyRef Name="DepartmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EndorsementCollab_fk0">
+    <End Role="Ref_Department" Type="Self.Ref_Department" Multiplicity="0..1" />
+    <End Role="EndorsementCollab" Type="Self.EndorsementCollab" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EndorsementCollab">
+        <PropertyRef Name="DepartmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ExternalReview_Reviewer_fk0">
+    <End Role="ExternalReview" Type="Self.ExternalReview" Multiplicity="1" />
+    <End Role="ExternalReview_Reviewer" Type="Self.ExternalReview_Reviewer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExternalReview">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ExternalReview_Reviewer">
+        <PropertyRef Name="ExternalReviewId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ExternalReview_Reviewer_fk1">
+    <End Role="Reviewer" Type="Self.Reviewer" Multiplicity="1" />
+    <End Role="ExternalReview_Reviewer" Type="Self.ExternalReview_Reviewer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reviewer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ExternalReview_Reviewer">
+        <PropertyRef Name="ReviewerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="General_fk0">
+    <End Role="Ref_Level" Type="Self.Ref_Level" Multiplicity="0..1" />
+    <End Role="General" Type="Self.General" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Level">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="General">
+        <PropertyRef Name="LevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="General_fk1">
+    <End Role="Ref_Faculty" Type="Self.Ref_Faculty" Multiplicity="0..1" />
+    <End Role="General" Type="Self.General" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Faculty">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="General">
+        <PropertyRef Name="FacultyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="General_fk2">
+    <End Role="Ref_Delivery" Type="Self.Ref_Delivery" Multiplicity="0..1" />
+    <End Role="General" Type="Self.General" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Delivery">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="General">
+        <PropertyRef Name="DeliveryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IncomeExpenditure_StatementIE_fk0">
+    <End Role="IncomeExpenditure" Type="Self.IncomeExpenditure" Multiplicity="1" />
+    <End Role="IncomeExpenditure_StatementIE" Type="Self.IncomeExpenditure_StatementIE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IncomeExpenditure">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IncomeExpenditure_StatementIE">
+        <PropertyRef Name="IncomeExpenditureId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IncomeExpenditure_StatementIE_fk1">
+    <End Role="StatementIE" Type="Self.StatementIE" Multiplicity="1" />
+    <End Role="IncomeExpenditure_StatementIE" Type="Self.IncomeExpenditure_StatementIE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatementIE">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IncomeExpenditure_StatementIE">
+        <PropertyRef Name="StatementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Council_fk0">
+    <End Role="InPrincipal" Type="Self.InPrincipal" Multiplicity="1" />
+    <End Role="InPrincipal_Council" Type="Self.InPrincipal_Council" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InPrincipal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Council">
+        <PropertyRef Name="InPrincipalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Council_fk1">
+    <End Role="CouncilDecision" Type="Self.CouncilDecision" Multiplicity="1" />
+    <End Role="InPrincipal_Council" Type="Self.InPrincipal_Council" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CouncilDecision">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Council">
+        <PropertyRef Name="CouncilDecisionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Pvc_fk0">
+    <End Role="InPrincipal" Type="Self.InPrincipal" Multiplicity="1" />
+    <End Role="InPrincipal_Pvc" Type="Self.InPrincipal_Pvc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InPrincipal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Pvc">
+        <PropertyRef Name="InPrincipalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Pvc_fk1">
+    <End Role="PvcApproval" Type="Self.PvcApproval" Multiplicity="1" />
+    <End Role="InPrincipal_Pvc" Type="Self.InPrincipal_Pvc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PvcApproval">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Pvc">
+        <PropertyRef Name="PvcApprovalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Senate_fk0">
+    <End Role="InPrincipal" Type="Self.InPrincipal" Multiplicity="1" />
+    <End Role="InPrincipal_Senate" Type="Self.InPrincipal_Senate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InPrincipal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Senate">
+        <PropertyRef Name="InPrincipalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InPrincipal_Senate_fk1">
+    <End Role="SenateDecision" Type="Self.SenateDecision" Multiplicity="1" />
+    <End Role="InPrincipal_Senate" Type="Self.InPrincipal_Senate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SenateDecision">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InPrincipal_Senate">
+        <PropertyRef Name="SenateDecisionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProgrammeRationale_fk0">
+    <End Role="Rationale" Type="Self.Rationale" Multiplicity="0..1" />
+    <End Role="ProgrammeRationale" Type="Self.ProgrammeRationale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rationale">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProgrammeRationale">
+        <PropertyRef Name="RationaleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProgrammeRationale_fk1">
+    <End Role="Demand" Type="Self.Demand" Multiplicity="0..1" />
+    <End Role="ProgrammeRationale" Type="Self.ProgrammeRationale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Demand">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProgrammeRationale">
+        <PropertyRef Name="DemandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProgrammeRationale_fk2">
+    <End Role="ProgrammeOfStudy" Type="Self.ProgrammeOfStudy" Multiplicity="0..1" />
+    <End Role="ProgrammeRationale" Type="Self.ProgrammeRationale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProgrammeOfStudy">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProgrammeRationale">
+        <PropertyRef Name="PsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProgrammeRationale_fk3">
+    <End Role="TentativePs" Type="Self.TentativePs" Multiplicity="0..1" />
+    <End Role="ProgrammeRationale" Type="Self.ProgrammeRationale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TentativePs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProgrammeRationale">
+        <PropertyRef Name="TentativePsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Proposal_fk0">
+    <End Role="General" Type="Self.General" Multiplicity="0..1" />
+    <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="General">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Proposal">
+        <PropertyRef Name="GeneralId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Proposal_fk1">
+    <End Role="ProgrammeRationale" Type="Self.ProgrammeRationale" Multiplicity="0..1" />
+    <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProgrammeRationale">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Proposal">
+        <PropertyRef Name="ProgrammeRationaleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Proposal_fk2">
+    <End Role="ExternalReview" Type="Self.ExternalReview" Multiplicity="0..1" />
+    <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExternalReview">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Proposal">
+        <PropertyRef Name="ExternalReviewId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Proposal_fk3">
+    <End Role="IncomeExpenditure" Type="Self.IncomeExpenditure" Multiplicity="0..1" />
+    <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IncomeExpenditure">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Proposal">
+        <PropertyRef Name="IncomeExpenditureId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Proposal_fk4">
+    <End Role="Approval" Type="Self.Approval" Multiplicity="0..1" />
+    <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Approval">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Proposal">
+        <PropertyRef Name="ApprovalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Proposal_fk5">
+    <End Role="InPrincipal" Type="Self.InPrincipal" Multiplicity="0..1" />
+    <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InPrincipal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Proposal">
+        <PropertyRef Name="InPrincipalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Proposer_General_fk0">
+    <End Role="General" Type="Self.General" Multiplicity="1" />
+    <End Role="Proposer_General" Type="Self.Proposer_General" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="General">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Proposer_General">
+        <PropertyRef Name="GeneralId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RecommendationFics_fk0">
+    <End Role="Ref_Faculty" Type="Self.Ref_Faculty" Multiplicity="0..1" />
+    <End Role="RecommendationFics" Type="Self.RecommendationFics" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Faculty">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RecommendationFics">
+        <PropertyRef Name="FacultyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Ref_Department_fk0">
+    <End Role="Ref_Faculty" Type="Self.Ref_Faculty" Multiplicity="1" />
+    <End Role="Ref_Department" Type="Self.Ref_Department" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Faculty">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ref_Department">
+        <PropertyRef Name="FacultyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Ref_Unit_fk0">
+    <End Role="Ref_Department" Type="Self.Ref_Department" Multiplicity="1" />
+    <End Role="Ref_Unit" Type="Self.Ref_Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ref_Unit">
+        <PropertyRef Name="DepartmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StatementServ_fk0">
+    <End Role="Ref_Department" Type="Self.Ref_Department" Multiplicity="0..1" />
+    <End Role="StatementServ" Type="Self.StatementServ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StatementServ">
+        <PropertyRef Name="DepartmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Year_fk0">
+    <End Role="TentativePs" Type="Self.TentativePs" Multiplicity="0..1" />
+    <End Role="Year" Type="Self.Year" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TentativePs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Year">
+        <PropertyRef Name="TentativePsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Year_Unit_fk0">
+    <End Role="Year" Type="Self.Year" Multiplicity="1" />
+    <End Role="Year_Unit" Type="Self.Year_Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Year">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Year_Unit">
+        <PropertyRef Name="YearId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Year_Unit_fk1">
+    <End Role="Ref_Unit" Type="Self.Ref_Unit" Multiplicity="1" />
+    <End Role="Year_Unit" Type="Self.Year_Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ref_Unit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Year_Unit">
+        <PropertyRef Name="UnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GaptModelStoreContainer">
+    <EntitySet Name="Approval" EntityType="Self.Approval" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Approval_Endorsement" EntityType="Self.Approval_Endorsement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Approval_Recommendation" EntityType="Self.Approval_Recommendation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Approval_Statement" EntityType="Self.Approval_Statement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CouncilDecision" EntityType="Self.CouncilDecision" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Demand" EntityType="Self.Demand" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Department_General" EntityType="Self.Department_General" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EndorsementCollab" EntityType="Self.EndorsementCollab" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ExternalReview" EntityType="Self.ExternalReview" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ExternalReview_Reviewer" EntityType="Self.ExternalReview_Reviewer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="General" EntityType="Self.General" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IncomeExpenditure" EntityType="Self.IncomeExpenditure" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IncomeExpenditure_StatementIE" EntityType="Self.IncomeExpenditure_StatementIE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InPrincipal" EntityType="Self.InPrincipal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InPrincipal_Council" EntityType="Self.InPrincipal_Council" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InPrincipal_Pvc" EntityType="Self.InPrincipal_Pvc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InPrincipal_Senate" EntityType="Self.InPrincipal_Senate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProgrammeOfStudy" EntityType="Self.ProgrammeOfStudy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProgrammeRationale" EntityType="Self.ProgrammeRationale" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proposal" EntityType="Self.Proposal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proposer_General" EntityType="Self.Proposer_General" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PvcApproval" EntityType="Self.PvcApproval" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rationale" EntityType="Self.Rationale" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RecommendationFics" EntityType="Self.RecommendationFics" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ref_Delivery" EntityType="Self.Ref_Delivery" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ref_Department" EntityType="Self.Ref_Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ref_Faculty" EntityType="Self.Ref_Faculty" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ref_Level" EntityType="Self.Ref_Level" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ref_Unit" EntityType="Self.Ref_Unit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reviewer" EntityType="Self.Reviewer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SenateDecision" EntityType="Self.SenateDecision" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StatementIE" EntityType="Self.StatementIE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StatementServ" EntityType="Self.StatementServ" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TentativePs" EntityType="Self.TentativePs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Year" EntityType="Self.Year" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Year_Unit" EntityType="Self.Year_Unit" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="Approval_Endorsement_fk0" Association="Self.Approval_Endorsement_fk0">
+      <End Role="Approval" EntitySet="Approval" />
+      <End Role="Approval_Endorsement" EntitySet="Approval_Endorsement" />
+    </AssociationSet>
+    <AssociationSet Name="Approval_Endorsement_fk1" Association="Self.Approval_Endorsement_fk1">
+      <End Role="EndorsementCollab" EntitySet="EndorsementCollab" />
+      <End Role="Approval_Endorsement" EntitySet="Approval_Endorsement" />
+    </AssociationSet>
+    <AssociationSet Name="Approval_Recommendation_fk0" Association="Self.Approval_Recommendation_fk0">
+      <End Role="Approval" EntitySet="Approval" />
+      <End Role="Approval_Recommendation" EntitySet="Approval_Recommendation" />
+    </AssociationSet>
+    <AssociationSet Name="Approval_Recommendation_fk1" Association="Self.Approval_Recommendation_fk1">
+      <End Role="RecommendationFics" EntitySet="RecommendationFics" />
+      <End Role="Approval_Recommendation" EntitySet="Approval_Recommendation" />
+    </AssociationSet>
+    <AssociationSet Name="Approval_Statement_fk0" Association="Self.Approval_Statement_fk0">
+      <End Role="Approval" EntitySet="Approval" />
+      <End Role="Approval_Statement" EntitySet="Approval_Statement" />
+    </AssociationSet>
+    <AssociationSet Name="Approval_Statement_fk1" Association="Self.Approval_Statement_fk1">
+      <End Role="StatementServ" EntitySet="StatementServ" />
+      <End Role="Approval_Statement" EntitySet="Approval_Statement" />
+    </AssociationSet>
+    <AssociationSet Name="Department_General_fk0" Association="Self.Department_General_fk0">
+      <End Role="General" EntitySet="General" />
+      <End Role="Department_General" EntitySet="Department_General" />
+    </AssociationSet>
+    <AssociationSet Name="Department_General_fk1" Association="Self.Department_General_fk1">
+      <End Role="Ref_Department" EntitySet="Ref_Department" />
+      <End Role="Department_General" EntitySet="Department_General" />
+    </AssociationSet>
+    <AssociationSet Name="EndorsementCollab_fk0" Association="Self.EndorsementCollab_fk0">
+      <End Role="Ref_Department" EntitySet="Ref_Department" />
+      <End Role="EndorsementCollab" EntitySet="EndorsementCollab" />
+    </AssociationSet>
+    <AssociationSet Name="ExternalReview_Reviewer_fk0" Association="Self.ExternalReview_Reviewer_fk0">
+      <End Role="ExternalReview" EntitySet="ExternalReview" />
+      <End Role="ExternalReview_Reviewer" EntitySet="ExternalReview_Reviewer" />
+    </AssociationSet>
+    <AssociationSet Name="ExternalReview_Reviewer_fk1" Association="Self.ExternalReview_Reviewer_fk1">
+      <End Role="Reviewer" EntitySet="Reviewer" />
+      <End Role="ExternalReview_Reviewer" EntitySet="ExternalReview_Reviewer" />
+    </AssociationSet>
+    <AssociationSet Name="General_fk0" Association="Self.General_fk0">
+      <End Role="Ref_Level" EntitySet="Ref_Level" />
+      <End Role="General" EntitySet="General" />
+    </AssociationSet>
+    <AssociationSet Name="General_fk1" Association="Self.General_fk1">
+      <End Role="Ref_Faculty" EntitySet="Ref_Faculty" />
+      <End Role="General" EntitySet="General" />
+    </AssociationSet>
+    <AssociationSet Name="General_fk2" Association="Self.General_fk2">
+      <End Role="Ref_Delivery" EntitySet="Ref_Delivery" />
+      <End Role="General" EntitySet="General" />
+    </AssociationSet>
+    <AssociationSet Name="IncomeExpenditure_StatementIE_fk0" Association="Self.IncomeExpenditure_StatementIE_fk0">
+      <End Role="IncomeExpenditure" EntitySet="IncomeExpenditure" />
+      <End Role="IncomeExpenditure_StatementIE" EntitySet="IncomeExpenditure_StatementIE" />
+    </AssociationSet>
+    <AssociationSet Name="IncomeExpenditure_StatementIE_fk1" Association="Self.IncomeExpenditure_StatementIE_fk1">
+      <End Role="StatementIE" EntitySet="StatementIE" />
+      <End Role="IncomeExpenditure_StatementIE" EntitySet="IncomeExpenditure_StatementIE" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Council_fk0" Association="Self.InPrincipal_Council_fk0">
+      <End Role="InPrincipal" EntitySet="InPrincipal" />
+      <End Role="InPrincipal_Council" EntitySet="InPrincipal_Council" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Council_fk1" Association="Self.InPrincipal_Council_fk1">
+      <End Role="CouncilDecision" EntitySet="CouncilDecision" />
+      <End Role="InPrincipal_Council" EntitySet="InPrincipal_Council" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Pvc_fk0" Association="Self.InPrincipal_Pvc_fk0">
+      <End Role="InPrincipal" EntitySet="InPrincipal" />
+      <End Role="InPrincipal_Pvc" EntitySet="InPrincipal_Pvc" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Pvc_fk1" Association="Self.InPrincipal_Pvc_fk1">
+      <End Role="PvcApproval" EntitySet="PvcApproval" />
+      <End Role="InPrincipal_Pvc" EntitySet="InPrincipal_Pvc" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Senate_fk0" Association="Self.InPrincipal_Senate_fk0">
+      <End Role="InPrincipal" EntitySet="InPrincipal" />
+      <End Role="InPrincipal_Senate" EntitySet="InPrincipal_Senate" />
+    </AssociationSet>
+    <AssociationSet Name="InPrincipal_Senate_fk1" Association="Self.InPrincipal_Senate_fk1">
+      <End Role="SenateDecision" EntitySet="SenateDecision" />
+      <End Role="InPrincipal_Senate" EntitySet="InPrincipal_Senate" />
+    </AssociationSet>
+    <AssociationSet Name="ProgrammeRationale_fk0" Association="Self.ProgrammeRationale_fk0">
+      <End Role="Rationale" EntitySet="Rationale" />
+      <End Role="ProgrammeRationale" EntitySet="ProgrammeRationale" />
+    </AssociationSet>
+    <AssociationSet Name="ProgrammeRationale_fk1" Association="Self.ProgrammeRationale_fk1">
+      <End Role="Demand" EntitySet="Demand" />
+      <End Role="ProgrammeRationale" EntitySet="ProgrammeRationale" />
+    </AssociationSet>
+    <AssociationSet Name="ProgrammeRationale_fk2" Association="Self.ProgrammeRationale_fk2">
+      <End Role="ProgrammeOfStudy" EntitySet="ProgrammeOfStudy" />
+      <End Role="ProgrammeRationale" EntitySet="ProgrammeRationale" />
+    </AssociationSet>
+    <AssociationSet Name="ProgrammeRationale_fk3" Association="Self.ProgrammeRationale_fk3">
+      <End Role="TentativePs" EntitySet="TentativePs" />
+      <End Role="ProgrammeRationale" EntitySet="ProgrammeRationale" />
+    </AssociationSet>
+    <AssociationSet Name="Proposal_fk0" Association="Self.Proposal_fk0">
+      <End Role="General" EntitySet="General" />
+      <End Role="Proposal" EntitySet="Proposal" />
+    </AssociationSet>
+    <AssociationSet Name="Proposal_fk1" Association="Self.Proposal_fk1">
+      <End Role="ProgrammeRationale" EntitySet="ProgrammeRationale" />
+      <End Role="Proposal" EntitySet="Proposal" />
+    </AssociationSet>
+    <AssociationSet Name="Proposal_fk2" Association="Self.Proposal_fk2">
+      <End Role="ExternalReview" EntitySet="ExternalReview" />
+      <End Role="Proposal" EntitySet="Proposal" />
+    </AssociationSet>
+    <AssociationSet Name="Proposal_fk3" Association="Self.Proposal_fk3">
+      <End Role="IncomeExpenditure" EntitySet="IncomeExpenditure" />
+      <End Role="Proposal" EntitySet="Proposal" />
+    </AssociationSet>
+    <AssociationSet Name="Proposal_fk4" Association="Self.Proposal_fk4">
+      <End Role="Approval" EntitySet="Approval" />
+      <End Role="Proposal" EntitySet="Proposal" />
+    </AssociationSet>
+    <AssociationSet Name="Proposal_fk5" Association="Self.Proposal_fk5">
+      <End Role="InPrincipal" EntitySet="InPrincipal" />
+      <End Role="Proposal" EntitySet="Proposal" />
+    </AssociationSet>
+    <AssociationSet Name="Proposer_General_fk0" Association="Self.Proposer_General_fk0">
+      <End Role="General" EntitySet="General" />
+      <End Role="Proposer_General" EntitySet="Proposer_General" />
+    </AssociationSet>
+    <AssociationSet Name="RecommendationFics_fk0" Association="Self.RecommendationFics_fk0">
+      <End Role="Ref_Faculty" EntitySet="Ref_Faculty" />
+      <End Role="RecommendationFics" EntitySet="RecommendationFics" />
+    </AssociationSet>
+    <AssociationSet Name="Ref_Department_fk0" Association="Self.Ref_Department_fk0">
+      <End Role="Ref_Faculty" EntitySet="Ref_Faculty" />
+      <End Role="Ref_Department" EntitySet="Ref_Department" />
+    </AssociationSet>
+    <AssociationSet Name="Ref_Unit_fk0" Association="Self.Ref_Unit_fk0">
+      <End Role="Ref_Department" EntitySet="Ref_Department" />
+      <End Role="Ref_Unit" EntitySet="Ref_Unit" />
+    </AssociationSet>
+    <AssociationSet Name="StatementServ_fk0" Association="Self.StatementServ_fk0">
+      <End Role="Ref_Department" EntitySet="Ref_Department" />
+      <End Role="StatementServ" EntitySet="StatementServ" />
+    </AssociationSet>
+    <AssociationSet Name="Year_fk0" Association="Self.Year_fk0">
+      <End Role="TentativePs" EntitySet="TentativePs" />
+      <End Role="Year" EntitySet="Year" />
+    </AssociationSet>
+    <AssociationSet Name="Year_Unit_fk0" Association="Self.Year_Unit_fk0">
+      <End Role="Year" EntitySet="Year" />
+      <End Role="Year_Unit" EntitySet="Year_Unit" />
+    </AssociationSet>
+    <AssociationSet Name="Year_Unit_fk1" Association="Self.Year_Unit_fk1">
+      <End Role="Ref_Unit" EntitySet="Ref_Unit" />
+      <End Role="Year_Unit" EntitySet="Year_Unit" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

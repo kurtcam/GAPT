@@ -40,6 +40,11 @@ namespace GAPT.Controllers
             {
                 pr = _context.ProgrammeRationales.SingleOrDefault(m => m.Id == proposal.ProgrammeRationaleId);
             }
+            if (pr == null)
+            {
+                //if section B has not been visited yet
+                return RedirectToAction("Jump", "ProgrammeRationale", new { id = proposal.Id });
+            }
             if (pr.DemandId != null) {
                 return HttpNotFound();
             }
@@ -56,6 +61,14 @@ namespace GAPT.Controllers
         {
             var demand = vm.Demand;
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == vm.Proposal.Id);
+            if (proposal == null)
+            {
+                return HttpNotFound();
+            }
+            if (proposal.Submitted)
+            {
+                return Content("Proposal already submitted");
+            }
             if (!ModelState.IsValid)
             {
                 return View("Form", demand);
@@ -92,7 +105,7 @@ namespace GAPT.Controllers
                 case "1":
                     {
                         // Next pressed -> return next page
-                        return RedirectToAction("Jump", "Demand", new { id = proposal.Id });
+                        return RedirectToAction("Jump", "ProgrammeStudy", new { id = proposal.Id });
                     }
                 case "A":
                     {
@@ -114,11 +127,6 @@ namespace GAPT.Controllers
                         // D pressed -> go to Section D
                         return RedirectToAction("Jump", "IncomeExpenditure", new { id = proposal.Id });
                     }
-                case "E":
-                    {
-                        // E pressed -> go to Section E
-                        return RedirectToAction("Jump", "Approval", new { id = proposal.Id });
-                    }
                 default:
                     {
                         return RedirectToAction("Index", "Proposal");
@@ -130,7 +138,8 @@ namespace GAPT.Controllers
         public ActionResult Edit(int id)
         {
             var proposal = _context.Proposals.SingleOrDefault(c => c.Id == id);
-            if (proposal == null) {
+            if (proposal == null || proposal.Submitted)
+            {
                 return HttpNotFound();
             }
             if (proposal.ProgrammeRationaleId == null)
@@ -156,17 +165,22 @@ namespace GAPT.Controllers
         {
             var proposal = _context.Proposals.SingleOrDefault(m => m.Id == id);
             var pr = _context.ProgrammeRationales.SingleOrDefault(c => c.Id == proposal.ProgrammeRationaleId);
-            if (proposal == null)
+            if (proposal == null || proposal.Submitted)
             {
                 return HttpNotFound();
             }
+            if (pr == null)
+            {
+                //if section B has not been visited yet
+                return RedirectToAction("Jump", "ProgrammeRationale", new { id = proposal.Id });
+            }
             if (pr.PsId == null)
             {
-                return RedirectToAction("New", "ProgrammeStudy", new { id = proposal.Id });
+                return RedirectToAction("New", "Demand", new { id = proposal.Id });
             }
             else
             {
-                return RedirectToAction("Edit", "ProgrammeStudy", new { id = proposal.Id });
+                return RedirectToAction("Edit", "Demand", new { id = proposal.Id });
             }
         }
     }

@@ -17,5 +17,5 @@
 <p>@Model.Recommendation.SignedBy</p>
 <label>Signed On</label>
 <p>@Model.Recommendation.SignedDate</p>
-<input type="button" class="btn btn-danger" value="Cancel" onclick="location.href='@Url.Action("Index", "Approval", new { id = Model.Proposal.Id })'" />
+<input type="button" class="btn btn-danger" value="Cancel" onclick="location.href='@Url.Action("Approval", "Proposal", new { id = Model.Proposal.Id })'" />
 

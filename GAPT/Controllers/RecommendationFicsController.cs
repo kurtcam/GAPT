@@ -33,7 +33,10 @@ namespace GAPT.Controllers
             //get proposal
             var ar = _context.Approval_Recommendation.SingleOrDefault(m => m.RecommendationId == recommendation.Id);
             var proposal = _context.Proposals.SingleOrDefault(m => m.ApprovalId == ar.ApprovalId);
-
+            if (proposal == null || !proposal.Submitted)
+            {
+                return HttpNotFound();
+            }
             if (recommendation.SignedBy == null)
             {
                 //return Form
@@ -79,6 +82,10 @@ namespace GAPT.Controllers
         {
             var proposal = vm.Proposal;
             proposal = _context.Proposals.SingleOrDefault(m => m.Id == proposal.Id);
+            if (proposal == null || !proposal.Submitted)
+            {
+                return HttpNotFound();
+            }
             var recommendation = vm.Recommendation;
             if (recommendation.Selection == true)
             {
@@ -102,7 +109,7 @@ namespace GAPT.Controllers
             recommendationInDb.Selection = recommendation.Selection;
 
             _context.SaveChanges();
-            return RedirectToAction("Index", "Approval", new { id = proposal.Id });
+            return RedirectToAction("Approval", "Proposal", new { id = proposal.Id });
 
         }
     }
